@@ -6,39 +6,28 @@
 	
 	<div style="font-family:Arial; font-size:12px;">
 	<center><div style="font-family:Arial; font-size:12px;">
-	<h2> Daftar Nama Perusahaan Praktek Kerja Lapangan </h2>
+	<h2> Daftar Nama Mahasiswa Praktek Kerja Lapangan Berdasarkan perusahaan</h2>
 	<h2> Jurusan Teknik Sipil Politeknik Negeri Padang</h2>
-	<h2> Tahun Ajaran <?php 
-	
-	$bulan = date('m');
-	$tahun = date('Y');
-		if($bulan>=7 or $bulan==1){
-			$ta=$tahun+1;
-			echo $tahun.'/'.$ta;
-		}
-		else{
-			$ta=$tahun-1;
-			// echo $bulan-1;
-			echo $ta.'/'.$tahun;
-		}
-	 ?> </h2> 
 </div></center>
 <?php
 	$i=0
 ?>
+      	<h4> Nama Perusahaan : {{$nama_perusahaan}}</h4>
 	      <table border="1">
 		        <tr> 
 		          <th> No </th> 
-		          <th> Nama Perusahaan</th>
-		          <th> Jumlah Mahasiswa Terdaftar</th>
+		          <th> NIM</th>
+		          <th> Nama Mahasiswa</th>
+		          <th> Program Studi </th>
 		        </tr>
 		      </thead>
 		      <tbody>
 				@foreach($daftarpkl as $daftarpkl)
 		        <tr>
 		        	<td> {{$i=$i+1}} </td>
-				 	<td>{{$daftarpkl->namper}} pada {{$daftarpkl->nama_proyek}}</td>
-		        	<td>  {{$daftarpkl->jumlah}} orang</td>			 
+				 	<td>{{$daftarpkl->nim}}</td>
+		        	<td> {{$daftarpkl->nama_mhs}}</td>	
+		        	<td> {{$daftarpkl->prod}}</td>		 
 		        </tr>		
 				@endforeach
 		      </tbody>		

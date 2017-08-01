@@ -13,12 +13,17 @@ use App\Http\Requests;
 class MahasiswaController extends Controller
 {
     public function index(Request $request) 
-	{
+	{	
+			$tahun = date('Y');
+
 		$mahasiswas = Mahasiswa::leftJoin('pembimbing','pembimbing.nim','=','mahasiswa.no_induk')
 					->select('mahasiswa.*',DB::raw('count(pembimbing.id) as pbb'))
+					->where('mahasiswa.angkatan',$tahun-2)
+					->orwhere('mahasiswa.angkatan',$tahun-3)
+					->where('mahasiswa.prodi_id','!=',2)
 					->groupBy('mahasiswa.no_induk')
 					->get();
-
+					// select * from mahasiswa where angkatan=year(now())-2 or angkatan=year(now())-3 and prodi_id !=2
 		
         return view('mahasiswa.index',compact('mahasiswas','prodi'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
@@ -28,9 +33,6 @@ class MahasiswaController extends Controller
 	{
         $prodi= Prodi::lists('prodi','id');
 		$mahasiswa=Mahasiswa::where('user_id','=',$id)->first();
-		if (!$mahasiswa) {
-        	abort(403);
-        	}
 		return view('mahasiswa.show',compact('mahasiswa','prodi'));
 	}
 
@@ -61,7 +63,7 @@ class MahasiswaController extends Controller
         'jenis_kelamin' => 'required',
         'prodi_id' => 'required',
         'angkatan' => 'required',
-        'no_hp' => 'required',
+        'no_hp' => 'required|numeric',
     	]);
     	
 		$mahasiswa = Mahasiswa::find($id);
@@ -91,4 +93,25 @@ class MahasiswaController extends Controller
 		return redirect()->route('mahasiswa.index')
 						->with('message','Data telah di dihapus!');
 	}
+
+// ============================== Select Data Mahasiswa PKL ===========================
+    public function selectMhs()
+    {
+        $angkatan= Mahasiswa::groupBy('angkatan')->get();
+        
+        return view('mahasiswa.selectmhs',['angkatan'=>$angkatan]);  
+    }
+
+    public function filterMhs(Request $request)
+    {
+        $angkatan = $request->input('angkatan');
+        
+        $mahasiswa = DB::table('mahasiswa')
+                        ->Join('prodi','prodi.id','=','mahasiswa.prodi_id')
+                        ->select('mahasiswa.*','prodi.prodi as prod')
+                        ->where('mahasiswa.angkatan',$angkatan)
+                        ->get();
+
+        return view('mahasiswa.fileselect',compact('mahasiswa','angkatan'));
+    }
 }

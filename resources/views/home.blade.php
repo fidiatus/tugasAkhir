@@ -13,9 +13,10 @@
             <div align="center">
                 <h3> Selamat datang Di Sistem Jurusan Teknik Sipil</h3>
                 <h4> Politeknik Negeri Padang</h4>
-                <div class="col-md-8">
+                <div class="col-md-10" align="center">
+                  <div class="img-responsive">
                 <img src="images/img.png" alt="..." class="img-circle profile_img" >
-              </div>
+              </div></div>
             </div>
       </div>
     </div>

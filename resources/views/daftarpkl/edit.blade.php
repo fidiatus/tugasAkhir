@@ -5,7 +5,7 @@
   <div class="col-md-12">
     <div class="x_panel">
       <div class="x_title">
-        <h2> Daftar Praktek Kerja Lapangan Jurusan Teknik Sipil</h2>
+        <h2> Ubah Daftar Praktek Kerja Lapangan Jurusan Teknik Sipil</h2>
         <div class="clearfix"></div>
       </div>
 
@@ -31,20 +31,28 @@
              {!!Form::select('bidangpkl_id', $bidangpkl, $daftarpkl->bidangpkl_id,array('class' => 'form-control' ));!!} 
 	</div>
 	<div class="form-group">
-		<label class="col-md-4">Perusahaan</label>
+		<label class="col-md-4">Instansi</label>
              {!!Form::select('perusahaan_id', $perusahaan, $daftarpkl->perusahaan_id,array('class' => 'form-control' ));!!} 
 	</div>
 	<div class="form-group">
 		<label class="col-md-4">Nama Proyek</label>
 		{!! Form::text('nama_proyek', null, array('placeholder' => 'nama_proyek','class' => 'form-control')) !!}
 	</div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="form-group {{ $errors->has('semester') ? ' has-error' : '' }}">
+        <strong>Semester :</strong>  
+          {!! Form::select('semester', ['ganjil' => 'Ganjil' , 'genap' => 'Genap'], array('class' => 'form-control')) !!}
+      </div>
+    </div>
 	<div class="form-group">
-		<label class="col-md-4">Semester</label>
-		{!! Form::text('semester', null, array('placeholder' => 'semester','class' => 'form-control')) !!}
-	</div>
-	<div class="form-group">
-		<label class="col-md-4">Tahun Ajaran</label>
-		{!! Form::text('tahun_ajaran', null, array('placeholder' => 'tahun_ajaran','class' => 'form-control')) !!}
+		<strong>Tahun Ajaran : <span class="required">*</span></strong>
+              <?php $i=2010; ?>
+                <select name="tahun_ajaran" class="form-control" value="{{ $daftarpkl->tahun_ajaran }}">
+                    <option value=""> -- Pilih Tahun --</option>
+                    @while ($i<2030)
+                        <option value="{{$i=$i+1}}"> {{$i}} </option>
+                    @endwhile
+                </select><br/>
 	</div>
 
 	<div class="col-xs-12 col-sm-12 col-md-12 text-center">

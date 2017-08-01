@@ -57,7 +57,7 @@ class DaftarPklController extends Controller
 	        'perusahaan_id' => 'required',
 	        'nama_proyek' => 'required',
 	        'semester' => 'required',
-	        'tahun_ajaran' => 'required|digits_between:4,9',
+	        'tahun_ajaran' => 'required',
 	    ]);
 		
 		$daftarpkl = new DaftarPkl();
@@ -94,7 +94,7 @@ class DaftarPklController extends Controller
         $prodi = Prodi::lists('prodi','id');
         $bidangpkl= BidangPkl::lists('bidang_pkl','id');
 
-        $daftarpkl = DaftarPkl::where('user_id','=',$id)->first();
+        $daftarpkl = DaftarPkl::where('id','=',$id)->first();
 
         return view('daftarpkl.edit',compact('prodi','perusahaan', 'daftarpkl','bidangpkl'));
 	}
@@ -135,7 +135,7 @@ class DaftarPklController extends Controller
 		return redirect()->route('daftarpkl.index')
 						->with('message','Data telah di dihapus!');
 	}
-
+// ============================== Report PKL ==============================
 	public function select()
     {
         $prodi= Prodi::All();
@@ -192,7 +192,7 @@ class DaftarPklController extends Controller
                 
             return $pdf->stream('daftarpkl.setpdf');
     }
-
+// =================================== Select Perusahaan ==================================
 	public function selectPerusahaan()
     {
         $th= DaftarPkl::All();
@@ -233,5 +233,94 @@ class DaftarPklController extends Controller
                 ->setPaper('a4', 'potrait');
                 
             return $pdf->stream('daftarpkl.setpdfperusahaan');
+    }
+// ============================== Select perPerusahaan ===========================
+    public function selectPr()
+    {
+        $perusahaan= Perusahaan::All();
+        $th = DaftarPkl::All();
+        
+        return view('reportpkl.selectpr',['perusahaan'=>$perusahaan,'th'=>$th]);  
+    }
+
+    public function filterPr(Request $request)
+    {
+        $perusahaan = $request->input('perusahaan');
+        $nama_perusahaan = Perusahaan::where('id',$perusahaan)->value('nama_perusahaan');
+        $th = $request->input('tahun_ajaran');
+        
+        $daftarpkl = DB::table('daftar_pkl')
+                        ->Join('bidang_pkl','bidang_pkl.id','=','daftar_pkl.bidangpkl_id')
+                        ->Join('prodi','prodi.id','=','daftar_pkl.prodi_id')
+                        ->Join('mahasiswa','mahasiswa.no_induk','=','daftar_pkl.nim')
+                        ->Join('perusahaan','perusahaan.id','=','daftar_pkl.perusahaan_id')
+                        ->select('daftar_pkl.*','prodi.prodi as prod','perusahaan.nama_perusahaan as namper')
+                        ->where('perusahaan.id',$perusahaan)
+                        ->where('daftar_pkl.tahun_ajaran',$th)
+                        ->get();
+
+        return view('reportpkl.fileselectpr',compact('daftarpkl','perusahaan','nama_perusahaan','th'));
+    }
+
+    public function setPDFPr($pr,$t)
+    {
+        $perusahaan = Perusahaan::where('id',$pr)->first();
+        $nama_perusahaan = Perusahaan::where('id',$pr)->value('nama_perusahaan');
+        $th = DaftarPkl::where('id',$t)->first();
+        
+        $daftarpkl = DB::table('daftar_pkl')
+                        ->Join('prodi','prodi.id','=','daftar_pkl.prodi_id')
+                        ->Join('perusahaan','perusahaan.id','=','daftar_pkl.perusahaan_id')
+                        ->Join('mahasiswa','mahasiswa.no_induk','=','daftar_pkl.nim')
+                        ->select('daftar_pkl.*','perusahaan.nama_perusahaan as namper','prodi.prodi as prod')
+                        ->where('daftar_pkl.perusahaan_id',$pr)
+                        ->where('daftar_pkl.tahun_ajaran',$t)
+                        ->get();
+
+        $pdf = PDF::loadView('reportpkl.reportpr',compact('daftarpkl','perusahaan','nama_perusahaan','th'))
+                ->setPaper('a4', 'potrait');
+                
+            return $pdf->stream('daftarpkl.setpdfpr');
+    }
+// ============================== Select Data Mahasiswa PKL ===========================
+    public function selectPkl()
+    {
+        $th= DaftarPkl::groupBy('tahun_ajaran')->get();
+        
+        return view('daftarpkl.selectpkl',['th'=>$th]);  
+    }
+
+    public function filterPkl(Request $request)
+    {
+        $th = $request->input('th');
+        
+        $daftarpkl = DB::table('daftar_pkl')
+                        ->Join('bidang_pkl','bidang_pkl.id','=','daftar_pkl.bidangpkl_id')
+                        ->Join('prodi','prodi.id','=','daftar_pkl.prodi_id')
+                        ->Join('mahasiswa','mahasiswa.no_induk','=','daftar_pkl.nim')
+                        ->Join('perusahaan','perusahaan.id','=','daftar_pkl.perusahaan_id')
+                        ->select('daftar_pkl.*','prodi.prodi as prod','bidang_pkl.bidang_pkl as bidpkl','perusahaan.nama_perusahaan as namper')
+                        ->where('daftar_pkl.tahun_ajaran',$th)
+                        ->get();
+
+        return view('daftarpkl.fileselectpkl',compact('daftarpkl','th'));
+    }
+
+    public function setPDFPkl($pr,$t)
+    {
+        $th = DaftarPkl::where('id',$t)->first();
+        
+        $daftarpkl = DB::table('daftar_pkl')
+                        ->Join('prodi','prodi.id','=','daftar_pkl.prodi_id')
+                        ->Join('perusahaan','perusahaan.id','=','daftar_pkl.perusahaan_id')
+                        ->Join('mahasiswa','mahasiswa.no_induk','=','daftar_pkl.nim')
+                        ->select('daftar_pkl.*','perusahaan.nama_perusahaan as namper','prodi.prodi as prod')
+                        ->where('daftar_pkl.tahun_ajaran',$t)
+                        ->get();
+
+        $pdf = PDF::loadView('reportpkl.reportpr',compact('daftarpkl','th'))
+                ->setPaper('a4', 'potrait');
+                
+            return $pdf->stream('daftarpkl.setpdfpkl');
     }
 }

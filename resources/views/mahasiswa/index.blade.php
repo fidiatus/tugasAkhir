@@ -34,13 +34,12 @@
       @foreach($mahasiswas as $key => $mahasiswa)
           <tr>
             <td> {{++$i}} </td>
-            <td>{{$mahasiswa->no_induk}}</td>
+            <td><a href="{{ route('mahasiswa.show',$mahasiswa->id) }}">{{$mahasiswa->no_induk}}</a></td>
             <td>{{$mahasiswa->nama_user}}</td>
             <td>{{$mahasiswa->prodi->prodi}}</td>
             <td> 
-            <a class="btn btn-info" href="{{ route('mahasiswa.show',$mahasiswa->id) }}">Show</a>
             @permission('delete-mahasiswa')            
-            <a class="btn btn-primary" href="{{ route('mahasiswa.edit',$mahasiswa->id) }}">Edit</a>
+            <a href="{{ route('mahasiswa.edit',$mahasiswa->id) }}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i>Edit</a>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg{{$mahasiswa->id}}">Delete</button>
 
                   <div class="modal fade bs-example-modal-lg{{$mahasiswa->id}}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -66,21 +65,35 @@
                         </div>
                         @endpermission
                         @if($mahasiswa->pbb==0)
-                          {!! Form::open(['method' => 'post','route' => ['pembimbing.create'], 'style'=>'display:inline']) !!}
-                          {!! Form::submit('Tambah Pembimbing', ['class' => 'btn btn-success']) !!}                          
-                          <input type="hidden" name="nim" value="{{ $mahasiswa->no_induk }}">
-                          <input type="hidden" name="nama_mhs" value="{{ $mahasiswa->nama_user }}">
-                        {!! Form::close() !!}
-                        @elseif($mahasiswa->pbb>0)
-                          Telah Ada Pembimbing
+                            {!! Form::open(['method' => 'post','route' => ['pembimbing.create'], 'style'=>'display:inline']) !!}
+                            {!! Form::submit('Add Pembimbing', ['class' => 'btn btn-success']) !!}                          
+                            <input type="hidden" name="nim" value="{{ $mahasiswa->no_induk }}">
+                            <input type="hidden" name="nama_mhs" value="{{ $mahasiswa->nama_user }}">
+                            {!! Form::close() !!}
+                          @if($mahasiswa->prodi_id!=2)
+                            {!! Form::open(['method' => 'post','route' => ['pembimbing.create'], 'style'=>'display:inline']) !!}
+                            {!! Form::submit('Add Pembimbing s7', ['class' => 'btn btn-success']) !!}                          
+                            <input type="hidden" name="nim" value="{{ $mahasiswa->no_induk }}">
+                            <input type="hidden" name="nama_mhs" value="{{ $mahasiswa->nama_user }}">
+                            {!! Form::close() !!}
+                          @endif
+                        @elseif($mahasiswa->pbb==1)
+                            Telah Ada Pembimbing
+                          @if($mahasiswa->prodi_id!=2)
+                            {!! Form::open(['method' => 'post','route' => ['pembimbing.create'], 'style'=>'display:inline']) !!}
+                            {!! Form::submit('Add Pembimbing s7', ['class' => 'btn btn-success']) !!}                          
+                            <input type="hidden" name="nim" value="{{ $mahasiswa->no_induk }}">
+                            <input type="hidden" name="nama_mhs" value="{{ $mahasiswa->nama_user }}">
+                            {!! Form::close() !!}
+                          @endif
+                        @elseif($mahasiswa->pbb==2)
+                          Telah Ada Pembimbing &nbsp;&nbsp;Telah Ada Pembimbing
                         @endif
-
                   </td> 
           </tr> 
       @endforeach
         </tbody> 
       </table>
-
           </div>
         </div>
       </div>

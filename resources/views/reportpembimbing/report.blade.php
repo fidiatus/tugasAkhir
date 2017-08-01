@@ -21,9 +21,8 @@
 			// echo $bulan-1;
 			echo $ta.'/'.$tahun;
 		}
-	 ?> </h2> 
-</div></center>
-	    <center>
+	 ?> </h2> </div>
+		   </center>
 	      <table border="1">
 			<thead>
 		        <tr> 
@@ -46,7 +45,26 @@
 				@endforeach
 		      </tbody>		
 		    </table>
-		   </center>
+		   <table style="border-spacing: 0; border-collapse: collapse; width: 100%">
+		   	<th style="height: 150px;border:0px solid #000000;font-size: 10px;text-align: left;" colspan="30">
+		   		<br><br><br><p> Disetujui oleh :</p>
+		   		<p> Ketua Jurusan Teknik Sipil</p>
+		   			<p></p>
+		   			<br><br><br><br>
+		   			<p>.........................</p>
+		   			<h4>NIP.</h4>
+		   	</th>
+
+		   <th style="height: 150px;border:0px solid #000000;font-size: 10px;text-align: left;" colspan="10">
+		   		<br><br><br><p>Padang, </p>
+		   		<p>Koord. Prodi {{$prodi->prodi}} </p>
+		   			<p></p>
+		   			<br><br><br><br>
+		   			<p>.........................</p>
+		   			<h4>NIP.</h4>
+		   	</th>
+		   </tr>
+		</table>
 		<br/>
 	<br/>
   </body>

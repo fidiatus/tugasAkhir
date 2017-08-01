@@ -50,7 +50,7 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
       <div class="form-group {{ $errors->has('perusahaan_id') ? ' has-error' : '' }}">
-        <strong>Perusahaan :</strong>  
+        <strong>Instansi :</strong>  
           {!!Form::select('perusahaan_id', $perusahaan,null, array('class' => 'form-control' ));!!}
         </div>
     </div>
@@ -68,8 +68,14 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
       <div class="form-group {{ $errors->has('tahun_ajaran') ? ' has-error' : '' }}">
-        <strong>Tahun Ajaran :</strong>
-          {!! Form::text('tahun_ajaran', null, array('placeholder' => 'Tahun Ajaran','class' => 'form-control')) !!}
+        <strong>Tahun Ajaran : <span class="required">*</span></strong>
+              <?php $i=2010; ?>
+                <select name="tahun_ajaran" class="form-control">
+                    <option value=""> -- Pilih Tahun --</option>
+                    @while ($i<2030)
+                        <option value="{{$i=$i+1}}"> {{$i}} </option>
+                    @endwhile
+                </select><br/>
       </div>
     </div>
   	<div class="col-xs-12 col-sm-12 col-md-12 text-center">

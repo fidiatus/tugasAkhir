@@ -5,7 +5,7 @@
   <div class="col-md-12">
     <div class="x_panel">
       <div class="x_title">
-        <h2> Input Data Bidang Jurusan Teknik Sipil</h2>
+        <h2> Tambah Data Bidang Jurusan Teknik Sipil</h2>
         <div class="clearfix"></div>
       </div>
 

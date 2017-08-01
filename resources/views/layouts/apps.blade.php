@@ -88,10 +88,17 @@
                   
                   <li><a><i class="fa fa-briefcase"></i> Kelola PKL<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
+                      <li><a href="{{route('daftarpkl.selectpkl')}}"> Seleksi Data PKL </a></li>
                       <li><a href="{{route('daftarpkl.index')}}"> Data PKL </a></li>
-                      <li><a href="{{route('mahasiswa.index')}}"> Data Mahasiswa </a></li>
                       <li><a href="{{route('perusahaan.index')}}"> Instansi </a></li>
                       <li><a href="{{route('bidangpkl.index')}}"> Bidang PKL</a></li>
+                    </ul>
+                  </li>
+
+                  <li><a><i class="fa fa-briefcase"></i> Kelola Mahasiswa<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{route('mhs.selectmhs')}}"> Seleksi Data Mahasiswa </a></li>
+                      <li><a href="{{route('mahasiswa.index')}}"> Data Mahasiswa </a></li>
                       <li><a href="{{route('prodi.index')}}"> Prodi</a></li>
                     </ul>
                   </li>
@@ -108,51 +115,87 @@
                   <li><a><i class="fa fa-suitcase"></i>Report<span class="fa fa-chevron-down"></span></a>
                    <ul class="nav child_menu">
                      <li><a href="{{route('pembimbing.select')}}"> Report Data Pembimbing </a></li>
-                     <li><a href="{{route('pembimbing.selectdosen')}}">Report perDosen Bimbingan </a></li>
-                     <li><a href="{{route('daftarpkl.select')}}"> Data PKL </a></li>
-                     <li><a href="{{route('daftarpkl.selectperusahaan')}}">Report perPerusahaan </a></li>
+                    <li><a href="{{route('pembimbing.selectdosen')}}">Report Jumlah bimbingan </a></li>
+                    <li><a href="{{route('pembimbing.selectds')}}">Report Dosen Bimbingan </a></li>
+                     <li><a href="{{route('daftarpkl.select')}}"> Report Data PKL </a></li>
+                    <li><a href="{{route('daftarpkl.selectperusahaan')}}">Report jumlah data perPerusahaan </a></li>
+                    <li><a href="{{route('daftarpkl.selectpr')}}">Report data perPerusahaan </a></li>
                    </ul>
                   </li>
                   @endif
                   @if (Auth::user()->roles()->first()->name == "Mahasiswa")
+                      <li>
+                      <a href="{{route('mahasiswa.show', Auth::user()->id )}}"><i class="fa fa-briefcase"></i>Profil</a></li>
+
+                    <li><a href="{{route('perusahaan.index')}}"><i class="fa fa-institution"></i>Instansi</a>
+                    </li>
                     <li>
-                    <a href="{{route('mahasiswa.show', Auth::user()->id )}}"><i class="fa fa-briefcase"></i>Profil</a></li>
+                    @if(Auth::user()->mahasiswa()->value('prodi_id') === NULL)
+                      Update Profile !!!!
+                    @else
+                      @if (Auth::user()->daftarpkl()->count() === 0 )
+                        @if(Auth::user()->mahasiswa()->value('prodi_id')!=2)
+                        <a href="{{route('daftarpkl.create')}}"><i class="fa fa-briefcase"></i>Daftar PKL ke-1</a>
+                        <a href="{{route('daftarpkl.create')}}"><i class="fa fa-briefcase"></i>Daftar PKL ke-2</a>
+                        @else
+                        <a href="{{route('daftarpkl.create')}}"><i class="fa fa-briefcase"></i>Daftar</a>
+                        @endif
+                      @endif
 
-                  <li><a href="{{route('perusahaan.index')}}"><i class="fa fa-institution"></i>Instansi</a>
-                  </li>
-                  <li>
-                  
-                  @if (Auth::user()->daftarpkl()->count() === 0 )
-                    <a href="{{route('daftarpkl.create')}}"><i class="fa fa-briefcase"></i>Daftar</a>
-                  @endif
+                      @if (Auth::user()->daftarpkl()->count() === 1 )
+                      <?php  $a =  Auth::user()->daftarpkl()->select('id')->get()?>
+                        @if(Auth::user()->mahasiswa()->value('prodi_id')!=2)
+                          <a href="{{route('daftarpkl.edit', $a[0] )}}"><i class="fa fa-briefcase"></i>Daftar sem5</a>
+                          <a href="{{route('daftarpkl.create')}}"><i class="fa fa-briefcase"></i>Daftar sem7</a> 
+                        @else
+                          <a href="{{route('daftarpkl.edit', $a[1] )}}"><i class="fa fa-briefcase"></i>Daftar</a>
+                        @endif
+                      @endif
+                      @if (Auth::user()->daftarpkl()->count() === 2 )
+                        @if(Auth::user()->mahasiswa()->value('prodi_id')!=2)
+                          <?php  $a =  Auth::user()->daftarpkl()->select('id')->get()?>
+                          <?php 
+                            //foreach ($a as $a) {
+                              //echo $a;
+                            //}
+                           ?>
+                          <a href="{{route('daftarpkl.edit', $a[0] )}}"><i class="fa fa-briefcase"></i>Daftar PKL sem5</a>
+                          <a href="{{route('daftarpkl.edit', $a[1] )}}"><i class="fa fa-briefcase"></i>Daftar PKL sem7</a>
 
-                  @if (Auth::user()->daftarpkl()->count() === 1 )
-                    <a href="{{route('daftarpkl.edit', Auth::user()->id )}}"><i class="fa fa-briefcase"></i>Daftar</a>
-                  @endif
+                        @endif
+                      @endif
+                    @endif
 
-                  </li>
+                    </li>
                   @endif
                   @if (Auth::user()->roles()->first()->name == "Kaprodi")
                     <li><a href="{{route('users.show', Auth::id())}}"><i class="fa fa-female"></i> Profil </a>
-                  </li>
-                   <li><a href="{{route('daftarpkl.index')}}"><i class="fa fa-briefcase"></i>Daftar Mahasiswa PKL</a>
-                  </li>                 
-                  <li><a href="{{route('perusahaan.index')}}"><i class="fa fa-institution"></i>Instansi</a>
-                  </li>
-                  <li><a><i class="fa fa-edit"></i> Pembimbing PKL <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
-                    <li><a href="{{route('mahasiswa.index')}}">Daftarkan Pembimbing</a></li>
-                    <li><a href="{{route('pembimbing.index')}}">Data Pembimbing</a></li>
-                  </ul>
-                  </li>
-                  <li><a><i class="fa fa-suitcase"></i>Report<span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
-                    <li><a href="{{route('pembimbing.select')}}">Report Data Bimbingan</a></li>
-                    <li><a href="{{route('pembimbing.selectdosen')}}">Report Dosen Bimbingan </a></li>
-                    <li><a href="{{route('daftarpkl.select')}}"> Data PKL </a></li>
-                    <li><a href="{{route('daftarpkl.selectperusahaan')}}">Report perPerusahaan </a></li>
-                 </ul>
-                  </li>
+                    </li>
+                    <li><a><i class="fa fa-briefcase"></i> Kelola Mahasiswa<span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="{{route('mhs.selectmhs')}}"> Seleksi Data Mahasiswa </a></li>
+                        <li><a href="{{route('mahasiswa.index')}}"> Data Mahasiswa </a></li>
+                      </ul>
+                    </li>
+
+                    </li>
+                    <li><a><i class="fa fa-suitcase"></i> Kelola Dosen <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="{{route('dosen.index')}}">Data Dosen</a></li>
+                        <li><a href="{{route('pembimbing.index')}}"> List Pembimbing </a></li>
+                      </ul>
+                    </li>
+
+                    <li><a><i class="fa fa-suitcase"></i>Report<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{route('pembimbing.select')}}">Report Data Bimbingan</a></li>
+                      <li><a href="{{route('pembimbing.selectdosen')}}">Report Jumlah bimbingan </a></li>
+                      <li><a href="{{route('pembimbing.selectds')}}">Report Dosen Bimbingan </a></li>
+                      <li><a href="{{route('daftarpkl.select')}}"> Report Data PKL </a></li>
+                      <li><a href="{{route('daftarpkl.selectperusahaan')}}">Report jumlah data perPerusahaan </a></li>
+                      <li><a href="{{route('daftarpkl.selectpr')}}">Report data perPerusahaan </a></li>
+                    </ul>
+                     </li>
                   @endif
                   @endif
                 </ul>

@@ -50,7 +50,7 @@
 	</div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Nama Perusahaan:</strong>            
+            <strong>Nama Instansi:</strong>            
              {!!Form::select('perusahaan_id', $perusahaan, null,array('class' => 'form-control'))!!}
         </div>
     </div> 

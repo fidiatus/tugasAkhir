@@ -50,8 +50,9 @@
       </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Program Studi:</strong>
-                <input type="text" class="form-control" readonly="readonly" placeholder="{{  $mahasiswa->prodi->prodi}}">   
+                <strong>Program Studi:</strong>    
+                  <input type="text" class="form-control" readonly="readonly" placeholder="{{  $mahasiswa->prodi_id}}">
+
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">

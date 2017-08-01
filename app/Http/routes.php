@@ -57,13 +57,13 @@ Route::group(['middleware' => ['auth']], function() {
 
 	// ======================================================================================
 	
-	Route::get('dosen',['as'=>'dosen.index','uses'=>'DosenController@index','middleware' => ['role:Admin']]);	
-	Route::get('dosen/create',['as'=>'dosen.create','uses'=>'DosenController@create','middleware' => ['role:Admin']]);
-	Route::post('dosen/create',['as'=>'dosen.store','uses'=>'DosenController@store','middleware' => ['role:Admin']]);
+	Route::get('dosen',['as'=>'dosen.index','uses'=>'DosenController@index','middleware' => ['role:Admin|Kaprodi']]);	
+	Route::get('dosen/create',['as'=>'dosen.create','uses'=>'DosenController@create','middleware' => ['role:Admin|Kaprodi']]);
+	Route::post('dosen/create',['as'=>'dosen.store','uses'=>'DosenController@store','middleware' => ['role:Admin|Kaprodi']]);
 	Route::get('dosen/{id}',['as'=>'dosen.show','uses'=>'DosenController@show']);
-	Route::get('dosen/{id}/edit',['as'=>'dosen.edit','uses'=>'DosenController@edit','middleware' => ['role:Admin']]);
-	Route::patch('dosen/{id}',['as'=>'dosen.update','uses'=>'DosenController@update','middleware' => ['role:Admin']]);
-	Route::delete('dosen/{id}',['as'=>'dosen.destroy','uses'=>'DosenController@destroy','middleware' => ['role:Admin']]);
+	Route::get('dosen/{id}/edit',['as'=>'dosen.edit','uses'=>'DosenController@edit','middleware' => ['role:Admin|Kaprodi']]);
+	Route::patch('dosen/{id}',['as'=>'dosen.update','uses'=>'DosenController@update','middleware' => ['role:Admin|Kaprodi']]);
+	Route::delete('dosen/{id}',['as'=>'dosen.destroy','uses'=>'DosenController@destroy','middleware' => ['role:Admin|Kaprodi']]);
 
 	// ========================================================================================
 
@@ -168,7 +168,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/select',['as'=>'pembimbing.select','uses'=>'PembimbingController@select','middleware' => ['role:Admin|Kaprodi']]);
 	
 	Route::post('/select/filter',['as'=>'select.filter','uses'=>'PembimbingController@filter','middleware' => ['role:Admin|Kaprodi']]);
-	// ===============================Report Dosen================================
+	// ===============================Report Pembimbing================================
 	Route::get('/selectDosen',['as'=>'pembimbing.selectdosen','uses'=>'PembimbingController@selectDosen','middleware' => ['role:Admin|Kaprodi']]);
 
 	Route::post('/selectDosen/filter',['as'=>'select.filterdosen','uses'=>'PembimbingController@filterDosen','middleware' => ['role:Admin|Kaprodi']]);
@@ -176,12 +176,38 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/dosenPembimbing/pdf',['as'=>'pembimbing.dosenPdf','uses'=>'PembimbingController@getPdfDosen','middleware' => ['role:Admin|Kaprodi']]);
 
 	Route::get('/pembimbing/setpdf/{d}',['as'=>'pembimbing.setpdfdosen','uses'=>'PembimbingController@setPDFDosen','middleware' => ['role:Admin|Kaprodi']]);
-	// ===============================Report Perusahaan================================
+	// ===============================Report Dosen================================
+	Route::get('/selectDs',['as'=>'pembimbing.selectds','uses'=>'PembimbingController@selectDs','middleware' => ['role:Admin|Kaprodi']]);
+
+	Route::post('/selectDs/filter',['as'=>'select.filterds','uses'=>'PembimbingController@filterDs','middleware' => ['role:Admin|Kaprodi']]);
+
+	Route::get('/dsPembimbing/pdf',['as'=>'pembimbing.dsPdf','uses'=>'PembimbingController@getPdfDs','middleware' => ['role:Admin|Kaprodi']]);
+
+	Route::get('/pembimbingDs/setpdf/{ds}/{t}',['as'=>'pembimbing.setpdfds','uses'=>'PembimbingController@setPDFDs','middleware' => ['role:Admin|Kaprodi']]);
+	// ===============================Report Jumlah Perusahaan================================
 	Route::get('/selectPerusahaan',['as'=>'daftarpkl.selectperusahaan','uses'=>'DaftarPklController@selectPerusahaan','middleware' => ['role:Admin|Kaprodi']]);
 
 	Route::post('/selectPerusahaan/filter',['as'=>'select.filter.perusahaan','uses'=>'DaftarPklController@filterPerusahaan','middleware' => ['role:Admin|Kaprodi']]);
 
-	Route::get('/dosenPembimbing/pdf',['as'=>'daftarpkl.perusahaanPdf','uses'=>'DaftarPklController@getPdfPerusahaan','middleware' => ['role:Admin|Kaprodi']]);
+	Route::get('/perusahaanPdf/pdf',['as'=>'daftarpkl.perusahaanPdf','uses'=>'DaftarPklController@getPdfPerusahaan','middleware' => ['role:Admin|Kaprodi']]);
 
 	Route::get('/daftarpkl/setpdf/{d}',['as'=>'daftarpkl.setpdfperusahaan','uses'=>'DaftarPklController@setPDFPerusahaan','middleware' => ['role:Admin|Kaprodi']]);
+	// ===============================Report perPerusahaan================================
+	Route::get('/selectPr',['as'=>'daftarpkl.selectpr','uses'=>'DaftarPklController@selectPr','middleware' => ['role:Admin|Kaprodi']]);
+
+	Route::post('/selectPr/filter',['as'=>'select.filter.pr','uses'=>'DaftarPklController@filterPr','middleware' => ['role:Admin|Kaprodi']]);
+
+	Route::get('/dosenPr/pdf',['as'=>'daftarpkl.prPdf','uses'=>'DaftarPklController@getPdfPr','middleware' => ['role:Admin|Kaprodi']]);
+
+	Route::get('/daftarpklpr/setpdf/{pr}/{t}',['as'=>'daftarpkl.setpdfpr','uses'=>'DaftarPklController@setPDFPr','middleware' => ['role:Admin|Kaprodi']]);
+
+	// ============================== Select PKL =========================================
+	Route::get('/selectDataPkl',['as'=>'daftarpkl.selectpkl','uses'=>'DaftarPklController@selectPkl','middleware' => ['role:Admin|Kaprodi']]);
+
+	Route::post('/selectDataPkl/filter',['as'=>'selectpkl.filter.pkl','uses'=>'DaftarPklController@filterPkl','middleware' => ['role:Admin|Kaprodi']]);
+
+	// ============================== Select Mahasiswa =========================================
+	Route::get('/selectMhs',['as'=>'mhs.selectmhs','uses'=>'MahasiswaController@selectMhs','middleware' => ['role:Admin|Kaprodi']]);
+
+	Route::post('/selectMhs/filter',['as'=>'selectmhs.filter.mhs','uses'=>'MahasiswaController@filterMhs','middleware' => ['role:Admin|Kaprodi']]);
 });

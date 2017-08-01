@@ -6,7 +6,7 @@
   <div class="col-md-12">
     <div class="x_panel">
       <div class="x_title">
-        <h2> Input Data Users Jurusan Teknik Sipil</h2>
+        <h2> Tambah Data Users Jurusan Teknik Sipil</h2>
         <div class="clearfix"></div>
       </div>
 
@@ -45,6 +45,17 @@
             @if ($errors->has('username'))
                 <span class="help-block">
                     <strong>{{ $errors->first('username') }}</strong>
+                </span>
+            @endif
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Email:</strong>
+            {!! Form::text('email', null, array('placeholder' => 'Email','class' => 'form-control')) !!}
+            @if ($errors->has('email'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('email') }}</strong>
                 </span>
             @endif
         </div>

@@ -78,6 +78,7 @@ class User extends Authenticatable
     }
     public function mahasiswa()
     {
+        //return 1;
         return $this->hasMany('App\Mahasiswa');
     }
 }

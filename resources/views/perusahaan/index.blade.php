@@ -5,7 +5,7 @@
   <div class="col-md-12">
     <div class="x_panel">
       <div class="x_title">
-        <h2> Data Perusahaan Jurusan Teknik Sipil</h2>
+        <h2> Data Instansi Jurusan Teknik Sipil</h2>
         <div class="clearfix"></div>
       </div>
 
@@ -24,7 +24,7 @@
 
     @permission('create-perusahaan')
         <form class="" action="" method="">
-        <a class="btn btn-success" href="{{ route('perusahaan.create') }}"> Create New Perusahaan</a>
+        <a class="btn btn-success" href="{{ route('perusahaan.create') }}"> Create New Instansi</a>
         </form>
     @endpermission
     <div class="title_right">
@@ -42,9 +42,9 @@
       <thead>
           <tr> 
             <th> No </th>
-            <th> Nama Perusahaan </th> 
+            <th> Nama Instansi </th> 
             <th> Email </th>
-            <th> Telp Perusahaan </th>
+            <th> Telp Instansi </th>
             <th> Alamat </th>
             @permission('delete-perusahaan')
             <th> Aksi </th> 

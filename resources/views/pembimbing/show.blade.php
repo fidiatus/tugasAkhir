@@ -33,19 +33,19 @@
           <div class="col-xs-12 col-sm-12 col-md-12">
               <div class="form-group">
                   <strong>Program Studi:</strong>
-                  <input type="text" class="form-control" readonly="readonly" placeholder="{{ $pembimbing->prodi_id }}">
+                  <input type="text" class="form-control" readonly="readonly" placeholder="{{ $pembimbing->prodi->prodi }}">
               </div>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12">
               <div class="form-group">
                   <strong>Proyek Praktek Lapangan:</strong>
-                  <input type="text" class="form-control" readonly="readonly" placeholder="{{ $pembimbing->daftarpkl_id }}">
+                  <input type="text" class="form-control" readonly="readonly" placeholder="{{ $pembimbing->daftarpkl->nama_proyek }}">
               </div>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12">
               <div class="form-group">
                   <strong>Nama Dosen pembimbing:</strong>
-                  <input type="text" class="form-control" readonly="readonly" placeholder="{{ $pembimbing->dosen_id }}">
+                  <input type="text" class="form-control" readonly="readonly" placeholder="{{ $pembimbing->dosen->nama_dosen }}">
               </div>
           </div>
         </div>

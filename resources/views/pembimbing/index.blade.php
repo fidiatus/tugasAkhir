@@ -12,6 +12,12 @@
       <div class="panel-body">
         <div class="row">
           <div class="col-md-12 col-xs-12 col-md-12">
+
+      <div class="panel-body">
+        <form class="" action="" method="">
+        <a class="btn btn-success" href="{{ route('mahasiswa.index') }}"> Create New Pembimbing</a>
+        </form>
+      </div>
   <!-- ========== tampilan Data =================== -->
     <div class="well clearfix">
   @if ($message = Session::get('success'))
@@ -49,14 +55,13 @@
       @foreach($data as $key=>$pembimbing)
         <tr>
           <td>{{++$i}} </td>
-          <td>{{$pembimbing->nim}}</td>
+          <td><a href="{{ route('pembimbing.show',$pembimbing->id) }}">{{$pembimbing->nim}}</a></td>
           <td>{{$pembimbing->nama_mhs}}</td>
           <td>{{$pembimbing->bidangpkl->bidang_pkl}} </td>
           <td>{{$pembimbing->prodi->prodi}}</td>
           <td>{{$pembimbing->daftarpkl->nama_proyek}}</td>
           <td>{{$pembimbing->dosen->nama_dosen}}</td>
           <td> 
-            <a class="btn btn-info" href="{{ route('pembimbing.show',$pembimbing->id) }}">Show</a>
             <a class="btn btn-primary" href="{{ route('pembimbing.edit',$pembimbing->id) }}">Edit</a>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg{{$pembimbing->id}}">Delete</button>
 

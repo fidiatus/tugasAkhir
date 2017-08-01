@@ -5,7 +5,7 @@
   <div class="col-md-12">
     <div class="x_panel">
       <div class="x_title">
-        <h2> Data Perusahaan Jurusan Teknik Sipil</h2>
+        <h2> Tambah Data Instansi Jurusan Teknik Sipil</h2>
         <div class="clearfix"></div>
       </div>
 
@@ -29,7 +29,7 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Nama Perusahaan :</strong>
+            <strong>Nama Instansi :</strong>
                 {!! Form::text('nama_perusahaan', null, array('placeholder' => 'Nama','class' => 'form-control')) !!}
         </div>
     </div>
@@ -41,7 +41,7 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Telephone Perusahaan :</strong>
+            <strong>Telephone Instansi :</strong>
                 {!! Form::text('telepon', null, array('placeholder' => 'Telp','class' => 'form-control')) !!}
         </div>
     </div>    

@@ -11,17 +11,17 @@
       </div>
 
       <div class="panel-body">
-		<div class="row">
+        <div class="row">
           <div class="col-md-6 col-xs-12">
-            <div class="x_panel">
+          	<div class="x_panel">
               <div class="x_title">
-				<form class="form form-horizontal"  method="post" role="form" action="{{route('select.filterdosen')}}">
+				<form class="form form-horizontal"  method="post" role="form" action="{{route('selectpkl.filter.pkl')}}">
+					<h3>Seleksi Data PKL </h3>
 				  <div class="form-group"> 
-				  	<h3 class="center"> Report Data Dosen berdasarkan Jumlah Mahasiswa </h3><br/>
-					<label> Tahun Ajaran </label>
-					<select name="daftarpkl" class="form-control">
-						@foreach($daftarpkl as $daftarpkl)
-							<option value="{{$daftarpkl->tahun_ajaran}}">{{$daftarpkl->tahun_ajaran}}</option> 
+					<label> Tahun Ajaran</label>
+					<select name="th" class="form-control">
+						@foreach($th as $th)
+							<option value="{{$th->tahun_ajaran}}">{{$th->tahun_ajaran}}</option> 
 						@endforeach
 					</select><br/>
 
@@ -33,7 +33,6 @@
 			</div>
 		  </div>
 		</div>
-        
 	  </div>
     </div>
   </div>

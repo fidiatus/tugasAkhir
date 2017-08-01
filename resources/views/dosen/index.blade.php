@@ -45,7 +45,9 @@
               <th> Nip </th> 
               <th> Nama Dosen </th>
               <th> Bidang </th>
+              @permission('edit-dosen')
               <th> Aksi </th> 
+              @endpermission
             </tr>
           </thead>
           <tbody>
@@ -60,6 +62,7 @@
               <a class="btn btn-info" href="{{ route('dosen.show',$dosen->id) }}">Show</a>
               <a class="btn btn-primary" href="{{ route('dosen.edit',$dosen->id) }}">Edit</a>
               @endpermission
+              @permission('delete-dosen')
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg{{$dosen->id}}">Delete</button>
 
                   <div class="modal fade bs-example-modal-lg{{$dosen->id}}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -84,6 +87,7 @@
                 </div>
               {!! Form::close() !!}
               </td> 
+              @endpermission
             </tr> 
           @endforeach
         </tbody>

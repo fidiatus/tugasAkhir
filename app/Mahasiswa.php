@@ -18,10 +18,6 @@ class Mahasiswa extends Model
     
     public $timestamps = true;
 
-    public function mahasiswa()
-    {
-    	return $this->belongsTo(Mahasiswa::class);
-    }
     public function prodi()
     {
         return $this->belongsTo(Prodi::class);

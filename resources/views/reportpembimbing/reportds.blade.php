@@ -6,28 +6,27 @@
 	
 	<div style="font-family:Arial; font-size:12px;">
 	<center><div style="font-family:Arial; font-size:12px;">
-	<h2> Daftar Nama Pembimbing Praktek Kerja Lapangan</h2>
+	<h2> Daftar Nama mahasiswa bimbingan Praktek Kerja Lapangan</h2>
 	<h2> Jurusan Teknik Sipil Politeknik Negeri Padang</h2>
-	<h2> Tahun Ajaran {{$tahun_ajaran}} </h2> 
 </div></center>
 <?php
 	$i=0
 ?>
-
+		<h4> Nama Dosen : {{$nama_dosen}} </h4>
 	      <table border="1">
 			<thead>
 		        <tr> 
 					<th> No </th>
-					<th> Nama Pembimbing</th>
-					<th> Jumlah Mahasiswa Bimbingan</th>
+					<th> Nama Mahasiswa</th>
+					<th> Program Studi </th>
 				</tr>
 			</thead>
 			@foreach($pembimbing as $key=>$pembimbing)
 			<tbody>
 				<tr>
 					<td>{{$i=$i+1}}</td>
-					<td>{{$pembimbing->namdos}}</td>
-					<td> {{$pembimbing->jumlah}} orang</td>
+					<td>{{$pembimbing->nama_mhs}}</td>
+					<td>{{$pembimbing->prod}}</td>
 				</tr>
 			@endforeach
 			 </tbody>		

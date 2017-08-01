@@ -73,7 +73,7 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Tahun Angkatan :<span class="required">*</span></strong>            
+            <strong>Tahun Masuk Kuliah :<span class="required">*</span></strong>            
               <?php $i=2000; ?>
                 <select name="angkatan" class="form-control" value="{{ $mahasiswa->angkatan }}">
                     <option value=""> -- Pilih Tahun --</option>

@@ -5,7 +5,7 @@
   <div class="col-md-12">
     <div class="x_panel">
       <div class="x_title">
-        <h2> Data Dosen Jurusan Teknik Sipil</h2>
+        <h2> Tambah Data Dosen Jurusan Teknik Sipil</h2>
         <div class="clearfix"></div>
       </div>
 

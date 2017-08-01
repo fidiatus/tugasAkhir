@@ -14,12 +14,6 @@
           <div class="col-md-12 col-xs-12 col-md-12">
 
       <div class="panel-body">
-        <form class="" action="" method="">
-        @permission('create-pkl')
-        <a class="btn btn-success" href="{{ route('daftarpkl.create') }}"> Create New PKL</a>
-        @endpermission
-        </form>
-      </div>
 
   <!-- ========== tampilan Data =================== -->
     <div class="well clearfix">
@@ -49,7 +43,7 @@
             <th width="10%"> No.BP </th>
             <th width="13%"> Prodi</th>
             <th width="10%"> Bidang PKL</th>
-            <th width="15%"> perusahaan </th>
+            <th width="15%"> Instansi </th>
             <th width="20%"> Nama Proyek</th>
             @permission('delete-pkl')
             <th width="20%"> Aksi </th> 

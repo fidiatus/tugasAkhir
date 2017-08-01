@@ -79,9 +79,6 @@ class PembimbingController extends Controller
 	public function show($id)
 	{
 		$pembimbing=Pembimbing::find($id);
-        if (!$pembimbing) {
-            abort(403);
-            }
 		return view('pembimbing.show',compact('pembimbing'));
 	}
 	public function edit($id)
@@ -231,4 +228,54 @@ class PembimbingController extends Controller
                 
             return $pdf->stream('pembimbing.setpdfdosen');
     }
+
+    public function selectDs()
+    {
+        $daftarpkl= DB::table('daftar_pkl')->groupBy('tahun_ajaran')->get();
+        $dosen= DB::table('dosen')->groupBy('nama_dosen')->get();
+        return view('reportpembimbing.selectds',['dosen'=>$dosen,'daftarpkl'=>$daftarpkl]);   
+    }
+
+    public function filterDs(Request $request)
+    {
+        $daftarpkl = $request->input('daftarpkl');
+        $dosen = $request->input('dosen');
+        $nama_dosen = Dosen::where('id',$dosen)->value('nama_dosen');
+        
+        $pembimbing = DB::table('pembimbing')
+                        ->Join('prodi','prodi.id','=','pembimbing.prodi_id')
+                        ->Join('dosen','dosen.id','=','pembimbing.dosen_id')
+                        ->LeftJoin('daftar_pkl','daftar_pkl.id','=','pembimbing.daftarpkl_id')
+                        ->Join('mahasiswa','mahasiswa.no_induk','=','pembimbing.nim')
+                        ->select('pembimbing.*','prodi.prodi as prod','dosen.nama_dosen as namdos')
+                        ->where('dosen.id',$dosen)
+                        ->where('daftar_pkl.tahun_ajaran',$daftarpkl)
+                        ->get();
+
+        return view('reportpembimbing.filterds',compact('pembimbing','dosen','nama_dosen','daftarpkl'));
+    }
+
+    public function setPDFDs($ds,$t)
+    {
+        $daftarpkl = DaftarPkl::where('id',$t)->first();
+        $tahun_ajaran = DaftarPkl::where('id',$t)->value('tahun_ajaran');
+        $dosen = Dosen::where('id',$ds)->first();
+        $nama_dosen = Dosen::where('id',$ds)->value('nama_dosen');
+        
+        $pembimbing = DB::table('pembimbing')
+                        ->Join('dosen','dosen.id','=','pembimbing.dosen_id')
+                        ->Join('prodi','prodi.id','=','pembimbing.prodi_id')
+                        ->Join('daftar_pkl','daftar_pkl.id','=','pembimbing.daftarpkl_id')
+                        ->Join('mahasiswa','mahasiswa.no_induk','=','pembimbing.nim')
+                        ->select('pembimbing.*','prodi.prodi as prod','dosen.nama_dosen as namdos')
+                        ->where('dosen.id',$ds)
+                        ->where('daftar_pkl.id',$t)
+                        ->get();
+
+        $pdf = PDF::loadView('reportpembimbing.reportds',compact('pembimbing','dosen','nama_dosen','daftarpkl','tahun_ajaran'))
+                ->setPaper('a4', 'potrait');
+                
+            return $pdf->stream('pembimbing.setpdfds');
+    }
+
 }
