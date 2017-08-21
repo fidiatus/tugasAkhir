@@ -1,0 +1,56 @@
+<?php
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use DB;
+use App\Bidang;
+use App\Http\Controllers\Controller;
+
+class BidangController extends Controller
+{
+	public function index() 
+	{
+		$bidangs = Bidang::orderBy('id','DESC')->paginate(5);
+        return view('bidang.index',compact('bidangs'));
+	}
+	public function create()
+	{
+		return view('bidang.create');
+	}
+	public function store(Request $request)
+	{
+		$this->validate($request, [
+        'bidang' => 'required',
+    ]);        
+        Bidang::create($request->all());
+
+        return redirect()->route('bidang.index')
+        				->with('message','bidang inserted!');
+	}
+	public function show($id)
+	{
+		$bidang=Bidang::find($id);
+		return view('bidang.show',compact('bidang'));
+	}
+	public function edit($id)
+	{
+		$bidang= Bidang::find($id);
+		return view('bidang.edit',compact('bidang'));
+	}
+	public function update(Request $request, $id)
+	{
+		$this->validate($request, [
+        'bidang' => 'required',
+    	]);
+
+		Bidang::find($id)->update($request->all());
+        return redirect()->route('bidang.index')
+        				->with('message','profile bidang telah di edit!');
+	}
+	public function destroy($id)
+	{
+		Bidang::find($id)->delete();
+		return redirect()->route('bidang.index')
+						->with('message','Data telah di dihapus!');
+	}
+}
