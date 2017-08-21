@@ -26,14 +26,14 @@ class PembimbingController extends Controller
 	{
 		$this->validate($request, [
         'user_id' => 'required|numeric',
-        'nama_mhs' => 'required',
+        'users_id' => 'required',
         'kelas' => 'required',
         'dosen_id' => 'required',
         'prodi_id' => 'required',
     ]);  
         $pembimbing = new Pembimbing();
         $pembimbing->user_id = $request->input('user_id');
-        $pembimbing->nama_mhs = $request->input('nama_mhs');
+        $pembimbing->users_id = $request->input('users_id');
         $pembimbing->kelas = $request->input('kelas');
         $pembimbing->dosen_id = $request->input('dosen_id');
         $pembimbing->prodi_id = $request->input('prodi_id');
@@ -63,14 +63,14 @@ class PembimbingController extends Controller
 	{
 		$this->validate($request, [
         'user_id' => 'required|numeric',
-        'nama_mhs' => 'required',
+        'users_id' => 'required',
         'kelas' => 'required',
         'dosen_id' => 'required',
         'prodi_id' => 'required',
     ]);  
         $pembimbing = Pembimbing::find($id);
         $pembimbing->user_id = $request->input('user_id');
-        $pembimbing->nama_mhs = $request->input('nama_mhs');
+        $pembimbing->users_id = $request->input('users_id');
         $pembimbing->kelas = $request->input('kelas');
         $pembimbing->dosen_id = $request->input('dosen_id');
         $pembimbing->prodi_id = $request->input('prodi_id');

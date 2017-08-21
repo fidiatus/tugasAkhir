@@ -1,20 +1,37 @@
-@extends('layout.default')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
   <div class="row">
-  <div class="col-md-13 col-sm-13 col-xs-16">
-    <div class="x_panel">
-      <div class="x_title">
-        <h2>Tabel Data Pembimbing</h2>
-          <div class="clearfix"></div>
+      <div class="col-md-13 col-sm-13 col-xs-16">
+      <div class="panel panel-default">
+          <div class="panel-heading"><h4>Pembimbing Management</h4></div>
+          
+    <div class="panel-body">
+  <!-- ============= Tampilan Pencarian ============== -->
+      <div class="panel-body">
+        <form class="" action="" method="">
+            <input type="text" name="keyword" class="form-control" placeholder="Cari sesuatu ..">
+        </form>
       </div>
-      <div class="x_content">
+  <!-- =========== End =============== -->
+
+      <div class="panel-body">
+        <form class="" action="" method="">
         <a class="btn btn-success" href="{{ route('pembimbing.create') }}"> Create New Pembimbing</a>
+        </form>
       </div>
-    @if ($message = Session::get('success'))
-      <div class="alert alert-success">
-        <p>{{ $message }}</p>
+
+  <!-- ========== tampilan Data =================== -->
+    <div class="well clearfix">
+      @if (count($errors) > 0)
+      <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+          @foreach ($errors->all() as $error)
+            <p>{{ $message }}</p>
+          @endforeach
+        </ul>
       </div>
     @endif
     <table class="table table-bordered">
@@ -30,14 +47,14 @@
         </tr>
       </thead>
       <tbody>
-      @foreach($pkls as $pembimbing)
+      @foreach($pembimbings as $pembimbing)
         <tr>
           <td>{{$pembimbing->id}} </td>
-          <td>{{$pembimbing->nim}}</td>
-          <td>{{$pembimbing->semester}}</td>
-          <td>{{$pembimbing->prodi->nama_prodi}}</td>
-          <td>{{$pembimbing->tahun_ajaran}}</td>
-          <td>{{$pembimbing->perusahaan->nama_perusahaan}}</td>
+          <td>{{$pembimbing->user->no_induk}}</td>
+          <td>{{$pembimbing->user->nama_user}}</td>
+          <td>{{$pembimbing->kelas}}</td>
+          <td>{{$pembimbing->dosen->nama_dosen}}</td>
+          <td>{{$pembimbing->prodi->prodi}}</td>
           <td> 
             <a class="btn btn-info" href="{{ route('pembimbing.show',$pembimbing->id) }}">Show</a>
             <a class="btn btn-primary" href="{{ route('pembimbing.edit',$pembimbing->id) }}">Edit</a>
@@ -45,12 +62,13 @@
               {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
             {!! Form::close() !!}
           </td> 
-      @endif
         </tr> 
       @endforeach
     </tbody>
   </table>
-        {!! $pkls->links() !!} 
+        {!! $pembimbings->links() !!} 
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::auth();
@@ -32,6 +32,8 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::patch('roles/{id}',['as'=>'roles.update','uses'=>'RoleController@update','middleware' => ['role:Admin']]);
 	Route::delete('roles/{id}',['as'=>'roles.destroy','uses'=>'RoleController@destroy','middleware' => ['role:Admin']]);
 	
+	// =======================================================================================
+
 	Route::get('prodi',['as'=>'prodi.index','uses'=>'ProdiController@index','middleware' => ['role:Admin']]);
 	Route::get('prodi/create',['as'=>'prodi.create','uses'=>'ProdiController@create','middleware' => ['role:Admin']]);
 	Route::post('prodi/create',['as'=>'prodi.store','uses'=>'ProdiController@store','middleware' => ['role:Admin']]);
@@ -39,6 +41,8 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('prodi/{id}/edit',['as'=>'prodi.edit','uses'=>'ProdiController@edit','middleware' => ['role:Admin']]);
 	Route::patch('prodi/{id}',['as'=>'prodi.update','uses'=>'ProdiController@update','middleware' => ['role:Admin']]);
 	Route::delete('prodi/{id}',['as'=>'prodi.destroy','uses'=>'ProdiController@destroy','middleware' => ['role:Admin']]);
+
+	// =======================================================================================
 
 	Route::get('grup',['as'=>'grup.index','uses'=>'GrupController@index','middleware' => ['role:Admin']]);
 	Route::get('grup/create',['as'=>'grup.create','uses'=>'GrupController@create','middleware' => ['role:Admin']]);
@@ -48,6 +52,8 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::patch('grup/{id}',['as'=>'grup.update','uses'=>'GrupController@update','middleware' => ['role:Admin']]);
 	Route::delete('grup/{id}',['as'=>'grup.destroy','uses'=>'GrupController@destroy','middleware' => ['role:Admin']]);
 
+	// ========================================================================================
+
 	Route::get('bidang',['as'=>'bidang.index','uses'=>'BidangController@index','middleware' => ['role:Admin']]);	
 	Route::get('bidang/create',['as'=>'bidang.create','uses'=>'BidangController@create','middleware' => ['role:Admin']]);
 	Route::post('bidang/create',['as'=>'bidang.store','uses'=>'BidangController@store','middleware' => ['role:Admin']]);
@@ -56,6 +62,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::patch('bidang/{id}',['as'=>'bidang.update','uses'=>'BidangController@update','middleware' => ['role:Admin']]);
 	Route::delete('bidang/{id}',['as'=>'bidang.destroy','uses'=>'BidangController@destroy','middleware' => ['role:Admin']]);
 
+	// ======================================================================================
 	Route::get('dosen',['as'=>'dosen.index','uses'=>'DosenController@index','middleware' => ['role:Admin']]);	
 	Route::get('dosen/create',['as'=>'dosen.create','uses'=>'DosenController@create','middleware' => ['role:Admin']]);
 	Route::post('dosen/create',['as'=>'dosen.store','uses'=>'DosenController@store','middleware' => ['role:Admin']]);
@@ -63,4 +70,66 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('dosen/{id}/edit',['as'=>'dosen.edit','uses'=>'DosenController@edit','middleware' => ['role:Admin']]);
 	Route::patch('dosen/{id}',['as'=>'dosen.update','uses'=>'DosenController@update','middleware' => ['role:Admin']]);
 	Route::delete('dosen/{id}',['as'=>'dosen.destroy','uses'=>'DosenController@destroy','middleware' => ['role:Admin']]);
+
+	// ========================================================================================
+
+	Route::get('pembimbing',['as'=>'pembimbing.index','uses'=>'PembimbingController@index','middleware' => ['role:Admin']]);	
+	Route::get('pembimbing/create',['as'=>'pembimbing.create','uses'=>'PembimbingController@create','middleware' => ['role:Admin']]);
+	Route::post('pembimbing/create',['as'=>'pembimbing.store','uses'=>'PembimbingController@store','middleware' => ['role:Admin']]);
+	Route::get('pembimbing/{id}',['as'=>'pembimbing.show','uses'=>'PembimbingController@show']);
+	Route::get('pembimbing/{id}/edit',['as'=>'pembimbing.edit','uses'=>'PembimbingController@edit','middleware' => ['role:Admin']]);
+	Route::patch('pembimbing/{id}',['as'=>'pembimbing.update','uses'=>'PembimbingController@update','middleware' => ['role:Admin']]);
+	Route::delete('pembimbing/{id}',['as'=>'pembimbing.destroy','uses'=>'PembimbingController@destroy','middleware' => ['role:Admin']]);
+
+	// ====================================================================================
+
+	Route::get('perusahaan',['as'=>'perusahaan.index','uses'=>'PerusahaanController@index','middleware' => ['role:Admin']]);	
+	Route::get('perusahaan/create',['as'=>'perusahaan.create','uses'=>'PerusahaanController@create','middleware' => ['role:Admin']]);
+	Route::post('perusahaan/create',['as'=>'perusahaan.store','uses'=>'PerusahaanController@store','middleware' => ['role:Admin']]);
+	Route::get('perusahaan/{id}',['as'=>'perusahaan.show','uses'=>'PerusahaanController@show']);
+	Route::get('perusahaan/{id}/edit',['as'=>'perusahaan.edit','uses'=>'PerusahaanController@edit','middleware' => ['role:Admin']]);
+	Route::patch('perusahaan/{id}',['as'=>'perusahaan.update','uses'=>'PerusahaanController@update','middleware' => ['role:Admin']]);
+	Route::delete('perusahaan/{id}',['as'=>'perusahaan.destroy','uses'=>'PerusahaanController@destroy','middleware' => ['role:Admin']]);
+
+	// =====================================================================================
+
+	Route::get('permission-role',['as'=>'permissionrole.index','uses'=>'PermissionRoleController@index','middleware' => ['role:Admin']]);
+	Route::get('permission-role/create',['as'=>'permissionrole.create','uses'=>'PermissionRoleController@create','middleware' => ['role:Admin']]);
+	Route::post('permission-role/create',['as'=>'permissionrole.store','uses'=>'PermissionRoleController@store','middleware' => ['role:Admin']]);
+	Route::get('permission-role/permission/{permissionId}/role/{roleId}/edit', ['as'=>'permissionrole.edit','uses'=>'PermissionRoleController@edit','middleware' => ['role:Admin']]);
+	Route::patch('permission-role/permission/{permissionId}/role/{roleId}/edit', ['as'=>'permissionrole.update','uses'=>'PermissionRoleController@update','middleware' => ['role:Admin']]);
+	Route::get('permission-role/permission/{permissionId}/role/{roleId}/show',['as'=>'permissionrole.show','uses'=>'PermissionRoleController@show','middleware' => ['role:Admin']]);
+
+	// =====================================================================================
+	
+	Route::get('permission',['as'=>'permission.index','uses'=>'PermissionController@index','middleware' => ['role:Admin']]);
+	Route::get('permission/create',['as'=>'permission.create','uses'=>'PermissionController@create','middleware' => ['role:Admin']]);
+	Route::post('permission/create',['as'=>'permission.store','uses'=>'PermissionController@store','middleware' => ['role:Admin']]);
+	Route::get('permission/{id}',['as'=>'permission.show','uses'=>'PermissionController@show','middleware' => ['role:Admin']]);
+	Route::get('permission/{id}/edit',['as'=>'permission.edit','uses'=>'PermissionController@edit','middleware' => ['role:Admin']]);
+	Route::patch('permission/{id}/edit',['as'=>'permission.update','uses'=>'PermissionController@update','middleware' => ['role:Admin']]);
+	Route::patch('permission/{id}',['as'=>'permission.destroy','uses'=>'PermissionController@destroy','middleware' => ['role:Admin']]);
+	Route::delete('permission/{id}',['as'=>'permission.destroy','uses'=>'PermissionController@destroy','middleware' => ['role:Admin']]);
+
+	// =====================================================================================
+	
+	Route::get('users/create',['as'=>'users.create','uses'=>'UserController@create','middleware' => ['role:Admin']]);
+	Route::post('users/create',['as'=>'users.create','uses'=>'UserController@create','middleware' => ['role:Admin']]);
+	Route::post('users/handle-index',['as'=>'users.handleIndex','uses'=>'UserController@handleIndex','middleware' => ['role:Admin']]);
+	Route::post('users/create',['as'=>'users.store','uses'=>'UserController@store','middleware' => ['role:Admin']]);
+	Route::get('users/{id}/edit',['as'=>'users.edit','uses'=>'UserController@edit','middleware' => ['role:Admin|Mahasiswa|Dosen']]);
+	Route::patch('users/{id}',['as'=>'users.update','uses'=>'UserController@update','middleware' => ['role:Admin|Dosen|Mahasiswa']]);
+	Route::delete('users/{id}',['as'=>'users.destroy','uses'=>'UserController@destroy','middleware' => ['role:Admin']]);
+	Route::patch('users/{id}',['as'=>'users.destroy','uses'=>'UserController@destroy','middleware' => ['role:Admin']]);
+
+	// =====================================================================================
+
+	Route::get('pkl',['as'=>'daftarpkl.index','uses'=>'DaftarPklController@index','middleware' => ['role:Admin|Dosen']]);
+	Route::get('pkl/create',['as'=>'daftarpkl.create','uses'=>'DaftarPklController@create','middleware' => ['role:Admin|Mahasiswa']]);
+	Route::post('pkl/create',['as'=>'daftarpkl.store','uses'=>'DaftarPklController@store','middleware' => ['role:Admin|Mahasiswa']]);
+	Route::get('pkl/{id}',['as'=>'daftarpkl.show','uses'=>'DaftarPklController@show','middleware' => ['role:Admin|Mahasiswa']]);
+	Route::get('pkl/{id}/edit',['as'=>'daftarpkl.edit','uses'=>'DaftarPklController@edit','middleware' => ['role:Admin|Mahasiswa']]);
+	Route::patch('pkl/{id}/edit',['as'=>'daftarpkl.update','uses'=>'DaftarPklController@update','middleware' => ['role:Admin|Mahasiswa']]);
+	Route::patch('pkl/{id}',['as'=>'daftarpkl.destroy','uses'=>'DaftarPklController@destroy','middleware' => ['role:Admin']]);
+	Route::delete('pkl/{id}',['as'=>'daftarpkl.destroy','uses'=>'DaftarPklController@destroy','middleware' => ['role:Admin']]);
 });

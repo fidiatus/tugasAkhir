@@ -1,19 +1,29 @@
-@extends('layout.default')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
   <div class="row">
-  <div class="col-md-13 col-sm-13 col-xs-16">
-    <div class="x_panel">
-      <div class="x_title">
-        <h2>Tabel Data Grup Praktek kerja Lapangan</h2>
-          <div class="clearfix"></div>
+      <div class="col-md-13 col-sm-13 col-xs-16">
+      <div class="panel panel-default">
+          <div class="panel-heading"><h4>Grup PKL Management</h4></div>
+          
+    <div class="panel-body">
+  <!-- ============= Tampilan Pencarian ============== -->
+      <div class="panel-body">
+        <form class="" action="" method="">
+            <input type="text" name="keyword" class="form-control" placeholder="Cari sesuatu ..">
+        </form>
       </div>
-    @if (!Auth::user()->roles()->first()->name == "Kaprodi")
-      <div class="x_content">
+  <!-- =========== End =============== -->
+
+      <div class="panel-body">
+        <form class="" action="" method="">
         <a class="btn btn-success" href="{{ route('grup.create') }}"> Create New Grup</a>
+        </form>
       </div>
-    @endif
+
+  <!-- ========== tampilan Data =================== -->
+    <div class="well clearfix">
     @if ($message = Session::get('success'))
       <div class="alert alert-success">
         <p>{{ $message }}</p>
@@ -51,6 +61,8 @@
       </tbody>
     </table>
         {!! $grups->links() !!} 
+          </div>
+        </div>
       </div>
     </div>
   </div>

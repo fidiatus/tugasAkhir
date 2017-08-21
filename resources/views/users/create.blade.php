@@ -4,15 +4,14 @@
 @section('content')
 <div class="container">
 	<div class="row">
-	    <div class="col-lg-12 margin-tb">
-	        <div class="pull-left">
-	            <h2>Create New User</h2>
-	        </div>
-	        <div class="pull-right">
-	            <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
-	        </div>
-	    </div>
-	</div>
+        <div class="col-md-13 col-sm-13 col-xs-16">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>Users Management</h4></div>
+          
+    <div class="panel-body">
+        <div class="panel-body">
+            <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
+        </div>
 	@if (count($errors) > 0)
 		<div class="alert alert-danger">
 			<strong>Whoops!</strong> There were some problems with your input.<br><br>

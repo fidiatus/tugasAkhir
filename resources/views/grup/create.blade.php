@@ -1,19 +1,17 @@
-@extends('layout.default')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
  <div class="row">
-  <div class="col-md-13 col-sm-13 col-xs-16">
-    <div class="x_panel">
-      <div class="x_title">
-        <h2>Insert Data Grup</h2>
-          <div class="clearfix"></div>
+      <div class="col-md-13 col-sm-13 col-xs-16">
+      <div class="panel panel-default">
+          <div class="panel-heading"><h4>Grup Praktek Kerja Lapangan</h4></div>
+          
+    <div class="panel-body">
+      <div class="panel-body">
+          <a class="btn btn-primary" href="{{ route('grup.index') }}"> Back</a>
       </div>
-    @if (!Auth::user()->roles()->first()->name == "Mahasiswa")
-          <div class="pull-right">
-              <a class="btn btn-primary" href="{{ route('grup.index') }}"> Back</a>
-          </div>
-    @endif
+
   @if (count($errors) > 0)
     <div class="alert alert-danger">
       <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -43,6 +41,7 @@
     </div>
   </div>
   {!! Form::close() !!}
+        </div>
       </div>
     </div>
   </div>

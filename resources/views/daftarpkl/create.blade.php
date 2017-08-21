@@ -1,16 +1,15 @@
-@extends('layout.default')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
  <div class="row">
-  <div class="col-md-13 col-sm-13 col-xs-16">
-    <div class="x_panel">
-      <div class="x_title">
-        <h2>Insert Data PKL</h2>
-          <div class="clearfix"></div>
-      </div>
+      <div class="col-md-13 col-sm-13 col-xs-16">
+      <div class="panel panel-default">
+          <div class="panel-heading"><h4>PKL Management</h4></div>
+          
+    <div class="panel-body">
     @if (!Auth::user()->roles()->first()->name == "Mahasiswa" || !Auth::user()->roles()->first()->name =="Dosen")
-          <div class="pull-right">
+          <div class="panel-body">
               <a class="btn btn-primary" href="{{ route('daftarpkl.index') }}"> Back</a>
           </div>
     @endif
@@ -68,6 +67,7 @@
   </div>
 </div>
   {!! Form::close() !!}
+    </div>
   </div>
  </div>
 </div>

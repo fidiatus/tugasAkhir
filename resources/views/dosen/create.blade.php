@@ -3,14 +3,13 @@
 @section('content')
 <div class="container">
  <div class="row">
-  <div class="col-md-13 col-sm-13 col-xs-16">
-    <div class="x_panel">
-      <div class="x_title">
-        <h2>Insert Data Dosen</h2>
-          <div class="clearfix"></div>
-      </div>
+      <div class="col-md-13 col-sm-13 col-xs-16">
+      <div class="panel panel-default">
+          <div class="panel-heading"><h4>Dosen Management</h4></div>
+          
+    <div class="panel-body">
     @if (!Auth::user()->roles()->first()->name == "Kaprodi" )
-          <div class="pull-right">
+          <div class="panel-body">
               <a class="btn btn-primary" href="{{ route('dosen.index') }}"> Back</a>
           </div>
     @endif
@@ -48,7 +47,8 @@
           <button type="submit" class="btn btn-primary">Submit</button>
      </div>
   </div>
-  {!! Form::close() !!}        
+  {!! Form::close() !!}  
+   </div>      
   </div>
  </div>
 </div>

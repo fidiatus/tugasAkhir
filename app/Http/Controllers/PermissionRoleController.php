@@ -46,6 +46,8 @@ class PermissionRoleController extends Controller
         ]);
         
         $input = $request->all();
+        
+        $selectedPermission = Input::get('permission');
 
         PermissionRole::create($request->all());
 
@@ -94,7 +96,7 @@ class PermissionRoleController extends Controller
         ]);
 
         $permissionrole = PermissionRole::where('permission_id',$permissionId)
-                            ->where('role_id', $roleId)->update([
+                        ->where('role_id', $roleId)->update([
                                 'role_id' => $request->role_id,
                                 'permission_id' => $request->permission_id
                             ]);

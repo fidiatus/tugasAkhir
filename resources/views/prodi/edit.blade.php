@@ -1,38 +1,29 @@
-@extends('layout.default')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
 <div class="row">
-  <div class="col-md-13 col-sm-13 col-xs-16">
-    <div class="x_panel">
-      <div class="x_title">
-        <h2>Edit Data Prodi</h2>
-          <div class="clearfix"></div>
-      </div>
-      <div class="x_content">
+      <div class="col-md-13 col-sm-13 col-xs-16">
+      <div class="panel panel-default">
+          <div class="panel-heading"><h4>Prodi Management</h4></div>
+          
+        <div class="panel-body">
+          <div class="panel-body">
             <a class="btn btn-primary" href="{{ route('prodi.index') }}"> Back</a>
       </div>
-	@if (count($errors) > 0)
-		<div class="alert alert-danger">
-			<strong>Whoops!</strong> There were some problems with your input.<br><br>
-			<ul>
-				@foreach ($errors->all() as $error)
-					<li>{{ $error }}</li>
-				@endforeach
-			</ul>
-		</div>
-	@endif
 	{!! Form::model($prodi, ['method' => 'patch', 'route' => ['prodi.update', $prodi->id]]) !!}
 	<div class="row">
 		<label class="col-md-4">Nama Prodi</label>
-		<input class="form-control col-md-8" name="nama_prodi" value="{{ $prodi->nama_prodi }}">
+		<input class="form-control col-md-8" name="prodi" value="{{ $prodi->prodi }}">
 	</div>
 	<br/>
 	<div class="col-xs-12 col-sm-12 col-md-12 text-center">
-				<button type="submit" class="btn btn-primary">Submit</button>
-    </div>
+		<input type="hidden" name="_token" value="{{csrf_token()}}">
+        <input type="submit" value="Simpan" class="btn btn-primary">
+   </div>		
 	</div>
 	{!! Form::close() !!}
+	  </div>
 	</div>
   </div>
 </div>

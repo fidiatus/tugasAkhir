@@ -10,7 +10,7 @@ class Pembimbing extends Model
 
     protected $fillable = [
     	'user_id',
-    	'nama_mhs',
+    	'users_id',
     	'kelas',
     	'dosen_id',
     	'prodi_id'

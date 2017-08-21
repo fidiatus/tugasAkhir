@@ -1,17 +1,30 @@
-@extends('layout.default')
+@extends('layouts.app')
 
  
 @section('content')
-<div class="row">
-  <div class="col-md-16 col-sm-16 col-xs-18">
-    <div class="x_panel">
-      <div class="x_title">
-        <h2>Tabel Data Permission Role</h2>
-          <div class="clearfix"></div>
+<div class="container">
+    <div class="row">
+  		<div class="col-md-13 col-sm-13 col-xs-16">
+	    <div class="panel panel-default">
+	        <div class="panel-heading"><h4>Permission Role Management</h4></div>
+          
+    <div class="panel-body">
+	<!-- ============= Tampilan Pencarian ============== -->
+      <div class="panel-body">
+        <form class="" action="" method="">
+            <input type="text" name="keyword" class="form-control" placeholder="Cari sesuatu ..">
+        </form>
       </div>
-          <div class="x_content">
-	            <a class="btn btn-success" href="{{ route('permissionrole.create') }}"> Create Permission Role</a>
-	        </div>
+	<!-- =========== End =============== -->
+
+      <div class="panel-body">
+        <form class="" action="" method="">
+        <a class="btn btn-success" href="{{ route('permissionrole.create') }}"> Create New PermissionRole</a>
+        </form>
+      </div>
+
+	<!-- ========== tampilan Data =================== -->
+    <div class="well clearfix">
 	@if ($message = Session::get('success'))
 		<div class="alert alert-success">
 			<p>{{ $message }}</p>
@@ -45,7 +58,10 @@
 	@endforeach
 	</table>
 	{!! $permissionroles->render() !!}
+		 </div>
+		</div>
       </div>
-	    </div>
+	 </div>
 	</div>
+</div>
 @endsection

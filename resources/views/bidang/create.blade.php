@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="container">
   <div class="row">
-  <div class="col-md-13 col-sm-13 col-xs-16">
-    <div class="x_panel">
-      <div class="x_title">
-        <h2>Tabel Data Bidang</h2>
-          <div class="clearfix"></div>
-      </div>
-          <div class="pull-right">
+      <div class="col-md-13 col-sm-13 col-xs-16">
+      <div class="panel panel-default">
+          <div class="panel-heading"><h4>Bidang Management</h4></div>
+          
+    <div class="panel-body">
+          <div class="panel-body">
               <a class="btn btn-primary" href="{{ route('bidang.index') }}"> Back</a>
           </div>
   @if (count($errors) > 0)
@@ -33,10 +33,10 @@
         <button type="submit" class="btn btn-primary">Submit</button>
    </div>
   </div>
-   </div>
-  </div>
   {!! Form::close() !!}
-
+        </div>
       </div>
+    </div>
   </div>
+</div>
 @endsection

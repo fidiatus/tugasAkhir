@@ -3,17 +3,27 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-2">
-    <div class="x_panel">
-      <div class="x_title">
-	            <h2>Role Management</h2>
-          <div class="clearfix"></div>
-	        </div>
-	        <div class="pull-right">
-	        	@permission('role-create')
-	            <a class="btn btn-success" href="{{ route('roles.create') }}"> Create New Role</a>
-	            @endpermission
-	        </div>
+  		<div class="col-md-13 col-sm-13 col-xs-16">
+	    <div class="panel panel-default">
+	        <div class="panel-heading"><h4>Roles Management</h4></div>
+          
+    <div class="panel-body">
+	<!-- ============= Tampilan Pencarian ============== -->
+      <div class="panel-body">
+        <form class="" action="" method="">
+            <input type="text" name="keyword" class="form-control" placeholder="Cari sesuatu ..">
+        </form>
+      </div>
+	<!-- =========== End =============== -->
+
+      <div class="panel-body">
+        <form class="" action="" method="">
+        <a class="btn btn-success" href="{{ route('roles.create') }}"> Create New roles</a>
+        </form>
+      </div>
+
+	<!-- ========== tampilan Data =================== -->
+    <div class="well clearfix">
 	@if ($message = Session::get('success'))
 		<div class="alert alert-success">
 			<p>{{ $message }}</p>
@@ -46,8 +56,10 @@
 	@endforeach
 	</table>
 	{!! $roles->render() !!}
-      </div>
+			</div>
 	    </div>
+	   </div>
 	</div>
-	</div>
+   </div>
+</div>
 @endsection

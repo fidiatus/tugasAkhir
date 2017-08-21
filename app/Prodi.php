@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Prodi extends Model
 {
+    protected $table = 'prodi';
+
     public $fillable = ['prodi'];
-    
-    protected $guarded = ['id'];
+        
+    public $timestamps = false;
     
     public function user()
     {

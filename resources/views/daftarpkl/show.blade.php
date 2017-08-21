@@ -1,18 +1,17 @@
-@extends('layout.default')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
 <div class="row">
-  <div class="col-md-13 col-sm-13 col-xs-16">
-    <div class="x_panel">
-      <div class="x_title">
-        <h2>Show Data PKL</h2>
-          <div class="clearfix"></div>
+      <div class="col-md-13 col-sm-13 col-xs-16">
+      <div class="panel panel-default">
+          <div class="panel-heading"><h4>Daftar PKL </h4></div>
+          
+    <div class="panel-body">
+      <div class="panel-body">
+        <a class="btn btn-primary" href="{{ route('daftarpkl.edit',$daftarpkl->id) }}">Edit</a>
+        <a class="btn btn-primary" href="{{ route('daftarpkl.index') }}"> Back</a>
       </div>
-          <div class="x_content">
-            <a class="btn btn-primary" href="{{ route('daftarpkl.edit',$daftarpkl->id) }}">Edit</a>
-	        <a class="btn btn-primary" href="{{ route('daftarpkl.index') }}"> Back</a>
-	      </div>
 	{!! Form::model($daftarpkl, ['method' => 'patch','route' => ['daftarpkl.update', $daftarpkl->id]]) !!}
 	<div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -53,6 +52,7 @@
         </div>
     </div>
 {!! Form::close() !!}
+    </div>
 	</div>
 	</div>
 	</div>

@@ -3,13 +3,12 @@
 @section('content')
 <div class="container">
 <div class="row">
-  <div class="col-md-13 col-sm-13 col-xs-16">
-    <div class="x_panel">
-      <div class="x_title">
-        <h2>Show Data Dosen</h2>
-          <div class="clearfix"></div>
-      </div>
-          <div class="x_content">
+      <div class="col-md-13 col-sm-13 col-xs-16">
+      <div class="panel panel-default">
+          <div class="panel-heading"><h4>Dosen Management</h4></div>
+          
+    <div class="panel-body">
+          <div class="panel-body">
             <a class="btn btn-primary" href="{{ route('dosen.edit',$dosen->id) }}">Edit</a>
 	        <a class="btn btn-primary" href="{{ route('dosen.index') }}"> Back</a>
 	      </div>
@@ -35,6 +34,7 @@
         </div>
     </div>
 {!! Form::close() !!}
+    </div>
 	</div>
 	</div>
     </div>
