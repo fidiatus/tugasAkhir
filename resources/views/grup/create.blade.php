@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.apps')
 
 @section('content')
 <div class="container">
@@ -11,17 +11,6 @@
       <div class="panel-body">
           <a class="btn btn-primary" href="{{ route('grup.index') }}"> Back</a>
       </div>
-
-  @if (count($errors) > 0)
-    <div class="alert alert-danger">
-      <strong>Whoops!</strong> There were some problems with your input.<br><br>
-      <ul>
-        @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
-  @endif
   {!! Form::open(array('route' => 'grup.store','method'=>'POST')) !!}
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -33,7 +22,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Nama Mahasiswa :</strong>  
-             {!!Form::select('user_id', $user, 'S');!!} 
+             {!!Form::select('user_id', $users, 'S');!!} 
         </div>
     </div>
   	<div class="col-xs-12 col-sm-12 col-md-12 text-center">

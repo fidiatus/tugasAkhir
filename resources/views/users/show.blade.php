@@ -1,17 +1,18 @@
-@extends('layouts.app')
+@extends('layouts.apps')
 
 
 @section('content')
 <div class="container">
-<div class="row">
-        <div class="col-md-13 col-sm-13 col-xs-16">
-        <div class="panel panel-default">
-            <div class="panel-heading"><h4>Data Profil  #{{ Auth::user()->no_induk }}</h4></div>
+  <div class="row">
+    <div class="col-md-13 col-sm-13 col-xs-16">
+      <div class="panel panel-default">
+        <div class="panel-heading"><h4>Data Profil  #{{ Auth::user()->nama_user }}</h4></div>
           
     <div class="panel-body">
         <div class="panel-body">
+            <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
             <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a>
-	      </div>
+	    </div>
 	<div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">

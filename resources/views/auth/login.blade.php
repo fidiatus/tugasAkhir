@@ -1,17 +1,21 @@
-@extends('layouts.app')
+@extends('layouts.apps')
 
 @section('content')
+
 <div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
+<div class="row">
+  <div class="col-md-16 col-sm-16 col-xs-18">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Login</h2>
+          <div class="clearfix"></div>
+      </div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('no_induk') ? ' has-error' : '' }}">
-                            <label for="no_induk" class="col-md-4 control-label">No Induk</label>
+                            <label for="no_induk" class="col-md-4 control-label">NIM / NIP</label>
 
                             <div class="col-md-6">
                                 <input id="no_induk" type="text" class="form-control" name="no_induk" value="{{ old('no_induk') }}">

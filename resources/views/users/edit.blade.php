@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.apps')
 
 
 @section('content')
@@ -11,7 +11,7 @@
     <div class="panel-body">
         <div class="panel-body">
 	        <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
-            <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Back</a>
+            <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Show</a>
         </div>
 	@if (count($errors) > 0)
 		<div class="alert alert-danger">
@@ -60,7 +60,7 @@
      <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Bidang:</strong>
-             {!!Form::select('bidang_id', $bidang, $user->bidang_id);!!} 
+             {!!Form::select('bidang_id', $bidang, null ,array('class' => 'form-control'));!!} 
         </div>
     </div>
     @endif
@@ -70,14 +70,12 @@
                 {!! Form::text('no_hp', null, array('placeholder' => 'HP','class' => 'form-control')) !!}
         </div>
     </div>    
-    @if (!Auth::user()->roles()->first()->name == "Mahasiswa" || !Auth::user()->roles()->first()->name =="Kaprodi")
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Role:</strong>
                 {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}
             </div>
         </div>
-        @endif
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
 				<button type="submit" class="btn btn-primary">Submit</button>
         </div>

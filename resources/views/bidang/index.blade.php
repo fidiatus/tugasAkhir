@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.apps')
 
 @section('content')
 <div class="container">
@@ -8,13 +8,6 @@
           <div class="panel-heading"><h4>Bidang Management</h4></div>
           
     <div class="panel-body">
-  <!-- ============= Tampilan Pencarian ============== -->
-      <div class="panel-body">
-        <form class="" action="" method="">
-            <input type="text" name="keyword" class="form-control" placeholder="Cari sesuatu ..">
-        </form>
-      </div>
-  <!-- =========== End =============== -->
 
       <div class="panel-body">
         <form class="" action="" method="">
@@ -29,6 +22,13 @@
         <p>{{ $message }}</p>
       </div>
     @endif
+  <!-- ============= Tampilan Pencarian ============== -->
+      <div class="panel-body">
+        <form class="" action="" method="">
+            <input type="text" name="keyword" class="form-control" placeholder="Cari sesuatu ..">
+        </form>
+      </div>
+  <!-- =========== End =============== -->
       <table class="table table-bordered">
         <thead>
           <tr> 
@@ -45,10 +45,10 @@
             <td> 
             <a class="btn btn-info" href="{{ route('bidang.show',$bidang->id) }}">Show</a>
             <a class="btn btn-primary" href="{{ route('bidang.edit',$bidang->id) }}">Edit</a>
-                    {!! Form::open(['method' => 'DELETE','route' => ['bidang.destroy', $bidang->id],'style'=>'display:inline']) !!}
-                          {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                        {!! Form::close() !!}
-                  </td> 
+              {!! Form::open(['method' => 'DELETE','route' => ['bidang.destroy', $bidang->id],'style'=>'display:inline']) !!}
+                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                  {!! Form::close() !!}
+            </td> 
           </tr> 
       @endforeach
         </tbody> 

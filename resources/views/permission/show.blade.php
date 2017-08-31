@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.apps')
 
 @section('content')
 <div class="container">
@@ -9,6 +9,7 @@
           
         <div class="panel-body">
 	        <div class="panel-body">
+            <a class="btn btn-primary" href="{{ route('permission.edit',$permission->id) }}">Edit</a>
 	            <a class="btn btn-primary" href="{{ route('permission.index') }}"> Back</a>
 	        </div>
 	<div class="row">
@@ -26,9 +27,9 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Permissions:</strong>
-                @if(!empty($permissionPermissions))
-					@foreach($permissionPermissions as $v)
+                <strong>Roles:</strong>
+                @if(!empty($permissionRole))
+					@foreach($permissionRole as $v)
 						<label class="label label-success">{{ $v->display_name }}</label>
 					@endforeach
 				@endif

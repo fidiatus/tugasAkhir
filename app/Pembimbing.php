@@ -9,11 +9,12 @@ class Pembimbing extends Model
     protected $table = 'pembimbing';
 
     protected $fillable = [
-    	'user_id',
-    	'users_id',
-    	'kelas',
-    	'dosen_id',
-    	'prodi_id'
+    	'nim',
+        'nama_mhs',
+        'bidangpkl_id',
+        'prodi_id',
+        'kelas',
+        'dosen_id',
     ];
     
     public $timestamps = false;
@@ -31,5 +32,9 @@ class Pembimbing extends Model
     public function dosen()
     {
         return $this->hasOne(Dosen::class);
+    }
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role');
     }
 }

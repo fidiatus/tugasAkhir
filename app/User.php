@@ -7,7 +7,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+
     use EntrustUSerTrait;
     /**
      * The attributes that are mass assignable.
@@ -64,5 +64,9 @@ class User extends Authenticatable
     public function grup()
     {
         return $this->hasOne(Grup::class);
+    }
+    public function userRoles()
+    {      
+        return $this->hasMany('App\Models\RoleUser', 'user_id', 'id');
     }
 }

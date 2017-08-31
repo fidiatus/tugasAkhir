@@ -58,5 +58,16 @@ class PermissionTableSeeder extends Seeder
         foreach ($permission as $key => $value) {
         	Permission::create($value);
         }
+        /*test_admin*/
+        $user=User::all()->first();
+        $user->attachRole(1);
+
+        /*test_view*/
+        $user = User::find(2);
+        $user->attachRole(2);
+
+        /*test_manage*/
+        $user = User::find(3);
+        $user->attachRole(3);
     }
 }

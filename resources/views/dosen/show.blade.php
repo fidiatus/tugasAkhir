@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.apps')
 
 @section('content')
 <div class="container">
@@ -29,7 +29,7 @@
 		<div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Bidang:</strong>
-                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $dosen->bidang }}">
+                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $dosen->bidang->bidang }}">
             </div>
         </div>
     </div>

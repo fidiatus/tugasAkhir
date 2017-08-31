@@ -108,26 +108,24 @@ class UserController extends Controller
         $user->email=$request->email;
         $user->no_hp=$request->no_hp;
         $user->save();  
-
-        if (Auth::user()->roles()->first()->name == "Admin") {            
-            foreach ($request->input('roles') as $key => $value) {
+          
+        foreach ($request->input('roles') as $key => $value) {
               $user->attachRole($value);
-            }
+          }
         return redirect()->route('users.index')
                       ->with('success','User updated successfully');
-        }
-        
-        $input = $request->all();
-        $user = User::find($id);
-        $user->update($input);
-
-        if (Auth::user()->roles()->first()->name == "Kaprodi") {
-           return redirect()->route('users.show',Auth::id())->with('message','profile diupdate!');
-        }
-        if (Auth::user()->roles()->first()->name == "Mahasiswa") {
-           return redirect()->route('users.show',Auth::id())->with('message','profile diupdate!');
-        }        
     }
+        
+        // $input = $request->all();
+        // $user = User::find($id);
+        // $user->update($input);
+
+        // if (Auth::user()->roles()->first()->name == "Kaprodi") {
+        //    return redirect()->route('users.show',Auth::id())->with('message','profile diupdate!');
+        // }
+        // if (Auth::user()->roles()->first()->name == "Mahasiswa") {
+        //    return redirect()->route('users.show',Auth::id())->with('message','profile diupdate!');
+        // }        
     /**
      * Remove the specified resource from storage.
      * @param  int  $id

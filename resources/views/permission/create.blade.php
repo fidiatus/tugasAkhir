@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.apps')
 
 @section('content')
 <div class="container">
@@ -22,14 +22,14 @@
 		</div>
 	@endif
 	{!! Form::open(array('route' => 'permission.store','method'=>'POST')) !!}
-	<div class="row">
-		<div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Name:</strong>
                 {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
             </div>
         </div>
-		<div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Display Name:</strong>
                 {!! Form::text('display_name', null, array('placeholder' => 'Display Name','class' => 'form-control')) !!}
@@ -46,9 +46,9 @@
                 <strong>Roles:</strong>
                 <br/>
                 @foreach($role as $value)
-                	<label>{{ Form::checkbox('role[]', $value->id, false, array('class' => 'name')) }}
-                	{{ $value->display_name }}</label>
-                	<br/>
+                    <label>{{ Form::checkbox('role[]', $value->id, false, array('class' => 'name')) }}
+                    {{ $value->display_name }}</label>
+                    <br/>
                 @endforeach
             </div>
         </div>

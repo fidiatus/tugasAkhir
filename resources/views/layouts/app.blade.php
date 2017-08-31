@@ -55,10 +55,8 @@
                     <li><a href="{{ route('daftarpkl.index') }}">Daftar PKL</a></li>
                     <li><a href="{{ route('perusahaan.index') }}">Perusahaan</a></li>
                     <li><a href="{{ route('pembimbing.index') }}">Pembimbing</a></li>
-
                     <li><a href="{{ route('roles.index') }}">Roles</a></li>
                     <li><a href="{{ route('permission.index') }}">Permission</a></li>
-                    <li><a href="{{ route('permissionrole.index') }}">PermissionRole</a></li>
 
                 </ul>
 

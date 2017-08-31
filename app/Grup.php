@@ -10,6 +10,7 @@ class Grup extends Model
     protected $table = 'grup';
 
     public $fillable = [
+    'nama_grup'
     'prodi_id',
     'user_id'
     ];

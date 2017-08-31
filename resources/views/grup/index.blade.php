@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.apps')
 
 @section('content')
 <div class="container">
@@ -8,13 +8,6 @@
           <div class="panel-heading"><h4>Grup PKL Management</h4></div>
           
     <div class="panel-body">
-  <!-- ============= Tampilan Pencarian ============== -->
-      <div class="panel-body">
-        <form class="" action="" method="">
-            <input type="text" name="keyword" class="form-control" placeholder="Cari sesuatu ..">
-        </form>
-      </div>
-  <!-- =========== End =============== -->
 
       <div class="panel-body">
         <form class="" action="" method="">
@@ -29,6 +22,13 @@
         <p>{{ $message }}</p>
       </div>
     @endif
+  <!-- ============= Tampilan Pencarian ============== -->
+      <div class="panel-body">
+        <form class="" action="" method="">
+            <input type="text" name="keyword" class="form-control" placeholder="Cari sesuatu ..">
+        </form>
+      </div>
+  <!-- =========== End =============== -->
     <table class="table table-bordered">
       <thead>
         <tr> 

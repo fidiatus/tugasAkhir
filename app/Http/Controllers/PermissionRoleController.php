@@ -14,7 +14,7 @@ class PermissionRoleController extends Controller
 {
     public function index(Request $request)
     {
-        $permissionroles = PermissionRole::orderBy('role_id','ASC')
+        $permissionroles = PermissionRole::orderBy('permission_id','ASC')
                         ->paginate(5);
         return view('permissionrole.index',compact('permissionroles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.apps')
 
 @section('content')
 <div class="container">
@@ -8,13 +8,6 @@
           <div class="panel-heading"><h4>Perusahaan Management</h4></div>
           
     <div class="panel-body">
-  <!-- ============= Tampilan Pencarian ============== -->
-      <div class="panel-body">
-        <form class="" action="" method="">
-            <input type="text" name="keyword" class="form-control" placeholder="Cari sesuatu ..">
-        </form>
-      </div>
-  <!-- =========== End =============== -->
 
       <div class="panel-body">
         <form class="" action="" method="">
@@ -29,6 +22,13 @@
       <p>{{ $message }}</p>
     </div>
   @endif
+  <!-- ============= Tampilan Pencarian ============== -->
+      <div class="panel-body">
+        <form class="" action="" method="">
+            <input type="text" name="keyword" class="form-control" placeholder="Cari sesuatu ..">
+        </form>
+      </div>
+  <!-- =========== End =============== -->
     <table class="table table-bordered">
       <thead>
           <tr> 
@@ -37,9 +37,7 @@
             <th> Email </th>
             <th> Telp </th>
             <th> Alamat </th>
-      @if (!Auth::user()->roles()->first()->name == "Mahasiswa" || !Auth::user()->roles()->first()->name =="Dosen")
             <th> Aksi </th> 
-      @endif
           </tr>
       </thead>
       <tbody>
@@ -50,7 +48,6 @@
               <td>{{$perusahaan->email}}</td>
               <td>{{$perusahaan->telepon}}</td>
               <td>{{$perusahaan->alamat}}</td>
-    @if (!Auth::user()->roles()->first()->name == "Mahasiswa" || !Auth::user()->roles()->first()->name =="Dosen")
               <td>
                 <a class="btn btn-info" href="{{ route('perusahaan.show',$perusahaan->id) }}">Show</a>
                 <a class="btn btn-primary" href="{{ route('perusahaan.edit',$perusahaan->id) }}">Edit</a>
@@ -58,7 +55,6 @@
                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                   {!! Form::close() !!}
               </td> 
-    @endif
           </tr> 
         @endforeach
       </tbody>

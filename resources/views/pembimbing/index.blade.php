@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.apps')
 
 @section('content')
 <div class="container">
@@ -8,6 +8,21 @@
           <div class="panel-heading"><h4>Pembimbing Management</h4></div>
           
     <div class="panel-body">
+
+      <div class="panel-body">
+        <form class="" action="" method="">
+        <a class="btn btn-success" href="{{ route('pembimbing.create') }}"> Create New Pembimbing</a>
+        <a class="btn btn-success" href="{{ route('pembimbing/pdf') }}"> Report PDF</a>
+        </form>
+      </div>
+
+  <!-- ========== tampilan Data =================== -->
+    <div class="well clearfix">
+  @if ($message = Session::get('success'))
+    <div class="alert alert-success">
+      <p>{{ $message }}</p>
+    </div>
+  @endif
   <!-- ============= Tampilan Pencarian ============== -->
       <div class="panel-body">
         <form class="" action="" method="">
@@ -15,44 +30,25 @@
         </form>
       </div>
   <!-- =========== End =============== -->
-
-      <div class="panel-body">
-        <form class="" action="" method="">
-        <a class="btn btn-success" href="{{ route('pembimbing.create') }}"> Create New Pembimbing</a>
-        </form>
-      </div>
-
-  <!-- ========== tampilan Data =================== -->
-    <div class="well clearfix">
-      @if (count($errors) > 0)
-      <div class="alert alert-danger">
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-        <ul>
-          @foreach ($errors->all() as $error)
-            <p>{{ $message }}</p>
-          @endforeach
-        </ul>
-      </div>
-    @endif
     <table class="table table-bordered">
       <thead>
         <tr> 
           <th> ID </th>
           <th> NIM </th> 
           <th> Nama Mahasiswa</th>
-          <th> Kelas </th>
+          <th> Tempat PKL </th>
           <th> Nama Dosen </th>
           <th> Prodi </th>
           <th> Aksi </th> 
         </tr>
       </thead>
       <tbody>
-      @foreach($pembimbings as $pembimbing)
+      @foreach($data as $pembimbing)
         <tr>
           <td>{{$pembimbing->id}} </td>
-          <td>{{$pembimbing->user->no_induk}}</td>
-          <td>{{$pembimbing->user->nama_user}}</td>
-          <td>{{$pembimbing->kelas}}</td>
+          <td>{{$pembimbing->nim}}</td>
+          <td>{{$pembimbing->nama_mhs}}</td>
+          <td>{{$pembimbing->daftarpkl->}}</td>
           <td>{{$pembimbing->dosen->nama_dosen}}</td>
           <td>{{$pembimbing->prodi->prodi}}</td>
           <td> 
@@ -66,7 +62,7 @@
       @endforeach
     </tbody>
   </table>
-        {!! $pembimbings->links() !!} 
+        {!! $data->links() !!} 
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.apps')
 
 @section('content')
 <div class="container">
@@ -8,13 +8,6 @@
 	        <div class="panel-heading"><h4>Roles Management</h4></div>
           
     <div class="panel-body">
-	<!-- ============= Tampilan Pencarian ============== -->
-      <div class="panel-body">
-        <form class="" action="" method="">
-            <input type="text" name="keyword" class="form-control" placeholder="Cari sesuatu ..">
-        </form>
-      </div>
-	<!-- =========== End =============== -->
 
       <div class="panel-body">
         <form class="" action="" method="">
@@ -29,23 +22,28 @@
 			<p>{{ $message }}</p>
 		</div>
 	@endif
+	<!-- ============= Tampilan Pencarian ============== -->
+      <div class="panel-body">
+        <form class="" action="" method="">
+            <input type="text" name="keyword" class="form-control" placeholder="Cari sesuatu ..">
+        </form>
+      </div>
+	<!-- =========== End =============== -->
 	<table class="table table-bordered">
 		<tr>
-			<th>No</th>
+			<th>ID</th>
 			<th>Name</th>
 			<th>Description</th>
 			<th width="280px">Action</th>
 		</tr>
-	@foreach ($roles as $key => $role)
+	@foreach ($roles as $role)
 	<tr>
-		<td>{{ ++$i }}</td>
+		<td>{{ $role->id }}</td>
 		<td>{{ $role->display_name }}</td>
 		<td>{{ $role->description }}</td>
 		<td>
 			<a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Show</a>
-			@permission('role-edit')
 			<a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Edit</a>
-			@endpermission
 			@permission('role-delete')
 			{!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
             {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}

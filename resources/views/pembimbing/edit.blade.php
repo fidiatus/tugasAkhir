@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.apps')
 
 @section('content')
 <div class="container">
@@ -22,11 +22,11 @@
 	<div class="row">
 	<div class="form-group">
 		<label class="col-md-4">NIM</label>
-             {!!Form::select('user_id', $user, $pembimbing->user_id,array('class' => 'form-control' ));!!} 
+		{!! Form::text('nim', null, array('placeholder' => 'nim','class' => 'form-control')) !!}
 	</div>
 	<div class="form-group">
 		<label class="col-md-4">Nama Mahasiswa</label>
-             {!!Form::select('users_id', $users, $pembimbing->users_id,array('class' => 'form-control' ));!!} 
+		{!! Form::text('nama_mhs', null, array('placeholder' => 'nama mahasiswa','class' => 'form-control')) !!}
 	</div>
 	<div class="form-group">
 		<label class="col-md-4">Kelas</label>
@@ -34,11 +34,11 @@
 	</div>
 	<div class="form-group">
 		<label class="col-md-4">Nama Dosen</label>
-             {!!Form::select('dosen_id', $dosen, $pembimbing->dosen_id,array('class' => 'form-control' ));!!} 
+             {!!Form::select('dosen_id', $dosen, null,array('class' => 'form-control' ));!!} 
 	</div>
 	<div class="form-group">
 		<label class="col-md-4"> Prodi </label>
-             {!!Form::select('prodi_id', $prodi, $pembimbing->prodi_id,array('class' => 'form-control' ));!!} 
+             {!!Form::select('prodi_id', $prodi, null,array('class' => 'form-control' ));!!} 
 	</div>
 
 	<div class="col-xs-12 col-sm-12 col-md-12 text-center">

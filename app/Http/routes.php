@@ -63,6 +63,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::delete('bidang/{id}',['as'=>'bidang.destroy','uses'=>'BidangController@destroy','middleware' => ['role:Admin']]);
 
 	// ======================================================================================
+	
 	Route::get('dosen',['as'=>'dosen.index','uses'=>'DosenController@index','middleware' => ['role:Admin']]);	
 	Route::get('dosen/create',['as'=>'dosen.create','uses'=>'DosenController@create','middleware' => ['role:Admin']]);
 	Route::post('dosen/create',['as'=>'dosen.store','uses'=>'DosenController@store','middleware' => ['role:Admin']]);
@@ -79,7 +80,8 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('pembimbing/{id}',['as'=>'pembimbing.show','uses'=>'PembimbingController@show']);
 	Route::get('pembimbing/{id}/edit',['as'=>'pembimbing.edit','uses'=>'PembimbingController@edit','middleware' => ['role:Admin']]);
 	Route::patch('pembimbing/{id}',['as'=>'pembimbing.update','uses'=>'PembimbingController@update','middleware' => ['role:Admin']]);
-	Route::delete('pembimbing/{id}',['as'=>'pembimbing.destroy','uses'=>'PembimbingController@destroy','middleware' => ['role:Admin']]);
+	Route::delete('pembimbing/{id}',['as'=>'pembimbing.destroy','uses'=>'PembimbingController@destroy','middleware' => ['role:Admin']]);	
+	Route::get('/pembimbing/pdf',['as'=>'pembimbing/pdf','uses'=>'PembimbingController@getPdf','middleware' => ['role:Admin']]);
 
 	// ====================================================================================
 
@@ -90,15 +92,6 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('perusahaan/{id}/edit',['as'=>'perusahaan.edit','uses'=>'PerusahaanController@edit','middleware' => ['role:Admin']]);
 	Route::patch('perusahaan/{id}',['as'=>'perusahaan.update','uses'=>'PerusahaanController@update','middleware' => ['role:Admin']]);
 	Route::delete('perusahaan/{id}',['as'=>'perusahaan.destroy','uses'=>'PerusahaanController@destroy','middleware' => ['role:Admin']]);
-
-	// =====================================================================================
-
-	Route::get('permission-role',['as'=>'permissionrole.index','uses'=>'PermissionRoleController@index','middleware' => ['role:Admin']]);
-	Route::get('permission-role/create',['as'=>'permissionrole.create','uses'=>'PermissionRoleController@create','middleware' => ['role:Admin']]);
-	Route::post('permission-role/create',['as'=>'permissionrole.store','uses'=>'PermissionRoleController@store','middleware' => ['role:Admin']]);
-	Route::get('permission-role/permission/{permissionId}/role/{roleId}/edit', ['as'=>'permissionrole.edit','uses'=>'PermissionRoleController@edit','middleware' => ['role:Admin']]);
-	Route::patch('permission-role/permission/{permissionId}/role/{roleId}/edit', ['as'=>'permissionrole.update','uses'=>'PermissionRoleController@update','middleware' => ['role:Admin']]);
-	Route::get('permission-role/permission/{permissionId}/role/{roleId}/show',['as'=>'permissionrole.show','uses'=>'PermissionRoleController@show','middleware' => ['role:Admin']]);
 
 	// =====================================================================================
 	
@@ -131,5 +124,18 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('pkl/{id}/edit',['as'=>'daftarpkl.edit','uses'=>'DaftarPklController@edit','middleware' => ['role:Admin|Mahasiswa']]);
 	Route::patch('pkl/{id}/edit',['as'=>'daftarpkl.update','uses'=>'DaftarPklController@update','middleware' => ['role:Admin|Mahasiswa']]);
 	Route::patch('pkl/{id}',['as'=>'daftarpkl.destroy','uses'=>'DaftarPklController@destroy','middleware' => ['role:Admin']]);
-	Route::delete('pkl/{id}',['as'=>'daftarpkl.destroy','uses'=>'DaftarPklController@destroy','middleware' => ['role:Admin']]);
+	Route::get('/daftarpkl/pdf',array('as'=>'daftarpkl/pdf','uses'=>'DaftarPklController@getPdf'));
+	Route::post('pkl/importExcel',['as'=>'daftarpkl.importExcel','uses'=>'DaftarPklController@importExcel','middleware' => ['role:Admin']]);
+	Route::get('pkl/importExport',['as'=>'daftarpkl.importExport','uses'=>'DaftarPklController@importExport','middleware' => ['role:Admin']]);
+	Route::get('pkl/downloadExcel',['as'=>'daftarpkl.downloadExcel','uses'=>'DaftarPklController@downloadExcel','middleware' => ['role:Admin']]);
+	
+	// =======================================================================================
+
+	Route::get('bidangpkl',['as'=>'bidangpkl.index','uses'=>'BidangPklController@index','middleware' => ['role:Admin']]);	
+	Route::get('bidangpkl/create',['as'=>'bidangpkl.create','uses'=>'BidangPklController@create','middleware' => ['role:Admin']]);
+	Route::post('bidangpkl/create',['as'=>'bidangpkl.store','uses'=>'BidangPklController@store','middleware' => ['role:Admin']]);
+	Route::get('bidanpklg/{id}',['as'=>'bidangpkl.show','uses'=>'BidangPklController@show']);
+	Route::get('bidangpkl/{id}/edit',['as'=>'bidangpkl.edit','uses'=>'BidangPklController@edit','middleware' => ['role:Admin']]);
+	Route::patch('bidangpkl/{id}',['as'=>'bidangpkl.update','uses'=>'BidangPklController@update','middleware' => ['role:Admin']]);
+	Route::delete('bidangpkl/{id}',['as'=>'bidangpkl.destroy','uses'=>'BidangPklController@destroy','middleware' => ['role:Admin']]);
 });

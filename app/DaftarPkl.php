@@ -9,8 +9,10 @@ class DaftarPkl extends Model
     protected $table = 'daftar_pkl';
 
     protected $fillable = [
+        'nim',
+        'nama_mhs',
     	'prodi_id',
-    	'grup_id',
+    	'bidangpkl_id',
     	'perusahaan_id',
     	'nama_proyek',
     	'semester',
@@ -22,6 +24,11 @@ class DaftarPkl extends Model
     public function prodi()
     {
         return $this->hasOne(Prodi::class);
+    }
+
+    public function bidangpkl()
+    {
+        return $this->hasOne(BidangPkl::class);
     }
 
     public function grup()

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.apps')
 
 @section('content')
 <div class="container">
@@ -8,13 +8,6 @@
           <div class="panel-heading"><h4>Dosen Management</h4></div>
           
     <div class="panel-body">
-  <!-- ============= Tampilan Pencarian ============== -->
-      <div class="panel-body">
-        <form class="" action="" method="">
-            <input type="text" name="keyword" class="form-control" placeholder="Cari sesuatu ..">
-        </form>
-      </div>
-  <!-- =========== End =============== -->
 
       <div class="panel-body">
         <form class="" action="" method="">
@@ -29,10 +22,17 @@
         <p>{{ $message }}</p>
       </div>
     @endif
+  <!-- ============= Tampilan Pencarian ============== -->
+      <div class="panel-body">
+        <form class="" action="" method="">
+            <input type="text" name="keyword" class="form-control" placeholder="Cari sesuatu ..">
+        </form>
+      </div>
+  <!-- =========== End =============== -->
         <table class="table table-bordered">
           <thead>
             <tr> 
-              <th> ID </th>
+              <th> No </th>
               <th> Nip </th> 
               <th> Nama </th>
               <th> Bidang </th>
@@ -40,12 +40,12 @@
             </tr>
           </thead>
           <tbody>
-          @foreach($dosens as $dosen)
+          @foreach($dosens as $key => $dosen)
             <tr>
-              <td>{{$dosen->id}} </td>
+              <td>{{ ++$i }} </td>
               <td>{{$dosen->nip}}</td>
               <td>{{$dosen->nama_dosen}}</td>
-              <td>{{$dosen->bidang->bidang}}</td>
+              <td>{{$dosen->bidang_id}}</td>
               <td> 
               <a class="btn btn-info" href="{{ route('dosen.show',$dosen->id) }}">Show</a>
               <a class="btn btn-primary" href="{{ route('dosen.edit',$dosen->id) }}">Edit</a>

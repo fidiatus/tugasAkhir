@@ -9,10 +9,11 @@ use App\Http\Controllers\Controller;
 
 class DosenController extends Controller
 {
-	public function index() 
+	public function index(Request $request) 
 	{
-		$dosens = Dosen::orderBy('id','DESC')->paginate(5);
-        return view('dosen.index',compact('dosens'));
+		$dosens =  Dosen::orderBy('id','DESC')->paginate(5);
+        return view('dosen.index',compact('dosens'))
+            ->with('i', ($request->input('page', 1) - 1) * 5);
 	}
 	public function create()
 	{
@@ -22,15 +23,15 @@ class DosenController extends Controller
 	public function store(Request $request)
 	{
 		$this->validate($request, [
-        'nip' => 'required|numeric',
+        'nip' => 'required|numeric|unique:dosen',
         'nama_dosen' => 'required',
         'bidang_id' => 'required',
     ]);  
-        $dosen = new Dosen();
-        $dosen->nip = $request->input('nip');
-        $dosen->nama_dosen = $request->input('nama_dosen');
-        $dosen->bidang_id = $request->input('bidang_id');
-        $dosen->save();
+		$dosen = new Dosen();
+		$dosen->nip = $request->nip;
+		$dosen->nama_dosen = $request->nama_dosen;
+		$dosen->bidang_id = $request->bidang_id;
+		$dosen->save();
 
         Dosen::create($request->all());
 
@@ -44,23 +45,24 @@ class DosenController extends Controller
 	}
 	public function edit($id)
 	{
+		$dosen=Dosen::find($id);
         $bidang= Bidang::lists('bidang','id');
-		return view('dosen.edit',compact('bidang'));
+		return view('dosen.edit',compact('bidang','dosen'));
 	}
 	public function update(Request $request, $id)
 	{
 		$this->validate($request, [
-        'nip' => 'required|numeric',
+        'nip' => 'required|numeric|unique:dosen',
         'nama_dosen' => 'required',
         'bidang_id' => 'required',
     	]);
-        $dosen = Dosen::find($id);
-        $dosen->nip = $request->input('nip');
-        $dosen->nama_dosen = $request->input('nama_dosen');
-        $dosen->bidang_id = $request->input('bidang_id');
-        $dosen->save();
+		$dosen = Dosen::find($id);
+		$dosen->nip = $request->nip;
+		$dosen->nama_dosen = $request->nama_dosen;
+		$dosen->bidang_id = $request->bidang_id;
+		$dosen->save();
 
-		Dosen::find($id)->update($request->all());
+		// Dosen::find($id)->update($request->all());
         return redirect()->route('dosen.index')
         				->with('message','profile dosen telah di edit!');
 	}

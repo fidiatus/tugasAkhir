@@ -15,4 +15,10 @@ class Dosen extends Model
     ];
     
     public $timestamps = false;
+    
+    public function bidang()
+    {
+        return $this->belongsTo(Bidang::class);
+    }
+
 }

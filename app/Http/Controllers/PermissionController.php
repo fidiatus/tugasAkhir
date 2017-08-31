@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Role;
 use App\Permission;
 use DB;
+use Hash;
 
 class PermissionController extends Controller
 {
@@ -29,8 +30,8 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        $roles = Role::get();
-        return view('permission.create',compact('roles'));
+        $role = Role::get();
+        return view('permission.create',compact('role'));
     }
     /**
      * Store a newly created resource in storage.
@@ -51,11 +52,14 @@ class PermissionController extends Controller
         $permission->display_name = $request->input('display_name');
         $permission->description = $request->input('description');
         $permission->save();
+        
         foreach ($request->input('role') as $key => $value) {
             $permission->attachRole($value);
         }
+
         return redirect()->route('permission.index')
                         ->with('success','permission created successfully');
+
     }
     /**
      * Display the specified resource.
@@ -68,7 +72,7 @@ class PermissionController extends Controller
         $permissionRole = Role::join("role_user","role_user.role_id","=","roles.id")
             ->where("role_user.role_id",$id)
             ->get();
-        return view('permission.show',compact('permissions','permissionRole'));
+        return view('permission.show',compact('permission','permissionRole'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -78,12 +82,12 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
+        $permission = Permission::find($id);
         $role = Role::get();
-        $permissions = Permission::find($id);
         $permissionRole = DB::table("permission_role")
             ->where("permission_role.permission_id",$id)
             ->lists('permission_role.role_id','permission_role.role_id');
-        return view('permission.edit',compact('permissions','role','permissionRole'));
+        return view('permission.edit',compact('permission','role','permissionRole'));
     }
     /**
      * Update the specified resource in storage.
@@ -109,11 +113,11 @@ class PermissionController extends Controller
             ->where("permission_role.permission_id",$id)
             ->delete();
             
-        foreach ($request->input('permission') as $key => $value) {
-            $role->attachPermission($value);
+        foreach ($request->input('role') as $key => $value) {
+            $permission->attachRole($value);
         }
         return redirect()->route('permission.index')
-                        ->with('success','Role created successfully');
+                        ->with('success','Permission updated successfully');
     }
     /**
      * Remove the specified resource from storage.

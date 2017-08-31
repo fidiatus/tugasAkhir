@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.apps')
 
  
 @section('content')
@@ -9,13 +9,6 @@
 	        <div class="panel-heading"><h4>Users Management</h4></div>
           
     <div class="panel-body">
-	<!-- ============= Tampilan Pencarian ============== -->
-      <div class="panel-body">
-        <form class="" action="" method="">
-            <input type="text" name="keyword" class="form-control" placeholder="Cari sesuatu ..">
-        </form>
-      </div>
-	<!-- =========== End =============== -->
 
       <div class="panel-body">
         <form class="" action="" method="">
@@ -30,13 +23,14 @@
 			<p>{{ $message }}</p>
 		</div>
 	@endif
-        <div class="title_right">
-              <div class="panel-body">
-                <form class="" action="" method="">
-                    <input type="text" name="search" class="form-control" v-model="search" placeholder="Cari ..">
-                </form>
-              </div>
-	    </div>
+        
+	<!-- ============= Tampilan Pencarian ============== -->
+      <div class="panel-body">
+        <form class="" action="" method="">
+            <input type="text" name="keyword" class="form-control" placeholder="Cari sesuatu ..">
+        </form>
+      </div>
+	<!-- =========== End =============== -->
 	<table class="table table-bordered">
 		<tr>
 			<th>No</th>
@@ -58,11 +52,11 @@
 			@endif
 		</td>
 		<td>		
-			<a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Show</a>
-			<a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a>
+			<a href="{{ route('users.show',$user->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-folder"></i> Show</a>
+			<a href="{{ route('users.edit',$user->id) }}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i> Edit</a>
 			{!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
-            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-        	{!! Form::close() !!}
+            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
+        	{!! Form::close() !!}        	
 		</td>
 	</tr>
 	@endforeach

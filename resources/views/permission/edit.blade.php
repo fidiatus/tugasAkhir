@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.apps')
 
 @section('content')
 <div class="container">
@@ -21,7 +21,7 @@
 			</ul>
 		</div>
 	@endif
-	{!! Form::model($permissions, ['method' => 'patch','route' => ['permission.update', $permissions->id]]) !!}
+	{!! Form::model($permission, ['method' => 'PATCH','route' => ['permission.update', $permission->id]]) !!}
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
@@ -43,7 +43,15 @@
                 {!! Form::textarea('description', null, array('placeholder' => 'Description','class' => 'form-control','style'=>'height:100px')) !!}
             </div>
         </div>
-        
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Roles:</strong>
+                @foreach($role as $value)
+                	<label>{{ Form::checkbox('role[]', $value->id, in_array($value->id, $permissionRole) ? true : false, array('class' => 'name')) }}
+                	{{ $value->display_name }}</label>
+                @endforeach
+            </div>
+        </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
 				<button type="submit" class="btn btn-primary">Submit</button>
         </div>

@@ -1,21 +1,22 @@
-@extends('layouts.app')
+@extends('layouts.apps')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
-                
-            <div class="panel-body">
-                <div class="pull-center" align="center">
-                    <h4> Sistem Informasi Praktek Kerja Lapangan </h4><br/>
-                    <h3>Jurusan Teknik Sipil Politeknik Negeri Padang</h3>
-                </div>
-            </div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Sistem Informasi Praktek Kerja Lapangan Jurusan Teknik Sipil</h2>
+        <div class="clearfix"></div>
+      </div>
 
+      <div class="panel-body">
+            <div align="center">
+                <h3> Selamat datang Di Sistem Jurusan Teknik Sipil</h3>
+                <h4> Politeknik Negeri Padang</h4>
+                <img src="images/img.png" alt="..." class="img-circle profile_img" >
             </div>
-        </div>
+      </div>
     </div>
+  </div>
 </div>
 @endsection

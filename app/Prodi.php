@@ -20,4 +20,9 @@ class Prodi extends Model
     {
     	return $this->hasMany(DaftarPkl::class);
     }
+
+    public function grup()
+    {
+        return $this->hasMany(Grup::class);
+    }
 }

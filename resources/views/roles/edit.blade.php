@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layouts.apps')
 
 @section('content')
 <div class="container">
@@ -38,11 +38,12 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Permission:</strong>
-                <br/>
+                <br/>               
                 @foreach($permission as $value)
-                	<label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
-                	{{ $value->display_name }}</label>
-                	<br/>
+                <label>
+                {{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
+                {{ $value->display_name }}
+                </label><br/>
                 @endforeach
             </div>
         </div>

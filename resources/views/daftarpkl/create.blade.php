@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.apps')
 
 @section('content')
 <div class="container">
@@ -8,62 +8,57 @@
           <div class="panel-heading"><h4>PKL Management</h4></div>
           
     <div class="panel-body">
-    @if (!Auth::user()->roles()->first()->name == "Mahasiswa" || !Auth::user()->roles()->first()->name =="Dosen")
           <div class="panel-body">
               <a class="btn btn-primary" href="{{ route('daftarpkl.index') }}"> Back</a>
           </div>
-    @endif
-  @if (count($errors) > 0)
-    <div class="alert alert-danger">
-      <strong>Whoops!</strong> There were some problems with your input.<br><br>
-      <ul>
-        @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
-  @endif
   {!! Form::open(array('route' => 'daftarpkl.store','method'=>'POST')) !!}
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>Prodi :</strong>
-             {!!Form::select('prodi_id', $prodi, 'S');!!} 
+      <div class="form-group {{ $errors->has('nim') ? ' has-error' : '' }}">
+        <strong>Nim :</strong>
+          {!! Form::text('nim', null, array('placeholder' => 'NIM','class' => 'form-control')) !!} 
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="form-group {{ $errors->has('prodi_id') ? ' has-error' : '' }}">
+        <strong>Prodi :</strong>
+          {!!Form::select('prodi_id', $prodi,null, array('placeholder' => 'prodi','class' => 'form-control'));!!} 
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="form-group {{ $errors->has('bidangpkl_id') ? ' has-error' : '' }}">
+        <strong>Bidang PKL :</strong>
+          {!!Form::select('bidangpkl_id', $bidangpkl,null, array('class' => 'form-control' ));!!} 
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="form-group">
+        <strong>Perusahaan :</strong>  
+          {!!Form::select('perusahaan_id', $perusahaan,null, array('class' => 'form-control' ));!!} 
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>Grup :</strong>
-             {!!Form::select('grup_id', $grup, 'S');!!} 
-        </div>
+      <div class="form-group">
+        <strong>Nama Proyek :</strong>  
+          {!! Form::text('nama_proyek', null, array('placeholder' => 'Nama Proyek','class' => 'form-control')) !!} 
+      </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>Perusahaan :</strong>  
-             {!!Form::select('perusahaan_id', $perusahaan, 'S');!!} 
-        </div>
+      <div class="form-group">
+        <strong>Semester :</strong>  
+          {!! Form::text('semester', null, array('placeholder' => 'Semester','class' => 'form-control')) !!}
+      </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>Nama Proyek :</strong>  
-             {!!Form::select('perusahaan_id', $perusahaan, 'S');!!} 
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>Semester :</strong>  
-             {!!Form::select('perusahaan_id', $perusahaan, 'S');!!} 
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>Tahun Ajaran :</strong>
-                {!! Form::text('tahun_ajaran', null, array('placeholder' => 'Tahun Ajaran','class' => 'form-control')) !!}
-        </div>
+      <div class="form-group">
+        <strong>Tahun Ajaran :</strong>
+          {!! Form::text('tahun_ajaran', null, array('placeholder' => 'Tahun Ajaran','class' => 'form-control')) !!}
+      </div>
     </div>
   	<div class="col-xs-12 col-sm-12 col-md-12 text-center">
-          <button type="submit" class="btn btn-primary">Submit</button>
-     </div>
+      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
   </div>
 </div>
   {!! Form::close() !!}
