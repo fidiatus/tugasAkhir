@@ -25,35 +25,40 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>NIM Mahasiswa :</strong>
-                {!! Form::text('nim', null, array('placeholder' => 'NIM Mahasiswa','class' => 'form-control')) !!}
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
             <strong>Nama Mahasiswa :</strong>
                 {!! Form::text('nama_mhs', null, array('placeholder' => 'Nama Mahasiswa','class' => 'form-control')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Kelas :</strong>
-                {!! Form::text('kelas', null, array('placeholder' => 'Kelas','class' => 'form-control')) !!}
+            <strong>NIM :</strong>
+                {!! Form::text('nim', null, array('placeholder' => 'NIM','class' => 'form-control')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Nama Dosen :</strong>
-             {!!Form::select('dosen_id', $dosen, null,array('class' => 'form-control'));!!}
+            <strong>Bidang Praktek Kerja lapangan :</strong>
+                {!! Form::select('bidangpkl_id', $bidangpkl, null,array('class' => 'form-control')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Prodi :</strong>  
-             {!!Form::select('prodi_id', $prodi, null,array('class' => 'form-control'));!!} 
+            <strong>Program Studi :</strong>  
+             {!!Form::select('prodi_id', $prodi, null,array('class' => 'form-control'))!!} 
         </div>
     </div>
-    
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Nama Proyek :</strong>  
+             {!!Form::select('daftarpkl_id', $daftarpkl, null,array('class' => 'form-control'))!!} 
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Nama Dosen Pembimbing:</strong>
+             {!!Form::select('dosen_id', $dosen, null,array('class' => 'form-control'))!!}
+        </div>
+    </div>    
 	<div class="col-xs-12 col-sm-12 col-md-12 text-center">
         <button type="submit" class="btn btn-primary">Submit</button>
    </div>

@@ -16,38 +16,38 @@
 	<div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Prodi:</strong>
-                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $daftarpkl->prodi }}">
+                <strong>Nama Mahasiswa:</strong>
+                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $daftarpkl->nma_mhs }}">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Grup:</strong>
-                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $daftarpkl->grup }}">
+                <strong>NIM:</strong>
+                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $daftarpkl->nim }}">
             </div>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Prodi:</strong>
+                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $daftarpkl->prodi_id }}">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Bidang Praktek Kerja Lapangan:</strong>
+                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $daftarpkl->bidangpkl_id }}">            
+            </div>
+        </div>  
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Nama Perusahaan:</strong>
-                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $daftarpkl->perusahaan }}">            
+                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $daftarpkl->perusahaan_id }}">            
             </div>
         </div>  
-        <div class="col-xs-12 col-sm-12 col-md-12">
+		<div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Nama Proyek:</strong>
-                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $daftarpkl->perusahaan }}">            
-            </div>
-        </div>  
-		<div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Semester:</strong>
-                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $daftarpkl->semester }}">
-            </div>
-        </div>
-		<div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Tahun Ajaran:</strong>
-                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $daftarpkl->tahun_ajaran }}">
+                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $daftarpkl->daftarpkl_id }}">
             </div>
         </div>
     </div>

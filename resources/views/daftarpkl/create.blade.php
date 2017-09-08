@@ -5,14 +5,17 @@
  <div class="row">
       <div class="col-md-13 col-sm-13 col-xs-16">
       <div class="panel panel-default">
-          <div class="panel-heading"><h4>PKL Management</h4></div>
+          <div class="panel-heading"><h4>Daftar Praktek Kerja Lapangan</h4></div>
           
     <div class="panel-body">
-          <div class="panel-body">
-              <a class="btn btn-primary" href="{{ route('daftarpkl.index') }}"> Back</a>
-          </div>
   {!! Form::open(array('route' => 'daftarpkl.store','method'=>'POST')) !!}
   <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="form-group {{ $errors->has('nim') ? ' has-error' : '' }}">
+        <strong>Nama Mahasiswa :</strong>
+          {!! Form::text('nama_mhs', null, array('placeholder' => 'Nama Mahasiswa','class' => 'form-control')) !!} 
+      </div>
+    </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
       <div class="form-group {{ $errors->has('nim') ? ' has-error' : '' }}">
         <strong>Nim :</strong>
@@ -21,8 +24,8 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
       <div class="form-group {{ $errors->has('prodi_id') ? ' has-error' : '' }}">
-        <strong>Prodi :</strong>
-          {!!Form::select('prodi_id', $prodi,null, array('placeholder' => 'prodi','class' => 'form-control'));!!} 
+        <strong>Program Studi :</strong>
+          {!!Form::select('prodi_id', $prodi,null, array('class' => 'form-control'));!!} 
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -46,7 +49,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
       <div class="form-group">
         <strong>Semester :</strong>  
-          {!! Form::text('semester', null, array('placeholder' => 'Semester','class' => 'form-control')) !!}
+          {!! Form::select('semester', ['ganjil' => 'Ganjil' , 'genap' => 'Genap'], array('class' => 'form-control')) !!}
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -56,7 +59,6 @@
       </div>
     </div>
   	<div class="col-xs-12 col-sm-12 col-md-12 text-center">
-      <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <button type="submit" class="btn btn-primary">Submit</button>
     </div>
   </div>

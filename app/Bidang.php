@@ -9,7 +9,7 @@ class Bidang extends Model
     protected $table = 'bidang';
 
     protected $fillable = [
-    	'bidang'
+    	'nama_bidang'
     ];
 
     public $timestamps = false;
@@ -17,5 +17,9 @@ class Bidang extends Model
     public function user()
     {
     	return $this->hasMany(User::class);
+    }
+    public function dosen()
+    {
+    	return $this->hasMany(Dosen::class);
     }
 }

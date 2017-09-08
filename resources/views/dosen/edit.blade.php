@@ -16,7 +16,7 @@
 			{{ ($errors->has('Nip')) ? $errors->first('Nip'):''}}<br/>
 		</div>
 		<div class="form-group">
-			<label class="col-md-4">Nama</label>
+			<label class="col-md-4">Nama Dosen</label>
 			{!! Form::text('nama_dosen', null, array('placeholder' => 'nama','class' => 'form-control')) !!}
 			{{ ($errors->has('Nama Dosen')) ? $errors->first('Nama Dosen'):''}}<br/>			
 		</div>

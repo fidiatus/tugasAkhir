@@ -51,7 +51,7 @@
     @if (Auth::user()->roles()->first()->name == "Mahasiswa" || "Admin")
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Prodi:</strong>
+                <strong>Program Studi:</strong>
              {!!Form::select('prodi_id', $prodi, 'S');!!} 
             </div>
         </div>

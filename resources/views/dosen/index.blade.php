@@ -23,18 +23,24 @@
       </div>
     @endif
   <!-- ============= Tampilan Pencarian ============== -->
-      <div class="panel-body">
-        <form class="" action="" method="">
-            <input type="text" name="keyword" class="form-control" placeholder="Cari sesuatu ..">
-        </form>
-      </div>
+      
+    <div class="title_right">
+      <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+      {!! Form::open(['route'=>'dosen.index','method'=>'GET','class'=>'navbar-form navbar-right','role'=>'search'])!!}
+        <div class="input-grup">
+        {!!Form::text('term',Request::get('term'),['class'=>'form-control','placeholder'=>'Search...'])!!}
+        <span class="input-btn-group">
+            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button></span> 
+        </div>
+      </div></div>
+      {!! Form::close()!!}
   <!-- =========== End =============== -->
         <table class="table table-bordered">
           <thead>
             <tr> 
               <th> No </th>
               <th> Nip </th> 
-              <th> Nama </th>
+              <th> Nama Dosen </th>
               <th> Bidang </th>
               <th> Aksi </th> 
             </tr>
@@ -45,12 +51,35 @@
               <td>{{ ++$i }} </td>
               <td>{{$dosen->nip}}</td>
               <td>{{$dosen->nama_dosen}}</td>
-              <td>{{$dosen->bidang_id}}</td>
+              <td>{{$dosen->bidang->nama_bidang}}</td>
+              @permission('edit-dosen')
               <td> 
               <a class="btn btn-info" href="{{ route('dosen.show',$dosen->id) }}">Show</a>
               <a class="btn btn-primary" href="{{ route('dosen.edit',$dosen->id) }}">Edit</a>
-              {!! Form::open(['method' => 'DELETE','route' => ['dosen.destroy', $dosen->id],'style'=>'display:inline']) !!}
+              @endpermission
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg{{$dosen->id}}">Delete</button>
+
+                  <div class="modal fade bs-example-modal-lg{{$dosen->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                          <h4>Text in a modal</h4>
+                          <p>{{$dosen->id}}</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          {!! Form::open(['method' => 'DELETE','route' => ['dosen.destroy', $dosen->id],'style'=>'display:inline']) !!}
                 {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                </div>
+                </div>
+                </div>
+                </div>
               {!! Form::close() !!}
               </td> 
             </tr> 

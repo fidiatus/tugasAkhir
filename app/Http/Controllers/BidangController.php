@@ -8,9 +8,17 @@ use App\Http\Controllers\Controller;
 
 class BidangController extends Controller
 {
-	public function index() 
+	public function index(Request $request) 
 	{
-		$bidangs = Bidang::orderBy('id','DESC')->paginate(5);
+		$bidangs = Bidang::where(function($query) use ($request)
+        {
+            if( ($term=$request ->get('term'))) {
+                $query->orWhere('nams_bidang','like','%'.$term.'%');
+            }
+        })
+        ->orderBy('id','DESC')
+        ->paginate(5);
+        
         return view('bidang.index',compact('bidangs'));
 	}
 	public function create()
@@ -20,7 +28,7 @@ class BidangController extends Controller
 	public function store(Request $request)
 	{
 		$this->validate($request, [
-        'bidang' => 'required',
+        'nama_bidang' => 'required',
     ]);        
         Bidang::create($request->all());
 
@@ -40,7 +48,7 @@ class BidangController extends Controller
 	public function update(Request $request, $id)
 	{
 		$this->validate($request, [
-        'bidang' => 'required',
+        'nama_bidang' => 'required',
     	]);
 
 		Bidang::find($id)->update($request->all());

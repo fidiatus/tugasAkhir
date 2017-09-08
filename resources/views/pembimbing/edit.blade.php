@@ -21,24 +21,28 @@
 	{!! Form::model($pembimbing, ['method' => 'patch','route' => ['pembimbing.update', $pembimbing->id]]) !!}
 	<div class="row">
 	<div class="form-group">
-		<label class="col-md-4">NIM</label>
-		{!! Form::text('nim', null, array('placeholder' => 'nim','class' => 'form-control')) !!}
-	</div>
-	<div class="form-group">
 		<label class="col-md-4">Nama Mahasiswa</label>
 		{!! Form::text('nama_mhs', null, array('placeholder' => 'nama mahasiswa','class' => 'form-control')) !!}
 	</div>
 	<div class="form-group">
-		<label class="col-md-4">Kelas</label>
-		{!! Form::text('kelas', null, array('placeholder' => 'Kelas','class' => 'form-control')) !!}
+		<label class="col-md-4">NIM</label>
+		{!! Form::text('nim', null, array('placeholder' => 'nim','class' => 'form-control')) !!}
 	</div>
 	<div class="form-group">
-		<label class="col-md-4">Nama Dosen</label>
-             {!!Form::select('dosen_id', $dosen, null,array('class' => 'form-control' ));!!} 
+		<label class="col-md-4">Bidang PKL</label>
+		{!! Form::text('bidangpkl_id', null, array('placeholder' => 'Bidang PKL','class' => 'form-control')) !!}
 	</div>
 	<div class="form-group">
-		<label class="col-md-4"> Prodi </label>
+		<label class="col-md-4"> Program Studi </label>
              {!!Form::select('prodi_id', $prodi, null,array('class' => 'form-control' ));!!} 
+	</div>
+	<div class="form-group">
+		<label class="col-md-4"> Nama Proyek </label>
+             {!!Form::select('daftarpkl_id', $daftarpkl, null,array('class' => 'form-control' ));!!} 
+	</div>
+	<div class="form-group">
+		<label class="col-md-4">Nama Dosen pembimbing</label>
+             {!!Form::select('dosen_id', $dosen, null,array('class' => 'form-control' ));!!} 
 	</div>
 
 	<div class="col-xs-12 col-sm-12 col-md-12 text-center">

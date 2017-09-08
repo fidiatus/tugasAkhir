@@ -5,7 +5,7 @@
  <div class="row">
       <div class="col-md-13 col-sm-13 col-xs-16">
       <div class="panel panel-default">
-          <div class="panel-heading"><h4>Daftar PKL</h4></div>
+          <div class="panel-heading"><h4>Update Daftar Praktek Kerja Lapangan</h4></div>
           
     <div class="panel-body">
 	@if (count($errors) > 0)
@@ -21,12 +21,20 @@
 	{!! Form::model($daftarpkl, ['method' => 'patch','route' => ['daftarpkl.update', $daftarpkl->id]]) !!}
 	<div class="row">
 	<div class="form-group">
-		<label class="col-md-4"> Prodi </label>
+	        <label class="col-md-4">Nama Mahasiswa :</label>
+	          {!! Form::text('nama_mhs', null, array('placeholder' => 'Nama Mahasiswa','class' => 'form-control')) !!} 
+    </div>
+	<div class="form-group">
+	        <label class="col-md-4">Nim :</label>
+	          {!! Form::text('nim', null, array('placeholder' => 'NIM','class' => 'form-control')) !!} 
+    </div>
+	<div class="form-group">
+		<label class="col-md-4"> Program Studi </label>
              {!!Form::select('prodi_id', $prodi, $daftarpkl->prodi_id,array('class' => 'form-control' ));!!} 
 	</div>
 	<div class="form-group">
-		<label class="col-md-4"> Grup </label>
-             {!!Form::select('grup_id', $grup, $daftarpkl->grup_id,array('class' => 'form-control' ));!!} 
+		<label class="col-md-4">Bidang PKL</label>
+             {!!Form::select('bidangpkl_id', $bidangpkl, $daftarpkl->bidangpkl_id,array('class' => 'form-control' ));!!} 
 	</div>
 	<div class="form-group">
 		<label class="col-md-4">Perusahaan</label>

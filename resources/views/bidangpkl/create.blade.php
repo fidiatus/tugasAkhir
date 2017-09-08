@@ -25,7 +25,7 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Bidang PKL:</strong>
+                <strong>Nama Bidang Praktek Kerja Lapangan :</strong>
                 {!! Form::text('bidang_pkl', null, array('placeholder' => 'Bidang PKL','class' => 'form-control')) !!}
             </div>
         </div>

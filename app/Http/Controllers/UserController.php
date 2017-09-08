@@ -17,7 +17,19 @@ class UserController extends Controller
 {
      public function index(Request $request)
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
+        $data = User::where(function($query) use ($request)
+        {
+            if( ($term=$request ->get('term'))) {
+                $query->orWhere('no_induk','like','%'.$term.'%');
+                $query->orWhere('nama_user','like','%'.$term.'%');
+                $query->orWhere('username','like','%'.$term.'%');
+                $query->orWhere('email','like','%'.$term.'%');
+                $query->orWhere('no_hp','like','%'.$term.'%');
+            }
+        })
+        ->orderBy('id','DESC')
+        ->paginate(5);
+        
         return view('users.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -28,7 +40,7 @@ class UserController extends Controller
     public function create()
     {
         $prodi = Prodi::lists('prodi','id');    //prodi= field di tabelprodi
-        $bidang = Bidang::lists('bidang','id'); //id= field id yang di panggil
+        $bidang = Bidang::lists('nama_bidang','id'); //id= field id yang di panggil
         $roles = Role::lists('name','id');
         return view('users.create',compact('prodi','bidang','roles'));
     }
@@ -42,9 +54,6 @@ class UserController extends Controller
         $this->validate($request, [
             'no_induk' => 'required|numeric',
             'nama_user' => 'required',
-            'username' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'no_hp' => 'required|digits_between:8,12',
             'password' => 'same:confirm-password',
             'roles' => 'required',
         ]);
@@ -77,7 +86,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $prodi = Prodi::lists('prodi','id');
-        $bidang = Bidang::lists('bidang','id');
+        $bidang = Bidang::lists('nama_bidang','id');
         $roles = Role::lists('name','id');
 
         $user = User::find($id);
@@ -109,23 +118,33 @@ class UserController extends Controller
         $user->no_hp=$request->no_hp;
         $user->save();  
           
-        foreach ($request->input('roles') as $key => $value) {
-              $user->attachRole($value);
-          }
+        if (Auth::user()->roles()->first()->name == "Admin") 
+        {              
+            $input = $request->all();
+            if(!empty($input['password'])){ 
+                $input['password'] = Hash::make($input['password']);
+            }else{
+                $input = array_except($input,array('password'));    
+            }
+            $user = User::find($id);
+            $user->update($input);
+            DB::table('role_user')->where('user_id',$id)->delete();
+
+            foreach ($request->input('roles') as $key => $value) {
+                $user->attachRole($value);
+            }
+        
         return redirect()->route('users.index')
                       ->with('success','User updated successfully');
-    }
-        
-        // $input = $request->all();
-        // $user = User::find($id);
-        // $user->update($input);
+        }
 
-        // if (Auth::user()->roles()->first()->name == "Kaprodi") {
-        //    return redirect()->route('users.show',Auth::id())->with('message','profile diupdate!');
-        // }
-        // if (Auth::user()->roles()->first()->name == "Mahasiswa") {
-        //    return redirect()->route('users.show',Auth::id())->with('message','profile diupdate!');
-        // }        
+        if (Auth::user()->roles()->first()->name == "Kaprodi") {
+           return redirect()->route('users.show',Auth::id())->with('message','profile Dosen updated!');
+        }
+        if (Auth::user()->roles()->first()->name == "Mahasiswa") {
+           return redirect()->route('users.show',Auth::id())->with('message','profile Mahasiswa updated!');
+        }      
+    }       
     /**
      * Remove the specified resource from storage.
      * @param  int  $id

@@ -3,8 +3,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Auth;
+use PDF;
 use App\Dosen;
-use App\User;
+use App\BidangPkl;
 use App\Role;
 use App\Prodi;
 use App\DaftarPkl;
@@ -15,35 +17,50 @@ class PembimbingController extends Controller
 {
 	public function index(Request $request) 
 	{
-        $data = Pembimbing::orderBy('id','DESC')->paginate(5);
+        $data = Pembimbing::where(function($query) use ($request)
+        {
+            if( ($term=$request ->get('term'))) {
+                $query->orWhere('nama_mhs','like','%'.$term.'%');
+                $query->orWhere('nim','like','%'.$term.'%');
+                $query->orWhere('bidangpkl_id','like','%'.$term.'%');
+                $query->orWhere('prodi_id','like','%'.$term.'%');
+                $query->orWhere('daftarpkl_id','like','%'.$term.'%');
+                $query->orWhere('dosen_id','like','%'.$term.'%');
+            }
+        })
+        ->orderBy('id','DESC')
+        ->paginate(5);
+        
         return view('pembimbing.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
 	}
 	public function create()
 	{
-        $user= new User;
-        $mahasiswa = Role::with('users')->where('name','Mahasiswa')->first();
         $dosen= Dosen::lists('nama_dosen','id');
+        $bidangpkl= BidangPkl::lists('bidang_pkl','id');
         $prodi= Prodi::lists('prodi','id');
         $daftarpkl= DaftarPkl::lists('nama_proyek','id');
-		return view('pembimbing.create',compact('mahasiswa','dosen','prodi','daftarpkl'));
+		return view('pembimbing.create',compact('bidangpkl','dosen','prodi','daftarpkl'));
 	}
 	public function store(Request $request)
 	{
 		$this->validate($request, [
-        'user_id' => 'required',
-        'kelas' => 'required',
-        'dosen_id' => 'required',
+        'nama_mhs' => 'required',
+        'nim' => 'required',
+        'bidangpkl_id' => 'required',
         'prodi_id' => 'required',
         'daftarpkl_id' => 'required',
+        'dosen_id' => 'required',
 
     ]);  
         $pembimbing = new Pembimbing();
-        $pembimbing->user_id = $request->input('user_id');
-        $pembimbing->kelas = $request->input('kelas');
-        $pembimbing->dosen_id = $request->input('dosen_id');
+        $pembimbing->user_id = $request->user()->id;
+        $pembimbing->nama_mhs = $request->nama_mhs;
+        $pembimbing->nim = $request->nim;
+        $pembimbing->bidangpkl_id = $request->input('bidangpkl_id');
         $pembimbing->prodi_id = $request->input('prodi_id');
         $pembimbing->daftarpkl_id = $request->input('daftarpkl_id');
+        $pembimbing->dosen_id = $request->input('dosen_id');
         $pembimbing->save();
 
         Pembimbing::create($request->all());
@@ -58,32 +75,29 @@ class PembimbingController extends Controller
 	}
 	public function edit($id)
 	{
-        $user= User::lists('no_induk','id');
-        $users= User::lists('nama_user','id');
         $dosen= Dosen::lists('nama_dosen','id');
         $prodi= Prodi::lists('prodi','id');
         $daftarpkl= Prodi::lists('nama_proyek','id');
 
         $pembimbing = Pembimbing::find($id);
-		return view('pembimbing.edit',compact('user','users','dosen','prodi','daftarpkl','pembimbing'));
+		return view('pembimbing.edit',compact('dosen','prodi','daftarpkl','pembimbing'));
 	}
 	public function update(Request $request, $id)
 	{
 		$this->validate($request, [
-        'user_id' => 'required|numeric',
-        'users_id' => 'required',
-        'kelas' => 'required',
-        'dosen_id' => 'required',
-        'prodi_id' => 'required',
-        'daftarpkl_id' => 'required',
+            'nama_mhs' => 'required',
+            'nim' => 'required|numeric',
+            'prodi_id' => 'required',
+            'daftarpkl_id' => 'required',
+            'dosen_id' => 'required',
     ]);  
         $pembimbing = Pembimbing::find($id);
         $pembimbing->user_id = $request->input('user_id');
-        $pembimbing->users_id = $request->input('users_id');
-        $pembimbing->kelas = $request->input('kelas');
-        $pembimbing->dosen_id = $request->input('dosen_id');
+        $pembimbing->nama_mhs = $request->nama_mhs;
+        $pembimbing->nim = $request->nim;
         $pembimbing->prodi_id = $request->input('prodi_id');
         $pembimbing->daftarpkl_id = $request->input('daftarpkl_id');
+        $pembimbing->dosen_id = $request->input('dosen_id');
         $pembimbing->save();
 
 		Pembimbing::find($id)->update($request->all());
@@ -99,53 +113,15 @@ class PembimbingController extends Controller
 
     public function getPdf(Request $request)
     {
+        $dosen= Dosen::lists('nama_dosen','id');
+        $bidangpkl= BidangPkl::lists('bidang_pkl','id');
+        $prodi= Prodi::lists('prodi','id');
+        $daftarpkl= DaftarPkl::lists('nama_proyek','id');
         $pembimbing = Pembimbing::all();
 
-        $pdf = PDF::loadView('pembimbing/pdf',compact('pembimbing'))
+        $pdf = PDF::loadView('pembimbing.pdf',compact('dosen','bidangpkl','prodi','daftarpkl','pembimbing'))
                 ->setPaper('a4', 'Landscape');
                 
-            return $pdf->download('pembimbing.pdf');
-    }
-
-    public function importExport()
-    {
-        return view('pembimbing.importExport');
-    }
-
-    public function downloadExcel($type)
-    {
-        $data = Pembimbing::get()->toArray();
-        return Excel::create('itsolutionstuff_example', function($excel) use ($data) {
-            $excel->sheet('mySheet', function($sheet) use ($data)
-            {
-                $sheet->fromArray($data);
-            });
-        })->download($type);
-    }
-
-    public function importExcel()
-    {
-        if(Input::hasFile('import_file')){
-            $path = Input::file('import_file')->getRealPath();
-            $data = Excel::load($path, function($reader) {
-            })->get();
-            if(!empty($data) && $data->count()){
-                foreach ($data as $key => $value) {
-                    $insert[] = [
-                    'user_id' => $value->user_id, 
-                    'kelas' => $value->kelas,
-                    'dosen_id' => $value->dosen_id,
-                    'prodi_id' => $value->prodi_id,
-                    'daftarpkl_id' => $value->daftarpkl_id
-                    ];
-                }
-                if(!empty($insert)){
-                    DB::table('pembimbing')->insert($insert);
-                    dd('Insert Data successfully.');
-                }
-            }
-        }
-        return redirect()->route('pembimbing.index')
-                        ->with('message','Data telah di diimport!');
+            return $pdf->stream('pembimbing.pdf');
     }
 }

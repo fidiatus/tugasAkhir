@@ -11,13 +11,23 @@ class DosenController extends Controller
 {
 	public function index(Request $request) 
 	{
-		$dosens =  Dosen::orderBy('id','DESC')->paginate(5);
+		$dosens = Dosen::where(function($query) use ($request)
+		{
+			if( ($term=$request ->get('term'))) {
+				$query->orWhere('nip','like','%'.$term.'%');
+				$query->orWhere('nama_dosen','like','%'.$term.'%');
+				$query->orWhere('bidang_id','like','%'.$term.'%');
+			}
+		})
+
+		->orderBy('id','DESC')
+		->paginate(5);
         return view('dosen.index',compact('dosens'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
 	}
 	public function create()
 	{
-        $bidang= Bidang::lists('bidang','id');
+        $bidang= Bidang::lists('nama_bidang','id');
 		return view('dosen.create',compact('bidang'));
 	}
 	public function store(Request $request)
@@ -46,7 +56,7 @@ class DosenController extends Controller
 	public function edit($id)
 	{
 		$dosen=Dosen::find($id);
-        $bidang= Bidang::lists('bidang','id');
+        $bidang= Bidang::lists('nama_bidang','id');
 		return view('dosen.edit',compact('bidang','dosen'));
 	}
 	public function update(Request $request, $id)

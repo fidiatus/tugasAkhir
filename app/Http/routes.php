@@ -42,17 +42,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::patch('prodi/{id}',['as'=>'prodi.update','uses'=>'ProdiController@update','middleware' => ['role:Admin']]);
 	Route::delete('prodi/{id}',['as'=>'prodi.destroy','uses'=>'ProdiController@destroy','middleware' => ['role:Admin']]);
 
-	// =======================================================================================
-
-	Route::get('grup',['as'=>'grup.index','uses'=>'GrupController@index','middleware' => ['role:Admin']]);
-	Route::get('grup/create',['as'=>'grup.create','uses'=>'GrupController@create','middleware' => ['role:Admin']]);
-	Route::post('grup/create',['as'=>'grup.store','uses'=>'GrupController@store','middleware' => ['role:Admin']]);
-	Route::get('grup/{id}',['as'=>'grup.show','uses'=>'GrupController@show']);
-	Route::get('grup/{id}/edit',['as'=>'grup.edit','uses'=>'GrupController@edit','middleware' => ['role:Admin']]);
-	Route::patch('grup/{id}',['as'=>'grup.update','uses'=>'GrupController@update','middleware' => ['role:Admin']]);
-	Route::delete('grup/{id}',['as'=>'grup.destroy','uses'=>'GrupController@destroy','middleware' => ['role:Admin']]);
-
-	// ========================================================================================
+	// =====================================================================================
 
 	Route::get('bidang',['as'=>'bidang.index','uses'=>'BidangController@index','middleware' => ['role:Admin']]);	
 	Route::get('bidang/create',['as'=>'bidang.create','uses'=>'BidangController@create','middleware' => ['role:Admin']]);
@@ -74,18 +64,26 @@ Route::group(['middleware' => ['auth']], function() {
 
 	// ========================================================================================
 
-	Route::get('pembimbing',['as'=>'pembimbing.index','uses'=>'PembimbingController@index','middleware' => ['role:Admin']]);	
-	Route::get('pembimbing/create',['as'=>'pembimbing.create','uses'=>'PembimbingController@create','middleware' => ['role:Admin']]);
-	Route::post('pembimbing/create',['as'=>'pembimbing.store','uses'=>'PembimbingController@store','middleware' => ['role:Admin']]);
+	Route::get('pembimbing',['as'=>'pembimbing.index','uses'=>'PembimbingController@index','middleware' => ['role:Admin|Kaprodi']]);	
+	
+	Route::get('pembimbing/create',['as'=>'pembimbing.create','uses'=>'PembimbingController@create','middleware' => ['role:Admin|Kaprodi']]);
+	
+	Route::post('pembimbing/create',['as'=>'pembimbing.store','uses'=>'
+		PembimbingController@store','middleware' => ['role:Admin|Kaprodi']]);
+	
 	Route::get('pembimbing/{id}',['as'=>'pembimbing.show','uses'=>'PembimbingController@show']);
-	Route::get('pembimbing/{id}/edit',['as'=>'pembimbing.edit','uses'=>'PembimbingController@edit','middleware' => ['role:Admin']]);
-	Route::patch('pembimbing/{id}',['as'=>'pembimbing.update','uses'=>'PembimbingController@update','middleware' => ['role:Admin']]);
-	Route::delete('pembimbing/{id}',['as'=>'pembimbing.destroy','uses'=>'PembimbingController@destroy','middleware' => ['role:Admin']]);	
-	Route::get('/pembimbing/pdf',['as'=>'pembimbing/pdf','uses'=>'PembimbingController@getPdf','middleware' => ['role:Admin']]);
+	
+	Route::get('pembimbing/{id}/edit',['as'=>'pembimbing.edit','uses'=>'PembimbingController@edit','middleware' => ['role:Admin|Kaprodi']]);
+	
+	Route::patch('pembimbing/{id}',['as'=>'pembimbing.update','uses'=>'PembimbingController@update','middleware' => ['role:Admin|Kaprodi']]);
+	
+	Route::delete('pembimbing/{id}',['as'=>'pembimbing.destroy','uses'=>'PembimbingController@destroy','middleware' => ['role:Admin|Kaprodi']]);	
+	
+	Route::get('/pembimbing/pdf',['as'=>'pembimbing.pdf','uses'=>'PembimbingController@getPdf','middleware' => ['role:Admin|Kaprodi']]);
 
 	// ====================================================================================
 
-	Route::get('perusahaan',['as'=>'perusahaan.index','uses'=>'PerusahaanController@index','middleware' => ['role:Admin']]);	
+	Route::get('perusahaan',['as'=>'perusahaan.index','uses'=>'PerusahaanController@index','middleware' => ['role:Admin|Mahasiswa|Kaprodi']]);	
 	Route::get('perusahaan/create',['as'=>'perusahaan.create','uses'=>'PerusahaanController@create','middleware' => ['role:Admin']]);
 	Route::post('perusahaan/create',['as'=>'perusahaan.store','uses'=>'PerusahaanController@store','middleware' => ['role:Admin']]);
 	Route::get('perusahaan/{id}',['as'=>'perusahaan.show','uses'=>'PerusahaanController@show']);
@@ -110,24 +108,24 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::post('users/create',['as'=>'users.create','uses'=>'UserController@create','middleware' => ['role:Admin']]);
 	Route::post('users/handle-index',['as'=>'users.handleIndex','uses'=>'UserController@handleIndex','middleware' => ['role:Admin']]);
 	Route::post('users/create',['as'=>'users.store','uses'=>'UserController@store','middleware' => ['role:Admin']]);
-	Route::get('users/{id}/edit',['as'=>'users.edit','uses'=>'UserController@edit','middleware' => ['role:Admin|Mahasiswa|Dosen']]);
-	Route::patch('users/{id}',['as'=>'users.update','uses'=>'UserController@update','middleware' => ['role:Admin|Dosen|Mahasiswa']]);
+	Route::get('users/{id}/edit',['as'=>'users.edit','uses'=>'UserController@edit','middleware' => ['role:Admin|Mahasiswa|Kaprodi']]);
+	Route::patch('users/{id}',['as'=>'users.update','uses'=>'UserController@update','middleware' => ['role:Admin|Kaprodi|Mahasiswa']]);
 	Route::delete('users/{id}',['as'=>'users.destroy','uses'=>'UserController@destroy','middleware' => ['role:Admin']]);
 	Route::patch('users/{id}',['as'=>'users.destroy','uses'=>'UserController@destroy','middleware' => ['role:Admin']]);
 
 	// =====================================================================================
 
-	Route::get('pkl',['as'=>'daftarpkl.index','uses'=>'DaftarPklController@index','middleware' => ['role:Admin|Dosen']]);
+	Route::get('pkl',['as'=>'daftarpkl.index','uses'=>'DaftarPklController@index','middleware' => ['role:Admin|Kaprodi']]);
 	Route::get('pkl/create',['as'=>'daftarpkl.create','uses'=>'DaftarPklController@create','middleware' => ['role:Admin|Mahasiswa']]);
 	Route::post('pkl/create',['as'=>'daftarpkl.store','uses'=>'DaftarPklController@store','middleware' => ['role:Admin|Mahasiswa']]);
-	Route::get('pkl/{id}',['as'=>'daftarpkl.show','uses'=>'DaftarPklController@show','middleware' => ['role:Admin|Mahasiswa']]);
+	Route::get('pkl/{id}',['as'=>'daftarpkl.show','uses'=>'DaftarPklController@show','middleware' => ['role:Admin']]);
 	Route::get('pkl/{id}/edit',['as'=>'daftarpkl.edit','uses'=>'DaftarPklController@edit','middleware' => ['role:Admin|Mahasiswa']]);
 	Route::patch('pkl/{id}/edit',['as'=>'daftarpkl.update','uses'=>'DaftarPklController@update','middleware' => ['role:Admin|Mahasiswa']]);
-	Route::patch('pkl/{id}',['as'=>'daftarpkl.destroy','uses'=>'DaftarPklController@destroy','middleware' => ['role:Admin']]);
-	Route::get('/daftarpkl/pdf',array('as'=>'daftarpkl/pdf','uses'=>'DaftarPklController@getPdf'));
-	Route::post('pkl/importExcel',['as'=>'daftarpkl.importExcel','uses'=>'DaftarPklController@importExcel','middleware' => ['role:Admin']]);
-	Route::get('pkl/importExport',['as'=>'daftarpkl.importExport','uses'=>'DaftarPklController@importExport','middleware' => ['role:Admin']]);
-	Route::get('pkl/downloadExcel',['as'=>'daftarpkl.downloadExcel','uses'=>'DaftarPklController@downloadExcel','middleware' => ['role:Admin']]);
+	Route::patch('daftarpkl/{id}',['as'=>'daftarpkl.destroy','uses'=>'DaftarPklController@destroy','middleware' => ['role:Admin']]);
+	Route::get('/daftarpkl/pdf',array('as'=>'daftarpkl.pdf','uses'=>'DaftarPklController@getPdf','middleware' => ['role:Admin|Kaprodi']));
+	// Route::post('pkl/importExcel',['as'=>'daftarpkl.importExcel','uses'=>'DaftarPklController@importExcel','middleware' => ['role:Admin']]);
+	// Route::get('pkl/importExport',['as'=>'daftarpkl.importExport','uses'=>'DaftarPklController@importExport','middleware' => ['role:Admin']]);
+	// Route::get('pkl/downloadExcel',['as'=>'daftarpkl.downloadExcel','uses'=>'DaftarPklController@downloadExcel','middleware' => ['role:Admin']]);
 	
 	// =======================================================================================
 

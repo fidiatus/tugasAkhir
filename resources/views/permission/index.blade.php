@@ -23,11 +23,17 @@
 		</div>
 	@endif
 	<!-- ============= Tampilan Pencarian ============== -->
-      <div class="panel-body">
-        <form class="" action="" method="">
-            <input type="text" name="keyword" class="form-control" placeholder="Cari sesuatu ..">
-        </form>
-      </div>
+  
+    <div class="title_right">
+      <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+      {!! Form::open(['route'=>'permission.index','method'=>'GET','class'=>'navbar-form navbar-right','role'=>'search'])!!}
+        <div class="input-grup">
+        {!!Form::text('term',Request::get('term'),['class'=>'form-control','placeholder'=>'Search...'])!!}
+        <span class="input-btn-group">
+            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button></span> 
+        </div>
+      </div></div>
+      {!! Form::close()!!}
 	<!-- =========== End =============== -->
 
 		<table class="table table-bordered">
@@ -45,9 +51,30 @@
 			<td>
 				<a class="btn btn-info" href="{{ route('permission.show',$permission->id) }}">Show</a>
 				<a class="btn btn-primary" href="{{ route('permission.edit',$permission->id) }}">Edit</a>
-				{!! Form::open(['method' => 'DELETE','route' => ['permission.destroy', $permission->id],'style'=>'display:inline']) !!}
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg{{$permission->id}}">Delete</button>
+
+                  <div class="modal fade bs-example-modal-lg{{$permission->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                          <h4>Text in a modal</h4>
+                          <p>{{$permission->id}}</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          {!! Form::open(['method' => 'DELETE','route' => ['permission.destroy', $permission->id],'style'=>'display:inline']) !!}
 	            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
 	        	{!! Form::close() !!}
+	        	</div>
+	        	</div>
+	        	</div>
+	        	</div>
 			</td>
 		</tr>
 		@endforeach

@@ -11,8 +11,10 @@
 
       <div class="panel-body">
         <form class="" action="" method="">
+        @permission('create-pkl')
         <a class="btn btn-success" href="{{ route('daftarpkl.create') }}"> Create New PKL</a>
-        <a class="btn btn-success" href="{{ route('daftarpkl/pdf') }}"> Report PDF</a>
+        @endpermission
+        <a class="btn btn-success" href="{{ route('daftarpkl.pdf') }}"><i class="fa fa-download"></i> Report PDF</a>
         </form>
       </div>
 
@@ -24,47 +26,75 @@
     </div>
   @endif
   <!-- ============= Tampilan Pencarian ============== -->
-      <div class="panel-body">
-        <form class="" action="" method="">
-            <input type="text" name="keyword" class="form-control" placeholder="Cari sesuatu ..">
-        </form>
-      </div>
+      
+    <div class="title_right">
+      <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+      {!! Form::open(['route'=>'daftarpkl.index','method'=>'GET','class'=>'navbar-form navbar-right','role'=>'search'])!!}
+        <div class="input-grup">
+        {!!Form::text('term',Request::get('term'),['class'=>'form-control','placeholder'=>'Search...'])!!}
+        <span class="input-btn-group">
+            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button></span> 
+        </div>
+      </div></div>
+      {!! Form::close()!!}
   <!-- =========== End =============== -->
     <table class="table table-bordered">
       <thead>
           <tr> 
-            <th> ID </th>
-            <th> Prodi </th> 
-            <th> Grup </th>
+            <th> No </th>
+            <th> Nama Mahasiswa </th> 
+            <th> No.BP </th>
+            <th> Prodi</th>
+            <th> Bidang PKL</th>
             <th> perusahaan </th>
             <th> Nama Proyek</th>
-            <th> semester</th>
-            <th> Tahun Ajaran </th>
-      @if (!Auth::user()->roles()->first()->name == "Kaprodi")
+            @permission('delete-pkl')
             <th> Aksi </th> 
-      @endif
+      @endpermission
           </tr>
       </thead>
       <tbody>
-    @foreach($daftarpkls as $daftarpkl)
+    @foreach($daftarpkls as $key => $daftarpkl)
         <tr>
-          <td>{{$daftarpkl->id}} </td>
-          <td>{{$daftarpkl->prodi->nama_prodi}}</td>
-          <td>{{$daftarpkl->grup_id}}</td>
+          <td>{{++$i}} </td>
+          <td>{{$daftarpkl->nama_mhs}} </td>
+          <td>{{$daftarpkl->nim}} </td>
+          <td>{{$daftarpkl->prodi->prodi}}</td>
+          <td>{{$daftarpkl->bidangpkl->bidang_pkl}} </td>
           <td>{{$daftarpkl->perusahaan->nama_perusahaan}}</td>
           <td>{{$daftarpkl->nama_proyek}}</td>
-          <td>{{$daftarpkl->semester}}</td>
-          <td>{{$daftarpkl->tahun_ajaran}}</td>
-
-    @if (!Auth::user()->roles()->first()->name == "Kaprodi")
+    @permission('edit-pkl')
           <td> 
           <a class="btn btn-info" href="{{ route('daftarpkl.show',$daftarpkl->id) }}">Show</a>
           <a class="btn btn-primary" href="{{ route('daftarpkl.edit',$daftarpkl->id) }}">Edit</a>
-          {!! Form::open(['method' => 'DELETE','route' => ['daftarpkl.destroy', $pkl->id],'style'=>'display:inline']) !!}
+          @endpermission
+          @permission('delete-pkl')
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg{{$daftarpkl->id}}">Delete</button>
+
+                  <div class="modal fade bs-example-modal-lg{{$daftarpkl->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel">Message</h4>
+                        </div>
+                        <div class="modal-body">
+                          <h4> Warning !!</h4>
+                          <p>{{$daftarpkl->id}}</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          {!! Form::open(['method' => 'DELETE','route' => ['daftarpkl.destroy', $daftarpkl->id],'style'=>'display:inline']) !!}
             {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+            </div>
+            </div>
+            </div>
+            </div>
           {!! Form::close() !!}
           </td> 
-    @endif
+          @endpermission
         </tr> 
     @endforeach
       </tbody>

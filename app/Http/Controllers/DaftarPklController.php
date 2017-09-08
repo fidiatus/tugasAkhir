@@ -7,18 +7,36 @@ use App\DaftarPkl;
 use App\Perusahaan;
 use App\Prodi;
 use App\BidangPkl;
+use App\Role;
+use App\User;
 use DB;
 use Auth;
-use Excel;
+use PDF;
 use App\Http\Requests;
 
 class DaftarPklController extends Controller
 {
-    public function index()
+    public function index(Request $request)
 	{
-        $daftarpkls = DB::table('daftarpkl');
-		$daftarpkls = DaftarPkl::orderBy('id','ASC')->paginate(8);
-        return view('daftarpkl.index', compact('daftarpkls'));
+        $daftarpkls = DaftarPkl::where(function($query) use ($request)
+		{
+			if( ($term=$request ->get('term'))) {
+				$query->orWhere('nama_mhs','like','%'.$term.'%');
+				$query->orWhere('nim','like','%'.$term.'%');
+				$query->orWhere('prodi_id','like','%'.$term.'%');
+				$query->orWhere('bidangpkl_id','like','%'.$term.'%');
+				$query->orWhere('perusahaan_id','like','%'.$term.'%');
+				$query->orWhere('nama_proyek','like','%'.$term.'%');
+				$query->orWhere('semester','like','%'.$term.'%');
+				$query->orWhere('tahun_ajaran','like','%'.$term.'%');
+			}
+		})
+
+		->orderBy('id','DESC')
+		->paginate(5);
+		
+        return view('daftarpkl.index', compact('daftarpkls'))
+            ->with('i', ($request->input('page', 1) - 1) * 5);
 	}
 	public function create()
 	{
@@ -30,8 +48,8 @@ class DaftarPklController extends Controller
 	public function store(Request $request)
 	{
 		$this->validate($request, [
-	        'nim' => 'required|numeric',
 	        'nama_mhs' => 'required',
+	        'nim' => 'required|numeric',
 	        'prodi_id' => 'required',
 	        'bidangpkl_id' => 'required',
 	        'perusahaan_id' => 'required',
@@ -41,8 +59,9 @@ class DaftarPklController extends Controller
 	    ]);
 		
 		$daftarpkl = new DaftarPkl();
-		$daftarpkl->nim = $request->nim;
+		$daftarpkl->user_id = $request->user()->id;
 		$daftarpkl->nama_mhs = $request->nama_mhs;
+		$daftarpkl->nim = $request->nim;
 		$daftarpkl->prodi_id = $request->prodi_id;
 		$daftarpkl->bidangpkl_id = $request->bidangpkl_id;
 		$daftarpkl->perusahaan_id = $request->perusahaan_id;
@@ -52,20 +71,23 @@ class DaftarPklController extends Controller
 		$daftarpkl->save();
 
   		if (Auth::user()->roles()->first()->name == "Mahasiswa") {
-            return redirect()->route('daftarpkl.show',Auth::id())->with('message','Data PKL Disimpan!');
+            return redirect()->route('daftarpkl.edit',Auth::id())->with('message','Data PKL Disimpan!');
         }
         return redirect()->route('daftarpkl.index')->with('message','Data pkl Inserted!');
 	}
 	public function show($id)
 	{
         $daftarpkl=DaftarPkl::find($id);
+        if (!$daftarpkl) {
+        	abort(403);
+        	}
 		return view('daftarpkl.show',compact('daftarpkl'));
 	}
 	public function edit($id)
 	{
         $perusahaan = Perusahaan::lists('nama_perusahaan','id');
         $prodi = Prodi::lists('prodi','id');
-        $bidangpkl= BidangPklbidangpkl::get();
+        $bidangpkl= BidangPkl::lists('bidang_pkl');
 
         $daftarpkl = DaftarPkl::find($id);
 
@@ -74,8 +96,8 @@ class DaftarPklController extends Controller
 	public function update(Request $request, $id)
 	{
 		$this->validate($request, [
-	        'nim' => 'required|numeric',
 	        'nama_mhs' => 'required',
+	        'nim' => 'required|numeric',
 	        'prodi_id' => 'required',
 	        'bidangpkl_id' => 'required',
 	        'perusahaan_id' => 'required',
@@ -85,8 +107,8 @@ class DaftarPklController extends Controller
 	    ]);
 		
 		$daftarpkl = DaftarPkl::find($id);
-		$daftarpkl->nim = $request->nim;
 		$daftarpkl->nama_mhs = $request->nama_mhs;
+		$daftarpkl->nim = $request->nim;
 		$daftarpkl->prodi_id = $request->prodi_id;
 		$daftarpkl->bidangpkl_id = $request->bidangpkl_id;
 		$daftarpkl->perusahaan_id = $request->perusahaan_id;
@@ -101,7 +123,7 @@ class DaftarPklController extends Controller
         return redirect()->route('daftarpkl.index')
                         ->with('message','Data pkl telah di edit!');
 	}
-	public function destroy($pkl)
+	public function destroy($daftarpkl)
 	{
 		$daftarpkl=DaftarPkl::find($id)->delete();
 		return redirect()->route('daftarpkl.index')
@@ -110,56 +132,14 @@ class DaftarPklController extends Controller
 
 	public function getPdf(Request $request)
     {
+        $prodi= Prodi::lists('prodi','id');
+        $perusahaan= Perusahaan::lists('nama_perusahaan','id');
+        $bidangpkl= BidangPkl::lists('bidang_pkl');
         $daftarpkl = DaftarPkl::all();
 
-        $pdf = PDF::loadView('daftarpkl/pdf',compact('daftarpkl'))
+        $pdf = PDF::loadView('daftarpkl.pdf',compact('prodi','perusahaan','bidangpkl','daftarpkl'))
                 ->setPaper('a4', 'Landscape');
                 
             return $pdf->download('daftarpkl.pdf');
     }
-
-    public function importExport()
-    {
-        return view('daftarpkl.importExport');
-    }
-
-    public function downloadExcel($type)
-    {
-        $data = Pembimbing::get()->toArray();
-        return Excel::create('itsolutionstuff_example', function($excel) use ($data) {
-            $excel->sheet('mySheet', function($sheet) use ($data)
-            {
-                $sheet->fromArray($data);
-            });
-        })->download($type);
-    }
-
-    public function importExcel()
-    {
-        if(Input::hasFile('import_file')){
-            $path = Input::file('import_file')->getRealPath();
-            $data = Excel::load($path, function($reader) {
-            })->get();
-            if(!empty($data) && $data->count()){
-                foreach ($data as $key => $value) {
-                    $insert[] = [
-                    'nim' => $value->nim,
-                    'prodi_id' => $value->prodi_id,
-			        'bidangpkl_id' => $value->bidangpkl_id,
-			        'perusahaan_id' => $value->perusahaan_id,
-			        'nama_proyek' => $value->nama_proyek,
-			        'semester' => $value->semester,
-			        'tahun_ajaran' => $value->tahun_ajaran
-                    ];
-                }
-                if(!empty($insert)){
-                    DB::table('daftar-pkl')->insert($insert);
-                    dd('Insert Data successfully.');
-                }
-            }
-        }
-        return redirect()->route('daftarpkl.index')
-                        ->with('message','Data telah di diimport!');
-    }
-
 }

@@ -27,13 +27,15 @@
             <div class="form-group">
                 <strong>Name:</strong>
                 {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                {{ ($errors->has('Name')) ? $errors->first('Name'):''}}<br/>
             </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Display Name:</strong>
-                {!! Form::text('display_name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                {!! Form::text('display_name', null, array('placeholder' => 'Display Name','class' => 'form-control')) !!}
+                {{ ($errors->has('DisplaybName')) ? $errors->first('Display Name'):''}}<br/>
             </div>
         </div>
 
@@ -41,6 +43,7 @@
             <div class="form-group">
                 <strong>Description:</strong>
                 {!! Form::textarea('description', null, array('placeholder' => 'Description','class' => 'form-control','style'=>'height:100px')) !!}
+                {{ ($errors->has('Description')) ? $errors->first('Description'):''}}<br/>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -49,6 +52,7 @@
                 @foreach($role as $value)
                 	<label>{{ Form::checkbox('role[]', $value->id, in_array($value->id, $permissionRole) ? true : false, array('class' => 'name')) }}
                 	{{ $value->display_name }}</label>
+                    {{ ($errors->has('Role')) ? $errors->first('Role'):''}}<br/>
                 @endforeach
             </div>
         </div>

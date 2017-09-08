@@ -23,14 +23,14 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Nama :</strong>
+            <strong>Nama Dosen:</strong>
                 {!! Form::text('nama_dosen', null, array('placeholder' => 'Nama','class' => 'form-control')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Bidang :</strong>
-             {!!Form::select('bidang_id', $bidang, 'S');!!} 
+             {!!Form::select('bidang_id', $bidang, null, array('class' => 'form-control' ));!!} 
         </div>
     </div>
   	<div class="col-xs-12 col-sm-12 col-md-12 text-center">

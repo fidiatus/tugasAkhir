@@ -15,7 +15,7 @@
       <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Nama Prodi:</strong>
+                    <strong>Nama Program Studi:</strong>
                     {!! Form::text('prodi', null, array('placeholder' => 'Prodi','class' => 'form-control')) !!}
                 </div>
           </div>

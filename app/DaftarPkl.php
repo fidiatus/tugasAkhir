@@ -8,9 +8,9 @@ class DaftarPkl extends Model
 {
     protected $table = 'daftar_pkl';
 
-    protected $fillable = [
-        'nim',
+    protected $fillable = [        
         'nama_mhs',
+        'nim',
     	'prodi_id',
     	'bidangpkl_id',
     	'perusahaan_id',
@@ -23,21 +23,21 @@ class DaftarPkl extends Model
 
     public function prodi()
     {
-        return $this->hasOne(Prodi::class);
+        return $this->belongsTo(Prodi::class);
     }
 
     public function bidangpkl()
     {
-        return $this->hasOne(BidangPkl::class);
+        return $this->belongsTo(BidangPkl::class);
     }
 
-    public function grup()
+    public function user()
     {
-        return $this->hasOne(Grup::class);
+        return $this->belongsTo('App\User','user_id','id');
     }
 
     public function perusahaan()
     {
-        return $this->hasOne(Perusahaan::class);
+        return $this->belongsTo(Perusahaan::class);
     }
 }

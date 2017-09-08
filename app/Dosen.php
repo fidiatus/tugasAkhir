@@ -21,4 +21,9 @@ class Dosen extends Model
         return $this->belongsTo(Bidang::class);
     }
 
+    public function pembimbing()
+    {
+        return $this->hasMany(Pembimbing::class);
+    }
+
 }

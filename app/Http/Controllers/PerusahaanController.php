@@ -9,9 +9,21 @@ use App\Http\Controllers\Controllers;
 
 class PerusahaanController extends Controller
 {
-	public function index()
+	public function index(Request $request)
 	{
-		$perusahaans = Perusahaan::orderBy('id','DESC')->paginate(5);
+		$perusahaans = Perusahaan::where(function($query) use ($request)
+		{
+			if( ($term=$request ->get('term'))) {
+				$query->orWhere('nama_perusahaan','like','%'.$term.'%');
+				$query->orWhere('email','like','%'.$term.'%');
+				$query->orWhere('telepon','like','%'.$term.'%');
+				$query->orWhere('alamat','like','%'.$term.'%');
+			}
+		})
+
+		->orderBy('id','DESC')
+		->paginate(5);
+		
         return view('perusahaan.index',compact('perusahaans'));
 	}
 	public function create()

@@ -69,12 +69,13 @@
                   </li>
                   @if (Auth::check())
                     @if (Auth::user()->roles()->first()->name == "Admin")
-                  <li><a href="{{route('permission.index')}}"><i class="fa fa-th-large"></i> Permission </a>
+                  <li><a><i class="fa fa-edit"></i> Entrust <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href="{{route('users.index')}}"> Users </a></li>
+                    <li><a href="{{route('permission.index')}}"> Permission</a></li>
+                    <li><a href="{{route('roles.index')}}"> Roles </a></li>
+                  </ul>
                   </li>
-                    <li><a href="{{route('roles.index')}}"><i class="fa fa-user"></i> Roles </a>
-                  </li>
-                  <li><a href="{{route('users.index')}}"><i class="fa fa-user-md"></i> Users </a>
-                  </li>                  
                   <li><a href="{{route('perusahaan.index')}}"><i class="fa fa-institution"></i>Perusahan </a>
                   </li>
                   <li><a href="{{route('daftarpkl.index')}}"><i class="fa fa-briefcase"></i>PKL</a>
@@ -97,12 +98,13 @@
                   <li><a href="{{route('perusahaan.index')}}"><i class="fa fa-institution"></i>Perusahaan </a>
                   </li>
                   <li>
-                  @if (Auth::user()->pkl()->count() === 1 )
-                    <a href="{{route('pkl.edit', Auth::user()->pkl->id )}}"><i class="fa fa-briefcase"></i>Daftar</a>
+                  
+                  @if (Auth::user()->daftarpkl()->count() === 0 )
+                    <a href="{{route('daftarpkl.create')}}"><i class="fa fa-briefcase"></i>Daftar</a>
                   @endif
 
-                  @if (Auth::user()->pkl()->count() === 0 )
-                    <a href="{{route('pkl.create')}}"><i class="fa fa-briefcase"></i>Daftar</a>
+                  @if (Auth::user()->daftarpkl()->count() === 1 )
+                    <a href="{{route('daftarpkl.edit', Auth::user()->daftarpkl->id )}}"><i class="fa fa-briefcase"></i>Daftar</a>
                   @endif
 
                   </li>
@@ -110,7 +112,11 @@
                   @if (Auth::user()->roles()->first()->name == "Kaprodi")
                     <li><a href="{{route('users.show', Auth::id())}}"><i class="fa fa-female"></i> Profil </a>
                   </li>
-                   <li><a href="{{route('pkl.index')}}"><i class="fa fa-briefcase"></i>Daftar Mahasiswa PKL</a>
+                   <li><a href="{{route('daftarpkl.index')}}"><i class="fa fa-briefcase"></i>Daftar Mahasiswa PKL</a>
+                  </li>                 
+                  <li><a href="{{route('perusahaan.index')}}"><i class="fa fa-institution"></i>Perusahan </a>
+                  </li>
+                  <li><a href="{{route('pembimbing.index')}}"><i class="fa fa-suitcase"></i>Pembimbing</a>
                   </li>
                   @endif
                   @endif

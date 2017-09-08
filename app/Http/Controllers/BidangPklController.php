@@ -8,9 +8,17 @@ use App\Http\Controllers\Controller;
 
 class BidangPklController extends Controller
 {
-	public function index() 
+	public function index(Request $request) 
 	{
-		$bidangpkls = BidangPkl::orderBy('id','DESC')->paginate(5);
+		$bidangpkls = BidangPkl::where(function($query) use ($request)
+        {
+            if( ($term=$request ->get('term'))) {
+                $query->orWhere('bidang_pkl','like','%'.$term.'%');
+            }
+        })
+        ->orderBy('id','DESC')
+        ->paginate(5);
+        
         return view('bidangpkl.index',compact('bidangpkls'));
 	}
 	public function create()

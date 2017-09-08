@@ -13,7 +13,7 @@
       </div>
 	{!! Form::model($prodi, ['method' => 'patch', 'route' => ['prodi.update', $prodi->id]]) !!}
 	<div class="row">
-		<label class="col-md-4">Nama Prodi</label>
+		<label class="col-md-4">Nama Program Studi</label>
 		<input class="form-control col-md-8" name="prodi" value="{{ $prodi->prodi }}">
 	</div>
 	<br/>

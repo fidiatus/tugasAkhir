@@ -24,9 +24,14 @@ class Pembimbing extends Model
         return $this->hasOne(Prodi::class);
     }
 
+    public function bidangpkl()
+    {
+        return $this->hasOne(BidngPkl::class);
+    }
+
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function dosen()

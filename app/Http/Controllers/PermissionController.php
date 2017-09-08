@@ -18,8 +18,18 @@ class PermissionController extends Controller
      */
     public function index(Request $request) 
     {
-        $permissions = DB::table('permissions'); 
-        $permissions = Permission::orderBy('id','DESC')->paginate(5);
+        $permissions = Permission::where(function($query) use ($request)
+        {
+            if( ($term=$request ->get('term'))) {
+                $query->orWhere('name','like','%'.$term.'%');
+                $query->orWhere('display_name','like','%'.$term.'%');
+                $query->orWhere('description','like','%'.$term.'%');
+                $query->orWhere('role','like','%'.$term.'%');
+            }
+        })
+
+        ->orderBy('id','DESC')
+        ->paginate(5);
         return view('permission.index',compact('permissions'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -111,8 +121,8 @@ class PermissionController extends Controller
 
          DB::table("permission_role")
             ->where("permission_role.permission_id",$id)
-            ->delete();
-            
+            ->delete();            
+        
         foreach ($request->input('role') as $key => $value) {
             $permission->attachRole($value);
         }

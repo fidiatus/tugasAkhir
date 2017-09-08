@@ -33,7 +33,7 @@
         <thead>
           <tr> 
             <th> ID </th>
-            <th> Prodi </th>
+            <th> Program Studi </th>
             <th> Aksi </th> 
           </tr>
         </thead>
@@ -45,9 +45,30 @@
             <td> 
             <a class="btn btn-info" href="{{ route('prodi.show',$prodi->id) }}">Show</a>
             <a class="btn btn-primary" href="{{ route('prodi.edit',$prodi->id) }}">Edit</a>
-                    {!! Form::open(['method' => 'DELETE','route' => ['prodi.destroy', $prodi->id],'style'=>'display:inline']) !!}
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg{{$prodi->id}}">Delete</button>
+
+                  <div class="modal fade bs-example-modal-lg{{$prodi->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                          <h4>Text in a modal</h4>
+                          <p>{{$prodi->id}}</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          {!! Form::open(['method' => 'DELETE','route' => ['prodi.destroy', $prodi->id],'style'=>'display:inline']) !!}
                           {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                         {!! Form::close() !!}
+                        </div>
+                        </div>
+                        </div>
+                        </div>
                   </td> 
           </tr> 
       @endforeach

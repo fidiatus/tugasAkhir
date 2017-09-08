@@ -21,8 +21,8 @@ class Prodi extends Model
     	return $this->hasMany(DaftarPkl::class);
     }
 
-    public function grup()
+    public function pembimbing()
     {
-        return $this->hasMany(Grup::class);
+        return $this->hasMany(Pembimbing::class);
     }
 }

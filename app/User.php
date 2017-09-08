@@ -5,6 +5,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
+
 class User extends Authenticatable
 {
 
@@ -61,10 +62,16 @@ class User extends Authenticatable
         return $this->belongsTo(Prodi::class);
     }
 
-    public function grup()
+    public function daftarpkl()
     {
-        return $this->hasOne(Grup::class);
+        return $this->hasOne('App\DaftarPkl','user_id');
     }
+
+    public function pembimbing()
+    {
+        return $this->hasOne(Pembimbing::class);
+    }
+
     public function userRoles()
     {      
         return $this->hasMany('App\Models\RoleUser', 'user_id', 'id');
