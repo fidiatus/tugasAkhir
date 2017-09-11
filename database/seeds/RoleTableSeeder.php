@@ -20,12 +20,12 @@ class RoleTableSeeder extends Seeder
         	],
         	[
         		'name' => 'Mahasiswa',
-        		'display_name' => 'UserA',
+        		'display_name' => 'UserA-Mahasiswa',
         		'description' => 'Sebagian Akses'
         	],
         	[
-        		'name' => 'Dosen',
-        		'display_name' => 'UserB',
+        		'name' => 'Kaprodi',
+        		'display_name' => 'UserB-Kaprodi',
         		'description' => 'Sebagian Akses'
         	]
         ];
