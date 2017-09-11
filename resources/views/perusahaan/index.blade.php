@@ -40,7 +40,7 @@
             <th> ID </th>
             <th> Nama Perusahaan </th> 
             <th> Email </th>
-            <th> Telp </th>
+            <th> Telephone </th>
             <th> Alamat </th>
             @permission('delete-perusahaan')
             <th> Aksi </th> 

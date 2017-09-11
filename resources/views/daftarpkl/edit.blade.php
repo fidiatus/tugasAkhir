@@ -25,7 +25,7 @@
 	          {!! Form::text('nama_mhs', null, array('placeholder' => 'Nama Mahasiswa','class' => 'form-control')) !!} 
     </div>
 	<div class="form-group">
-	        <label class="col-md-4">Nim :</label>
+	        <label class="col-md-4">Nomor Induk Mahasiswa :</label>
 	          {!! Form::text('nim', null, array('placeholder' => 'NIM','class' => 'form-control')) !!} 
     </div>
 	<div class="form-group">
@@ -33,7 +33,7 @@
              {!!Form::select('prodi_id', $prodi, $daftarpkl->prodi_id,array('class' => 'form-control' ));!!} 
 	</div>
 	<div class="form-group">
-		<label class="col-md-4">Bidang PKL</label>
+		<label class="col-md-4">Bidang Praktek Kerja Lapangan</label>
              {!!Form::select('bidangpkl_id', $bidangpkl, $daftarpkl->bidangpkl_id,array('class' => 'form-control' ));!!} 
 	</div>
 	<div class="form-group">

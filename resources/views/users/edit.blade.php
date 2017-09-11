@@ -68,7 +68,7 @@
     @endpermission
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>No HP :</strong>
+            <strong>Nomor Handphone :</strong>
                 {!! Form::text('no_hp', null, array('placeholder' => 'HP','class' => 'form-control')) !!}
         </div>
     </div>    

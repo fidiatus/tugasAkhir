@@ -19,9 +19,9 @@ class DosenController extends Controller
 				$query->orWhere('bidang_id','like','%'.$term.'%');
 			}
 		})
-
 		->orderBy('id','DESC')
 		->paginate(5);
+		
         return view('dosen.index',compact('dosens'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
 	}

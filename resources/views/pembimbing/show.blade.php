@@ -22,7 +22,7 @@
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12">
               <div class="form-group">
-                  <strong>NO BP:</strong>
+                  <strong>Nomor Induk Mahasiswa:</strong>
                   <input type="text" class="form-control" readonly="readonly" placeholder="{{ $pembimbing->nim }}">
               </div>
           </div>
@@ -34,13 +34,13 @@
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12">
               <div class="form-group">
-                  <strong>Proyek PKL:</strong>
+                  <strong>Proyek Praktek Lapangan:</strong>
                   <input type="text" class="form-control" readonly="readonly" placeholder="{{ $pembimbing->daftarpkl_id }}">
               </div>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12">
               <div class="form-group">
-                  <strong>nama Dosen pembimbing:</strong>
+                  <strong>Nama Dosen pembimbing:</strong>
                   <input type="text" class="form-control" readonly="readonly" placeholder="{{ $pembimbing->dosen_id }}">
               </div>
           </div>

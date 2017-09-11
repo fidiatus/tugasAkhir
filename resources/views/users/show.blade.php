@@ -20,7 +20,7 @@
 	<div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>No Induk:</strong>
+                <strong>Nomor Induk:</strong>
                 <input type="text" class="form-control" readonly="readonly" placeholder="{{ $user->no_induk }}">     
             </div>
         </div>
@@ -60,7 +60,7 @@
         @endif
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>No HP:</strong>
+                <strong>Nomor Handphone:</strong>
                 <input type="text" class="form-control" readonly="readonly" placeholder="{{ $user->no_hp }}">     
             </div>
         </div>        @permission('show-data')

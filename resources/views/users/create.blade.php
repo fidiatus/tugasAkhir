@@ -52,7 +52,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Program Studi:</strong>
-             {!!Form::select('prodi_id', $prodi, 'S');!!} 
+          {!!Form::select('prodi_id', $prodi,null, array('class' => 'form-control'));!!} 
             </div>
         </div>
         @endif
@@ -60,13 +60,13 @@
      <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Bidang:</strong>
-             {!!Form::select('bidang_id', $bidang, 'S');!!}  
+          {!!Form::select('bidang_id', $bidang,null, array('class' => 'form-control'));!!}  
         </div>
     </div>
     @endif
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>No HP :</strong>
+            <strong>Nomor Handphone :</strong>
                 {!! Form::text('no_hp', null, array('placeholder' => 'HP','class' => 'form-control')) !!}
         </div>
     <div class="col-xs-12 col-sm-12 col-md-12">

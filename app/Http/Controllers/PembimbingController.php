@@ -55,8 +55,8 @@ class PembimbingController extends Controller
     ]);  
         $pembimbing = new Pembimbing();
         $pembimbing->user_id = $request->user()->id;
-        $pembimbing->nama_mhs = $request->nama_mhs;
-        $pembimbing->nim = $request->nim;
+        $pembimbing->nama_mhs = $request->input('nama_mhs');
+        $pembimbing->nim = $request->input('nim');
         $pembimbing->bidangpkl_id = $request->input('bidangpkl_id');
         $pembimbing->prodi_id = $request->input('prodi_id');
         $pembimbing->daftarpkl_id = $request->input('daftarpkl_id');
@@ -92,12 +92,11 @@ class PembimbingController extends Controller
             'dosen_id' => 'required',
     ]);  
         $pembimbing = Pembimbing::find($id);
-        $pembimbing->user_id = $request->input('user_id');
         $pembimbing->nama_mhs = $request->nama_mhs;
         $pembimbing->nim = $request->nim;
-        $pembimbing->prodi_id = $request->input('prodi_id');
-        $pembimbing->daftarpkl_id = $request->input('daftarpkl_id');
-        $pembimbing->dosen_id = $request->input('dosen_id');
+        $pembimbing->prodi_id = $request->prodi_id;
+        $pembimbing->daftarpkl_id = $request->daftarpkl_id;
+        $pembimbing->dosen_id = $request->dosen_id;
         $pembimbing->save();
 
 		Pembimbing::find($id)->update($request->all());

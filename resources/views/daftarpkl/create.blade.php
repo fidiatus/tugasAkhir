@@ -18,7 +18,7 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
       <div class="form-group {{ $errors->has('nim') ? ' has-error' : '' }}">
-        <strong>Nim :</strong>
+        <strong>Nomor Induk Mahasiswa :</strong>
           {!! Form::text('nim', null, array('placeholder' => 'NIM','class' => 'form-control')) !!} 
       </div>
     </div>
@@ -30,7 +30,7 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
       <div class="form-group {{ $errors->has('bidangpkl_id') ? ' has-error' : '' }}">
-        <strong>Bidang PKL :</strong>
+        <strong>Bidang Praktek Kerja Lapangan :</strong>
           {!!Form::select('bidangpkl_id', $bidangpkl,null, array('class' => 'form-control' ));!!} 
       </div>
     </div>

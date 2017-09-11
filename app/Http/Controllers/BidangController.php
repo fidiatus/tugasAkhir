@@ -13,7 +13,7 @@ class BidangController extends Controller
 		$bidangs = Bidang::where(function($query) use ($request)
         {
             if( ($term=$request ->get('term'))) {
-                $query->orWhere('nams_bidang','like','%'.$term.'%');
+                $query->orWhere('nama_bidang','like','%'.$term.'%');
             }
         })
         ->orderBy('id','DESC')

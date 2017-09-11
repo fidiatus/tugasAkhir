@@ -31,7 +31,7 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>NIM :</strong>
+            <strong>Nomor Induk Mahasiswa :</strong>
                 {!! Form::text('nim', null, array('placeholder' => 'NIM','class' => 'form-control')) !!}
         </div>
     </div>
