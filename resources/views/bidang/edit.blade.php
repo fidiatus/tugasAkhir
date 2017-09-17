@@ -11,21 +11,17 @@
           <div class="panel-body">
 	            <a class="btn btn-primary" href="{{ route('bidang.index') }}"> Back</a>
 	      </div>
-	@if (count($errors) > 0)
-		<div class="alert alert-danger">
-			<ul>
-				@foreach ($errors->all() as $error)
-					<li>{{ $error }}</li>
-				@endforeach
-			</ul>
-		</div>
-	@endif
 	{!! Form::model($bidang, ['method' => 'patch','route' => ['bidang.update', $bidang->id]]) !!}
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Nama Bidang : </strong>
                 {!! Form::text('nama_bidang', null, array('placeholder' => 'Bidang','class' => 'form-control')) !!}
+                @if ($errors->has('nama_bidang'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('nama_bidang') }}</strong>
+                    </span>
+                @endif
             </div>
         </div>
 		<div class="col-xs-12 col-sm-12 col-md-12 text-center">

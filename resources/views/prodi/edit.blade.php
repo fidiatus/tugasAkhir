@@ -15,6 +15,12 @@
 	<div class="row">
 		<label class="col-md-4">Nama Program Studi</label>
 		<input class="form-control col-md-8" name="prodi" value="{{ $prodi->prodi }}">
+                @if ($errors->has('prodi'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('prodi') }}</strong>
+                    </span>
+                @endif
+                <br/>
 	</div>
 	<br/>
 	<div class="col-xs-12 col-sm-12 col-md-12 text-center">

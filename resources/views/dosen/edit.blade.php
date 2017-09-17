@@ -13,17 +13,31 @@
 		<div class="form-group">
 			<label class="col-md-4">NIP</label>
 			{!! Form::text('nip', null, array('placeholder' => 'NIP','class' => 'form-control')) !!}
-			{{ ($errors->has('Nip')) ? $errors->first('Nip'):''}}<br/>
+                @if ($errors->has('nip'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('nip') }}</strong>
+                    </span>
+                @endif
 		</div>
 		<div class="form-group">
 			<label class="col-md-4">Nama Dosen</label>
 			{!! Form::text('nama_dosen', null, array('placeholder' => 'nama','class' => 'form-control')) !!}
-			{{ ($errors->has('Nama Dosen')) ? $errors->first('Nama Dosen'):''}}<br/>			
+                @if ($errors->has('nama_dosen'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('nama_dosen') }}</strong>
+                    </span>
+                @endif		
+                <br/>	
 		</div>
 		<div class="form-group">
-			<label class="col-md-4">Bidang</label>
+			<label class="col-md-4">Bidang Mengajar</label>
 	             {!!Form::select('bidang_id', $bidang, $dosen->bidang_id,array('class' => 'form-control' ));!!} 
-			{{ ($errors->has('Bidang')) ? $errors->first('Bidang'):''}}<br/>
+                @if ($errors->has('bidang_id'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('bidang_id') }}</strong>
+                    </span>
+                @endif
+                <br/>
 		</div>
 
 		<div class="col-xs-12 col-sm-12 col-md-12 text-center">

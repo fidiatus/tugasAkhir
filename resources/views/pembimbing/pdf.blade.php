@@ -6,7 +6,7 @@
 		<div style="font-family:Arial; font-size:12px;">
 
         @foreach($data as $pembimbing)
-            <center><div style="font-family:Arial; font-size:12px;"><h2> Daftar Nama Pembimbing Praktek Kerja Lapangan Bidang ( {{ $pembimbing-> bidangpkl->bidang_pkl }} )</h2>
+            <center><div style="font-family:Arial; font-size:12px;"><h2> Daftar Nama Pembimbing Praktek Kerja Lapangan Bidang ( {{ $pembimbing->bidangpkl->bidang_pkl }} )</h2>
 		    <center><div style="font-family:Arial; font-size:12px;"><h2> Mahasiswa Program Studi {{ $pembimbing->prodi->prodi }} TA. {{ $pembimbing->daftarpkl->tahun_ajaran }} </h2>
 		@endforeach
 		<center><div style="font-family:Arial; font-size:12px;"><h2> Jurusan Teknik Sipil Politeknik Negeri Padang</h2>

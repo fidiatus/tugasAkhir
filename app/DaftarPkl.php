@@ -19,7 +19,7 @@ class DaftarPkl extends Model
     	'tahun_ajaran',
     ];
     
-    public $timestamps = false;
+    public $timestamps = true;
 
     public function prodi()
     {
@@ -39,5 +39,9 @@ class DaftarPkl extends Model
     public function perusahaan()
     {
         return $this->belongsTo(Perusahaan::class);
+    }
+    public function pembimbing()
+    {
+        return $this->hasOne(Pembimbing::class);
     }
 }

@@ -16,9 +16,11 @@ class CreatePembimbingTable extends Migration
             $table->increments('id');
             $table->string('user_id');
             $table->string('nama_mhs');
-            $table->string('kelas');
-            $table->string('dosen_id');
+            $table->string('nim');
+            $table->string('bidangpkl_id');
             $table->string('prodi_id');
+            $table->string('daftarpkl_id');
+            $table->string('dosen_id');
             $table->timestamps();
         });
     }

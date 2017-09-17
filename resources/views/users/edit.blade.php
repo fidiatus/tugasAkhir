@@ -15,54 +15,66 @@
             <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Show</a>
         </div>
         @endif
-	@if (count($errors) > 0)
-		<div class="alert alert-danger">
-			<strong>Whoops!</strong> There were some problems with your input.<br><br>
-			<ul>
-				@foreach ($errors->all() as $error)
-					<li>{{ $error }}</li>
-				@endforeach
-			</ul>
-		</div>
-	@endif
 	{!! Form::model($user, ['method' => 'PATCH','route' => ['users.update', $user->id]]) !!}
 	<div class="row"><div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Nomor Induk :</strong>
                 {!! Form::text('no_induk', null, array('placeholder' => 'Nomor Induk','class' => 'form-control')) !!}
+                @if ($errors->has('no_induk'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('no_induk') }}</strong>
+                    </span>
+                @endif
+                <br/>
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Nama :</strong>
                 {!! Form::text('nama_user', null, array('placeholder' => 'Nama','class' => 'form-control')) !!}
+                @if ($errors->has('nama_user'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('nama_user') }}</strong>
+                    </span>
+                @endif
+                <br/>
             </div>
         </div>
 		<div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Username:</strong>
                 {!! Form::text('username', null, array('placeholder' => 'Username','class' => 'form-control')) !!}
+                @if ($errors->has('username'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('username') }}</strong>
+                    </span>
+                @endif
+                <br/>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Email:</strong>
                 {!! Form::text('email', null, array('placeholder' => 'Email','class' => 'form-control')) !!}
+                @if ($errors->has('email'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('email') }}</strong>
+                    </span>
+                @endif
+                <br/>
             </div>
         </div>
-    @permission('edit-field-mhs')
-     <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>Program Studi:</strong>
-             {!!Form::select('prodi_id', $prodi, $user->prodi_id,array('class' => 'form-control' ));!!}        
-        </div>
-    </div>
-    @endpermission
     @permission('edit-field-kaprodi')
      <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Bidang:</strong>
              {!!Form::select('bidang_id', $bidang, $user->bidang_id,array('class' => 'form-control' ));!!} 
+                @if ($errors->has('bidang_id'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('bidang_id') }}</strong>
+                    </span>
+                @endif
+                <br/>
         </div>
     </div>
     @endpermission

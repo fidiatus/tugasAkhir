@@ -10,11 +10,11 @@ class Prodi extends Model
 
     public $fillable = ['prodi'];
         
-    public $timestamps = false;
+    public $timestamps = True;
     
-    public function user()
+    public function mahasiswa()
     {
-    	return $this->hasMany(User::class);
+    	return $this->hasMany(Mahasiswa::class);
     }
     public function daftarpkl()
     {

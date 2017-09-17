@@ -31,14 +31,14 @@
 	<!-- =========== End =============== -->
 	<table class="table table-bordered">
 		<tr>
-			<th>ID</th>
+			<th>No</th>
 			<th>Name</th>
 			<th>Description</th>
 			<th width="280px">Action</th>
 		</tr>
-	@foreach ($roles as $role)
+	@foreach ($roles as $key => $role)
 	<tr>
-		<td>{{ $role->id }}</td>
+		<td>{{ ++$i}}</td>
 		<td>{{ $role->display_name }}</td>
 		<td>{{ $role->description }}</td>
 		<td>

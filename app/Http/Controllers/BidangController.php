@@ -17,9 +17,10 @@ class BidangController extends Controller
             }
         })
         ->orderBy('id','DESC')
-        ->paginate(5);
+        ->paginate(10);
         
-        return view('bidang.index',compact('bidangs'));
+        return view('bidang.index',compact('bidangs'))
+    				->with('i', ($request->input('page', 1) - 1) * 5);
 	}
 	public function create()
 	{

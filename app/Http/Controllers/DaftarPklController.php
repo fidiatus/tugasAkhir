@@ -60,21 +60,25 @@ class DaftarPklController extends Controller
 		
 		$daftarpkl = new DaftarPkl();
 		$daftarpkl->user_id = $request->user()->id;
-		$daftarpkl->nama_mhs = $request->nama_mhs;
-		$daftarpkl->nim = $request->nim;
-		$daftarpkl->prodi_id = $request->prodi_id;
-		$daftarpkl->bidangpkl_id = $request->bidangpkl_id;
-		$daftarpkl->perusahaan_id = $request->perusahaan_id;
-		$daftarpkl->nama_proyek = $request->nama_proyek;
-		$daftarpkl->semester = $request->semester;
-		$daftarpkl->tahun_ajaran = $request->tahun_ajaran;
+		$daftarpkl->nama_mhs = $request->input('nama_mhs');
+		$daftarpkl->nim = $request->input('nim');
+		$daftarpkl->prodi_id = $request->input('prodi_id');
+		$daftarpkl->bidangpkl_id = $request->input('bidangpkl_id');
+		$daftarpkl->perusahaan_id = $request->input('perusahaan_id');
+		$daftarpkl->nama_proyek = $request->input('nama_proyek');
+		$daftarpkl->semester = $request->input('semester');
+		$daftarpkl->tahun_ajaran = $request->input('tahun_ajaran');
 		$daftarpkl->save();
 
   		if (Auth::user()->roles()->first()->name == "Mahasiswa") {
-            return redirect()->route('daftarpkl.edit',Auth::id())->with('message','Data PKL Disimpan!');
+            return redirect()->route('pkl.show',Auth::id())->with('message','data updated!');
         }
-        return redirect()->route('daftarpkl.index')->with('message','Data pkl Inserted!');
+        else {
+  		return redirect()->route('daftarpkl.index')
+        				->with('message','Data pkl Inserted!');
+		}
 	}
+
 	public function show($id)
 	{
         $daftarpkl=DaftarPkl::find($id);
@@ -83,13 +87,14 @@ class DaftarPklController extends Controller
         	}
 		return view('daftarpkl.show',compact('daftarpkl'));
 	}
+	
 	public function edit($id)
 	{
         $perusahaan = Perusahaan::lists('nama_perusahaan','id');
         $prodi = Prodi::lists('prodi','id');
         $bidangpkl= BidangPkl::lists('bidang_pkl');
 
-        $daftarpkl = DaftarPkl::find($id);
+        $daftarpkl = DaftarPkl::where('user_id','=',$id)->first();
 
         return view('daftarpkl.edit',compact('prodi','perusahaan', 'daftarpkl','bidangpkl'));
 	}
@@ -119,9 +124,10 @@ class DaftarPklController extends Controller
 
         if (Auth::user()->roles()->first()->name == "Mahasiswa") {
             return redirect()->back()->with('message','Data PKL updated!');
-        }
+        }else{
         return redirect()->route('daftarpkl.index')
                         ->with('message','Data pkl telah di edit!');
+        }
 	}
 	public function destroy($daftarpkl)
 	{
@@ -132,12 +138,10 @@ class DaftarPklController extends Controller
 
 	public function getPdf(Request $request)
     {
-        $prodi= Prodi::lists('prodi','id');
-        $perusahaan= Perusahaan::lists('nama_perusahaan','id');
-        $bidangpkl= BidangPkl::lists('bidang_pkl');
-        $daftarpkl = DaftarPkl::all();
+        $prodi= Prodi::find('id');
+        $bidangpkl= BidangPkl::find('id');
 
-        $pdf = PDF::loadView('daftarpkl.pdf',compact('prodi','perusahaan','bidangpkl','daftarpkl'))
+        $pdf = PDF::loadView('daftarpkl.pdf',compact('prodi','bidangpkl','daftarpkl'))
                 ->setPaper('a4', 'Landscape');
                 
             return $pdf->download('daftarpkl.pdf');

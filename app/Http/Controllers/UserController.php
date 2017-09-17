@@ -85,13 +85,12 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $prodi = Prodi::lists('prodi','id');
         $bidang = Bidang::lists('nama_bidang','id');
         $roles = Role::lists('name','id');
 
         $user = User::find($id);
         $userRole = $user->roles->lists('id','id')->toArray();
-        return view('users.edit',compact('user','roles','userRole','prodi','bidang'));
+        return view('users.edit',compact('user','roles','userRole','bidang'));
     }
 
     /**
@@ -156,5 +155,11 @@ class UserController extends Controller
         return redirect()->route('users.index')
                         ->with('success','User deleted successfully');
     }
+
+    public function detailMhs($id)
+    {
+        $user = Mahasiswa::find($id);
+        return view('users.detailmhs',compact('user'));
+    }   
 
 }

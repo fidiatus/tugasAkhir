@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Dosen;
 use App\Bidang;
+use App\Http\Controllers\Validator;
 use App\Http\Controllers\Controller;
 
 class DosenController extends Controller
@@ -20,7 +21,7 @@ class DosenController extends Controller
 			}
 		})
 		->orderBy('id','DESC')
-		->paginate(5);
+		->paginate(10);
 		
         return view('dosen.index',compact('dosens'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
@@ -33,21 +34,21 @@ class DosenController extends Controller
 	public function store(Request $request)
 	{
 		$this->validate($request, [
-        'nip' => 'required|numeric|unique:dosen',
+        'nip' => 'required|numeric',
         'nama_dosen' => 'required',
         'bidang_id' => 'required',
-    ]);  
-		$dosen = new Dosen();
-		$dosen->nip = $request->nip;
-		$dosen->nama_dosen = $request->nama_dosen;
-		$dosen->bidang_id = $request->bidang_id;
-		$dosen->save();
-
-        Dosen::create($request->all());
+    ]);          
+        $dosen = new Dosen();
+        $dosen->nip = $request->input('nip');
+        $dosen->nama_dosen = $request->input('nama_dosen');
+        $dosen->bidang_id = $request->input('bidang_id');
+        $dosen->save();
 
         return redirect()->route('dosen.index')
-        				->with('message','dosen inserted!');
+        				->with('message','dosen inserted!');	
+        
 	}
+
 	public function show($id)
 	{
 		$dosen=Dosen::find($id);

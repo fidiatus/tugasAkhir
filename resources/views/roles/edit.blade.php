@@ -11,28 +11,30 @@
           <div class="panel-body">
 	            <a class="btn btn-primary" href="{{ route('roles.index') }}"> Back</a>
 	        </div>
-	@if (count($errors) > 0)
-		<div class="alert alert-danger">
-			<strong>Whoops!</strong> There were some problems with your input.<br><br>
-			<ul>
-				@foreach ($errors->all() as $error)
-					<li>{{ $error }}</li>
-				@endforeach
-			</ul>
-		</div>
-	@endif
 	{!! Form::model($role, ['method' => 'PATCH','route' => ['roles.update', $role->id]]) !!}
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Name:</strong>
                 {!! Form::text('display_name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                @if ($errors->has('display_name'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('display_name') }}</strong>
+                    </span>
+                @endif
+                <br/>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Description:</strong>
                 {!! Form::textarea('description', null, array('placeholder' => 'Description','class' => 'form-control','style'=>'height:100px')) !!}
+                @if ($errors->has('description'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('description') }}</strong>
+                    </span>
+                @endif
+                <br/>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">

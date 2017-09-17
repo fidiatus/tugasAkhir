@@ -28,7 +28,7 @@
         </div>
 		<div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Bidang:</strong>
+                <strong>Bidang Mengajar:</strong>
                 <input type="text" class="form-control" readonly="readonly" placeholder="{{ $dosen->bidang->nama_bidang }}">
             </div>
         </div>

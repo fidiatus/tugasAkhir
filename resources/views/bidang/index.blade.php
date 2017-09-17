@@ -38,15 +38,15 @@
       <table class="table table-bordered">
         <thead>
           <tr> 
-            <th> ID </th>
+            <th> # </th>
             <th> Nama Bidang </th>
             <th> Aksi </th> 
           </tr>
         </thead>
         <tbody>
-      @foreach($bidangs as $bidang)
+      @foreach($bidangs as $key =>$bidang)
     		  <tr>
-            <td> {{$bidang->id}} </td>
+            <td> {{++$i}} </td>
             <td>{{$bidang->nama_bidang}}</td>
             <td> 
             <a class="btn btn-info" href="{{ route('bidang.show',$bidang->id) }}">Show</a>

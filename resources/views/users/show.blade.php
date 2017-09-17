@@ -46,7 +46,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Program Studi:</strong>
-                <input type="text" class="form-control" readonly="readonly" placeholder="{{  $user->prodi->prodi}}">   
+                <input type="text" class="form-control" readonly="readonly" placeholder="{{  $user->prodi->prodi}}"> 
             </div>
         </div>
         @endif

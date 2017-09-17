@@ -14,7 +14,6 @@
         @permission('create-pkl')
         <a class="btn btn-success" href="{{ route('daftarpkl.create') }}"> Create New PKL</a>
         @endpermission
-        <a class="btn btn-success" href="{{ route('daftarpkl.pdf') }}"><i class="fa fa-download"></i> Report PDF</a>
         </form>
       </div>
 

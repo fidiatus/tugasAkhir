@@ -14,7 +14,7 @@ class CreateBidangTable extends Migration
     {
         Schema::create('bidang', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('bidang');
+            $table->string('nama_bidang');
             $table->timestamps();
         });
     }

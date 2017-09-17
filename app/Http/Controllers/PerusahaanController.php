@@ -24,7 +24,8 @@ class PerusahaanController extends Controller
 		->orderBy('id','DESC')
 		->paginate(5);
 		
-        return view('perusahaan.index',compact('perusahaans'));
+        return view('perusahaan.index',compact('perusahaans'))
+        			->with('i', ($request->input('page', 1) - 1) * 5);
 	}
 	public function create()
 	{
@@ -39,8 +40,17 @@ class PerusahaanController extends Controller
         'alamat' => 'required',
     ]);
 		Perusahaan::create($request->all());
+
+		if ($validator->fails()) {
+            return redirect('dosen/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }else{
+
 		return redirect()->route('perusahaan.index')
 						->with('message','profile perusahaan updated!');
+        }
+
 	}
 	public function show($id)
 	{

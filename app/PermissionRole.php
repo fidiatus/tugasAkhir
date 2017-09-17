@@ -13,5 +13,15 @@ class PermissionRole extends Model
     	'role_id'
     ];
 
-    public $timestamps = false;
+    public $timestamps = true;
+
+    public function permission()
+    {
+        return $this->belongsTo(Permission::class);
+    }
+    
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }

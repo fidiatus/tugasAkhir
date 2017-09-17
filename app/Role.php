@@ -15,5 +15,15 @@ class Role extends EntrustRole
     	'description'
     ];
 
-    public $timestamps = false;
+    public $timestamps = true;
+    
+    public function permissionrole()
+    {
+    	return $this->hasMany(PermissionRole::class);
+    }
+
+    public function roleuser()
+    {
+        return $this->hasMany(RoleUser::class);
+    }
 }

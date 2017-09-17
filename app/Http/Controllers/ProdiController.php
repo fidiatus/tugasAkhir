@@ -8,10 +8,19 @@ use App\Http\Controllers\Controller;
 
 class ProdiController extends Controller
 {
-	public function index() 
+	public function index(Request $request) 
 	{
-		$prodis = Prodi::orderBy('id','DESC')->paginate(5);
-        return view('prodi.index',compact('prodis'));
+		$prodis = Prodi::where(function($query) use ($request)
+        {
+            if( ($term=$request ->get('term'))) {
+                $query->orWhere('prodi','like','%'.$term.'%');
+            }
+        })
+        ->orderBy('id','DESC')
+        ->paginate(10);
+
+        return view('prodi.index',compact('prodis'))
+    				->with('i', ($request->input('page', 1) - 1) * 5);
 	}
 	public function create()
 	{

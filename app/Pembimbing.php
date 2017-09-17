@@ -9,34 +9,35 @@ class Pembimbing extends Model
     protected $table = 'pembimbing';
 
     protected $fillable = [
-    	'nim',
+        'user_id',
         'nama_mhs',
+    	'nim',
         'bidangpkl_id',
         'prodi_id',
-        'kelas',
+        'daftarpkl_id',
         'dosen_id',
     ];
     
-    public $timestamps = false;
+    public $timestamps = true;
 
     public function prodi()
     {
-        return $this->hasOne(Prodi::class);
+        return $this->belongsTo(Prodi::class);
     }
 
     public function bidangpkl()
     {
-        return $this->hasOne(BidngPkl::class);
+        return $this->belongsTo(BidangPkl::class);
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo('App\User','user_id','id');
     }
 
     public function dosen()
     {
-        return $this->hasOne(Dosen::class);
+        return $this->belongsTo(Dosen::class);
     }
     public function roles()
     {

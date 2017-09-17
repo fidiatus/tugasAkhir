@@ -20,7 +20,7 @@ class User extends Authenticatable
 
     protected $fillable = [
         'no_induk','nama_user',
-        'username', 'email',
+        'username', 'email','jenis_kelamin',
         'prodi_id','bidang_id',
         'no_hp', 'password',
     ];
@@ -64,16 +64,20 @@ class User extends Authenticatable
 
     public function daftarpkl()
     {
-        return $this->hasOne('App\DaftarPkl','user_id');
+        return $this->hasMany('App\DaftarPkl');
     }
 
     public function pembimbing()
     {
-        return $this->hasOne(Pembimbing::class);
+        return $this->hasMany('App\Pembimbing');
     }
 
-    public function userRoles()
+    public function roleuser()
     {      
         return $this->hasMany('App\Models\RoleUser', 'user_id', 'id');
+    }
+    public function mahasiswa()
+    {
+        return $this->hasMany('App\Mahasiswa');
     }
 }

@@ -47,7 +47,7 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="images/images.png" alt="..." class="img-circle profile_img">
+                <img src="{{asset('images/images.png')}}" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Welcome,</span> <br>                
@@ -69,32 +69,49 @@
                   </li>
                   @if (Auth::check())
                     @if (Auth::user()->roles()->first()->name == "Admin")
-                  <li><a><i class="fa fa-edit"></i> Entrust <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i> Menu <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                     <li><a href="{{route('users.index')}}"> Users </a></li>
-                    <li><a href="{{route('permission.index')}}"> Permission</a></li>
+                    <li><a href="{{route('mahasiswa.index')}}"> Data Mahasiswa </a></li>
                     <li><a href="{{route('roles.index')}}"> Roles </a></li>
+                    <li><a href="{{route('permission.index')}}"> Permission</a></li>
+                    <li><a href="{{route('permissionrole.index')}}"> Permission Role</a></li>
+                    <li><a href="{{route('roleuser.index')}}"> Role User</a></li>
                   </ul>
                   </li>
-                  <li><a href="{{route('perusahaan.index')}}"><i class="fa fa-institution"></i>Perusahan </a>
+                  <li><a href="{{route('perusahaan.index')}}"><i class="fa fa-institution"></i> Perusahan </a>
                   </li>
-                  <li><a href="{{route('daftarpkl.index')}}"><i class="fa fa-briefcase"></i>PKL</a>
+                  <li><a href="{{route('daftarpkl.index')}}"><i class="fa fa-briefcase"></i> PKL</a>
                   </li>
-                  <li><a href="{{route('prodi.index')}}"><i class="fa fa-graduation-cap"></i>Prodi</a>
+                  <li><a href="{{route('prodi.index')}}"><i class="fa fa-graduation-cap"></i> Prodi</a>
                   </li>
-                  <li><a href="{{route('bidang.index')}}"><i class="fa fa-suitcase"></i>Bidang</a>
+                  <li><a href="{{route('bidang.index')}}"><i class="fa fa-suitcase"></i> Bidang</a>
                   </li>
-                  <li><a href="{{route('bidangpkl.index')}}"><i class="fa fa-suitcase"></i>Bidang PKL</a>
+                  <li><a href="{{route('bidangpkl.index')}}"><i class="fa fa-suitcase"></i> Bidang PKL</a>
                   </li>
-                  <li><a href="{{route('dosen.index')}}"><i class="fa fa-suitcase"></i>Dosen</a>
+                  <li><a href="{{route('dosen.index')}}"><i class="fa fa-suitcase"></i> Dosen</a>
+                  </li>
+                  <li><a href="{{route('mahasiswa.index')}}"><i class="fa fa-suitcase"></i> Mahasiswa</a>
                   </li>
                   </li>
                   <li><a href="{{route('pembimbing.index')}}"><i class="fa fa-suitcase"></i>Pembimbing</a>
+                  <li><a><i class="fa fa-suitcase"></i>Report<span class="fa fa-chevron-down"></span></a>
+                   <ul class="nav child_menu">
+                    <li><a href="{{route('pembimbing.select')}}"> Data Pembimbing </a></li>
+                    <li><a href="{{route('pembimbing.select')}}"> Data PKL </a></li>
+                   </ul>
                   </li>
                   @endif
                   @if (Auth::user()->roles()->first()->name == "Mahasiswa")
-                    <li><a href="{{route('users.show', Auth::id() )}}"><i class="fa fa-group"></i> Profil </a>
-                  </li>
+                    <li>
+                  @if (Auth::user()->mahasiswa()->count() === 0 )
+                    <a href="{{route('mahasiswa.create')}}"><i class="fa fa-briefcase"></i>Daftar</a>
+                  @endif
+
+                  @if (Auth::user()->mahasiswa()->count() === 1 )
+                    <a href="{{route('mahasiswa.show', [Auth::user()->id] )}}"><i class="fa fa-briefcase"></i>Profil</a>
+                  @endif
+
                   <li><a href="{{route('perusahaan.index')}}"><i class="fa fa-institution"></i>Perusahaan </a>
                   </li>
                   <li>
@@ -104,7 +121,7 @@
                   @endif
 
                   @if (Auth::user()->daftarpkl()->count() === 1 )
-                    <a href="{{route('daftarpkl.edit', Auth::user()->daftarpkl->id )}}"><i class="fa fa-briefcase"></i>Daftar</a>
+                    <a href="{{route('daftarpkl.edit', [Auth::user()->id] )}}"><i class="fa fa-briefcase"></i>Daftar</a>
                   @endif
 
                   </li>
@@ -117,6 +134,8 @@
                   <li><a href="{{route('perusahaan.index')}}"><i class="fa fa-institution"></i>Perusahan </a>
                   </li>
                   <li><a href="{{route('pembimbing.index')}}"><i class="fa fa-suitcase"></i>Pembimbing</a>
+                  </li>
+                  <li><a href="{{route('pembimbing.select')}}"><i class="fa fa-suitcase"></i>Select</a>
                   </li>
                   @endif
                   @endif

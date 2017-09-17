@@ -17,6 +17,12 @@
                 <div class="form-group">
                     <strong>Nama Program Studi:</strong>
                     {!! Form::text('prodi', null, array('placeholder' => 'Prodi','class' => 'form-control')) !!}
+                @if ($errors->has('prodi'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('prodi') }}</strong>
+                    </span>
+                @endif
+                <br/>
                 </div>
           </div>
         	<div class="col-xs-12 col-sm-12 col-md-12 text-center">

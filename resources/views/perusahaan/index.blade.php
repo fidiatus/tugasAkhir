@@ -37,7 +37,7 @@
     <table class="table table-bordered">
       <thead>
           <tr> 
-            <th> ID </th>
+            <th> No </th>
             <th> Nama Perusahaan </th> 
             <th> Email </th>
             <th> Telephone </th>
@@ -48,9 +48,9 @@
           </tr>
       </thead>
       <tbody>
-        @foreach($perusahaans as $perusahaan)
+        @foreach($perusahaans as $key => $perusahaan)
           <tr>
-              <td> {{$perusahaan->id}} </td>
+              <td> {{++$i}} </td>
               <td>{{$perusahaan->nama_perusahaan}}</td>
               <td>{{$perusahaan->email}}</td>
               <td>{{$perusahaan->telepon}}</td>

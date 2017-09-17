@@ -14,10 +14,13 @@ class CreateDaftarpklTable extends Migration
     {
         Schema::create('daftar_pkl', function (Blueprint $table){
             $table->increments('id');
+            $table->integer('user_id');
+            $table->string('nama_mhs');
+            $table->string('nim');
             $table->integer('prodi_id');
-            $table->integer('grup_id');
-            $table->string('perusahaan_id');
-            $table->integer('nama_proyek');
+            $table->integer('bidangpkl_id');
+            $table->integer('perusahaan_id');
+            $table->string('nama_proyek');
             $table->string('semester');
             $table->string('tahun ajaran');
             $table->timestamps();

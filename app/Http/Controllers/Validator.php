@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
-abstract class Request extends FormRequest
+use App\Http\Requests;
+
+class Validator extends Controller
 {
     /**
 	 * {@inheritdoc}
