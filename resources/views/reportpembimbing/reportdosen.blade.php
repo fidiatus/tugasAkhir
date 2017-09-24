@@ -22,22 +22,35 @@
 			echo $ta.'/'.$tahun;
 		}
 	 ?> </h2> 
-</div></center>
+	</div>
+    </center>
 		<?php
 		$i=0;
 		?>
-	    <center>
-	@foreach($pembimbing as $key=>$pembimbing)
-		<table>
-			<th>{{$i=$i+1}}</th>
-			<th>{{$pembimbing->namdos}}</th>
-			<th> : </th>
-			<th>{{$pembimbing->nama_mhs}}</th>
-		</table>
-	@endforeach
-	</center>
-		<br/>
-	<br/>
+		<div style="font-family:Arial; font-size:12px;">
+		  <table border="1" align="center">
+			<thead>
+				<tr>
+					<th> No </th>
+					<th> Nama Pembimbing</th>
+					<th> Jumlah Mahasiswa Bimbingan</th>
+					<th> Program Studi </th>
+				</tr>
+			</thead>
+			@foreach($pembimbing as $key=>$pembimbing)
+			<tbody>
+				<tr>
+					<td>{{$i=$i+1}}</td>
+					<td>{{$pembimbing->namdos}}</td>
+					<td>Membimbing Mahasiswa sebanyak {{$pembimbing->jumlah}} orang</td>
+					<td>{{$pembimbing->prod}}</td>
+				</tr>
+			</tbody>			
+			@endforeach
+		  </table>
+	    </div>
+	  <br/>
+    <br/>
   </body>
 </html>
 

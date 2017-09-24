@@ -218,16 +218,14 @@ class PembimbingController extends Controller
         $daftarpkl = DaftarPkl::where('id',$d)->first();
         
         $pembimbing = DB::table('pembimbing')
-                        ->Join('bidang_pkl','bidang_pkl.id','=','pembimbing.bidangpkl_id')
-                        ->Join('prodi','prodi.id','=','pembimbing.prodi_id')
                         ->Join('dosen','dosen.id','=','pembimbing.dosen_id')
+                        ->Join('prodi','prodi.id','=','pembimbing.prodi_id')
                         ->Join('daftar_pkl','daftar_pkl.id','=','pembimbing.daftarpkl_id')
-                        ->Join('perusahaan','perusahaan.id','=','pembimbing.perusahaan_id')
                         ->Join('mahasiswa','mahasiswa.no_induk','=','pembimbing.nim')
-                        ->select('pembimbing.*','prodi.prodi as prod','bidang_pkl.bidang_pkl as bidpkl','dosen.nama_dosen as namdos','daftar_pkl.nama_proyek as nama_proyek','perusahaan.nama_perusahaan as nama_perusahaan')
+                        ->select('pembimbing.*','prodi.prodi as prod','dosen.nama_dosen as namdos',DB::raw('count(pembimbing.dosen_id) as jumlah'))
                         ->where('daftar_pkl.tahun_ajaran',$d)
+                        ->groupBy('pembimbing.dosen_id')
                         ->get();
-
         $pdf = PDF::loadView('reportpembimbing.reportdosen',compact('pembimbing','daftarpkl'))
                 ->setPaper('a4', 'potrait');
                 

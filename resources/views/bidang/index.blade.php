@@ -63,11 +63,10 @@
                         <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                           </button>
-                          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                          <h4 class="modal-title" id="myModalLabel">WARNING</h4>
                         </div>
                         <div class="modal-body">
-                          <h4>Text in a modal</h4>
-                          <p>{{$bidang->id}}</p>
+                          <h4>Yakin akan Meghapus data {{$bidang->bidang}}</h4>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

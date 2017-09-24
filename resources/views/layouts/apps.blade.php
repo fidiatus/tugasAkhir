@@ -107,9 +107,10 @@
 
                   <li><a><i class="fa fa-suitcase"></i>Report<span class="fa fa-chevron-down"></span></a>
                    <ul class="nav child_menu">
-                     <li><a href="{{route('pembimbing.select')}}"> Data Pembimbing </a></li>
-                     <li><a href="{{route('pembimbing.selectdosen')}}">Report Dosen Bimbingan </a></li>
+                     <li><a href="{{route('pembimbing.select')}}"> Report Data Pembimbing </a></li>
+                     <li><a href="{{route('pembimbing.selectdosen')}}">Report perDosen Bimbingan </a></li>
                      <li><a href="{{route('daftarpkl.select')}}"> Data PKL </a></li>
+                     <li><a href="{{route('daftarpkl.selectperusahaan')}}">Report perPerusahaan </a></li>
                    </ul>
                   </li>
                   @endif
@@ -148,6 +149,8 @@
                   <ul class="nav child_menu">
                     <li><a href="{{route('pembimbing.select')}}">Report Data Bimbingan</a></li>
                     <li><a href="{{route('pembimbing.selectdosen')}}">Report Dosen Bimbingan </a></li>
+                    <li><a href="{{route('daftarpkl.select')}}"> Data PKL </a></li>
+                    <li><a href="{{route('daftarpkl.selectperusahaan')}}">Report perPerusahaan </a></li>
                  </ul>
                   </li>
                   @endif
