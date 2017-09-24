@@ -82,6 +82,9 @@ class PermissionController extends Controller
         $permissionRole = Role::join("role_user","role_user.role_id","=","roles.id")
             ->where("role_user.role_id",$id)
             ->get();
+        if (!$permission) {
+            abort(403);
+        }
         return view('permission.show',compact('permission','permissionRole'));
     }
     /**

@@ -21,4 +21,9 @@ class Perusahaan extends Model
     {
     	return $this->hasMany(DaftarPkl::class);
     }
+    public function pembimbing()
+    {
+        return $this->hasMany(Pembimbing::class);
+    }
+
 }

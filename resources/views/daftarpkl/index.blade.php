@@ -1,13 +1,17 @@
 @extends('layouts.apps')
 
 @section('content')
-<div class="container">
-  <div class="row">
-      <div class="col-md-13 col-sm-13 col-xs-16">
-      <div class="panel panel-default">
-          <div class="panel-heading"><h4>PKL Management</h4></div>
-          
-    <div class="panel-body">
+<div class="row">
+  <div class="col-md-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2> Data Praktek Kerja Lapangan Jurusan Teknik Sipil</h2>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12 col-xs-12 col-md-12">
 
       <div class="panel-body">
         <form class="" action="" method="">
@@ -40,15 +44,15 @@
     <table class="table table-bordered">
       <thead>
           <tr> 
-            <th> No </th>
-            <th> Nama Mahasiswa </th> 
-            <th> No.BP </th>
-            <th> Prodi</th>
-            <th> Bidang PKL</th>
-            <th> perusahaan </th>
-            <th> Nama Proyek</th>
+            <th width="2%"> No </th>
+            <th width="10%"> Nama Mahasiswa </th> 
+            <th width="10%"> No.BP </th>
+            <th width="13%"> Prodi</th>
+            <th width="10%"> Bidang PKL</th>
+            <th width="15%"> perusahaan </th>
+            <th width="20%"> Nama Proyek</th>
             @permission('delete-pkl')
-            <th> Aksi </th> 
+            <th width="20%"> Aksi </th> 
       @endpermission
           </tr>
       </thead>
@@ -104,5 +108,6 @@
         </div>
       </div>
     </div>   
-  </div>        
+  </div>  
+  </div>      
 @endsection

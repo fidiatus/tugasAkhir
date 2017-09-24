@@ -52,6 +52,9 @@ class DosenController extends Controller
 	public function show($id)
 	{
 		$dosen=Dosen::find($id);
+		if (!$dosen) {
+        	abort(403);
+        	}
 		return view('dosen.show',compact('dosen'));
 	}
 	public function edit($id)

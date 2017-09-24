@@ -1,19 +1,17 @@
 @extends('layouts.apps')
 
 @section('content')
-<div class="container">
-  <div class="row">
-      <div class="col-md-13 col-sm-13 col-xs-16">
-      <div class="panel panel-default">
-          <div class="panel-heading"><h4>Mahasiswa Management</h4></div>
-          
-    <div class="panel-body">
+<div class="row">
+  <div class="col-md-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2> Data Mahasiswa Jurusan Teknik Sipil</h2>
+        <div class="clearfix"></div>
+      </div>
 
       <div class="panel-body">
-        <form class="" action="" method="">
-        <a class="btn btn-success" href="{{ route('mahasiswa.create') }}"> Create New Mahasiswa</a>
-        </form>
-      </div>
+        <div class="row">
+          <div class="col-md-12 col-xs-12 col-md-12">
 
   <!-- ========== tampilan Data =================== -->
     <div class="well clearfix">
@@ -22,14 +20,7 @@
         <p>{{ $message }}</p>
       </div>
     @endif
-  <!-- ============= Tampilan Pencarian ============== -->
-      <div class="panel-body">
-        <form class="" action="" method="">
-            <input type="text" name="keyword" class="form-control" placeholder="Cari sesuatu ..">
-        </form>
-      </div>
-  <!-- =========== End =============== -->
-      <table class="table table-bordered">
+      <table id="datatable" class="table table-striped table-bordered">
         <thead>
           <tr> 
             <th> No </th>
@@ -48,6 +39,7 @@
             <td>{{$mahasiswa->prodi->prodi}}</td>
             <td> 
             <a class="btn btn-info" href="{{ route('mahasiswa.show',$mahasiswa->id) }}">Show</a>
+            @permission('delete-mahasiswa')            
             <a class="btn btn-primary" href="{{ route('mahasiswa.edit',$mahasiswa->id) }}">Edit</a>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg{{$mahasiswa->id}}">Delete</button>
 
@@ -63,6 +55,7 @@
                         <div class="modal-body">
                           <h4>Text in a modal</h4>
                           <p>{{$mahasiswa->nama_user}}</p>
+                          
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -73,16 +66,28 @@
                         </div>
                         </div>
                         </div>
+                        @endpermission
+                        @if($mahasiswa->pbb==0)
+                          {!! Form::open(['method' => 'post','route' => ['pembimbing.create'], 'style'=>'display:inline']) !!}
+                          {!! Form::submit('Tambah Pembimbing', ['class' => 'btn btn-success']) !!}                          
+                          <input type="hidden" name="nim" value="{{ $mahasiswa->no_induk }}">
+                          <input type="hidden" name="nama_mhs" value="{{ $mahasiswa->nama_user }}">
+                        {!! Form::close() !!}
+                        @elseif($mahasiswa->pbb>0)
+                          Telah Ada Pembimbing
+                        @endif
+
                   </td> 
           </tr> 
       @endforeach
         </tbody> 
       </table>
-  {!! $mahasiswas->render() !!}
+
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</div></div>
 @endsection
+

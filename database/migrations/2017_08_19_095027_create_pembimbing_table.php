@@ -20,6 +20,7 @@ class CreatePembimbingTable extends Migration
             $table->string('bidangpkl_id');
             $table->string('prodi_id');
             $table->string('daftarpkl_id');
+            $table->string('perusahaan_id');
             $table->string('dosen_id');
             $table->timestamps();
         });

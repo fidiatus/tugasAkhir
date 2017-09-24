@@ -9,9 +9,11 @@ use App\Prodi;
 use App\BidangPkl;
 use App\Role;
 use App\User;
+use App\Mahasiswa;
 use DB;
 use Auth;
 use PDF;
+use Excel;
 use App\Http\Requests;
 
 class DaftarPklController extends Controller
@@ -32,7 +34,7 @@ class DaftarPklController extends Controller
 			}
 		})
 
-		->orderBy('id','DESC')
+		->orderBy('nama_proyek','DESC')
 		->paginate(5);
 		
         return view('daftarpkl.index', compact('daftarpkls'))
@@ -42,7 +44,7 @@ class DaftarPklController extends Controller
 	{
         $prodi= Prodi::lists('prodi','id');
         $perusahaan= Perusahaan::lists('nama_perusahaan','id');
-        $bidangpkl= BidangPkl::lists('bidang_pkl');
+        $bidangpkl= BidangPkl::lists('bidang_pkl','id');
 		return view('daftarpkl.create',compact('perusahaan','prodi','bidangpkl'));
 	}
 	public function store(Request $request)
@@ -53,7 +55,7 @@ class DaftarPklController extends Controller
 	        'prodi_id' => 'required',
 	        'bidangpkl_id' => 'required',
 	        'perusahaan_id' => 'required',
-	        'nama_proyek' => 'required|numeric',
+	        'nama_proyek' => 'required',
 	        'semester' => 'required',
 	        'tahun_ajaran' => 'required|digits_between:4,9',
 	    ]);
@@ -70,8 +72,8 @@ class DaftarPklController extends Controller
 		$daftarpkl->tahun_ajaran = $request->input('tahun_ajaran');
 		$daftarpkl->save();
 
-  		if (Auth::user()->roles()->first()->name == "Mahasiswa") {
-            return redirect()->route('pkl.show',Auth::id())->with('message','data updated!');
+  		if (Auth::user()->roles()->first()->name == "Mahasiswa") {  			
+            return redirect()->route('daftarpkl.edit',Auth::id())->with('message','data updated!');
         }
         else {
   		return redirect()->route('daftarpkl.index')
@@ -82,9 +84,7 @@ class DaftarPklController extends Controller
 	public function show($id)
 	{
         $daftarpkl=DaftarPkl::find($id);
-        if (!$daftarpkl) {
-        	abort(403);
-        	}
+
 		return view('daftarpkl.show',compact('daftarpkl'));
 	}
 	
@@ -92,7 +92,7 @@ class DaftarPklController extends Controller
 	{
         $perusahaan = Perusahaan::lists('nama_perusahaan','id');
         $prodi = Prodi::lists('prodi','id');
-        $bidangpkl= BidangPkl::lists('bidang_pkl');
+        $bidangpkl= BidangPkl::lists('bidang_pkl','id');
 
         $daftarpkl = DaftarPkl::where('user_id','=',$id)->first();
 
@@ -136,14 +136,59 @@ class DaftarPklController extends Controller
 						->with('message','Data telah di dihapus!');
 	}
 
-	public function getPdf(Request $request)
+	public function select()
     {
-        $prodi= Prodi::find('id');
-        $bidangpkl= BidangPkl::find('id');
+        $prodi= Prodi::All();
+        $bidangpkl= BidangPkl::All();
+        $th= DaftarPkl::All();
+        $mahasiswa = DB::table('mahasiswa')->groupBy('angkatan')->get();
+        
+        return view('reportpkl.select',['prodi'=>$prodi,'bidangpkl'=>$bidangpkl,'mahasiswa'=>$mahasiswa,'th'=>$th]);  
+    }
 
-        $pdf = PDF::loadView('daftarpkl.pdf',compact('prodi','bidangpkl','daftarpkl'))
-                ->setPaper('a4', 'Landscape');
+    public function filter(Request $request)
+    {
+        $prodi = $request->input('prodi');
+        $bidangpkl = $request->input('bidangpkl');
+        $th = $request->input('th');
+        $mahasiswa = $request->input('mahasiswa');
+        
+        $daftarpkl = DB::table('daftar_pkl')
+                        ->Join('bidang_pkl','bidang_pkl.id','=','daftar_pkl.bidangpkl_id')
+                        ->Join('prodi','prodi.id','=','daftar_pkl.prodi_id')
+                        ->Join('mahasiswa','mahasiswa.no_induk','=','daftar_pkl.nim')
+                        ->Join('perusahaan','perusahaan.id','=','daftar_pkl.perusahaan_id')
+                        ->select('daftar_pkl.*','prodi.prodi as prod','bidang_pkl.bidang_pkl as bidpkl','perusahaan.nama_perusahaan as namper')
+                        ->where('daftar_pkl.prodi_id',$prodi)
+                        ->where('daftar_pkl.bidangpkl_id',$bidangpkl)
+                        ->where('daftar_pkl.tahun_ajaran',$th)
+                        ->where('mahasiswa.angkatan',$mahasiswa)
+                        ->get();
+
+        return view('reportpkl.fileselect',compact('daftarpkl','bidangpkl','mahasiswa','prodi','th'));
+    }
+    public function setPDF($p,$b,$t,$m)
+    {
+        $prodi = Prodi::where('id',$p)->first();
+        $bidangpkl = BidangPkl::where('id',$b)->first();
+        $th = DaftarPkl::where('tahun_ajaran',$t)->first();
+        $mahasiswa =Mahasiswa::where('id',$m)->first();
+        
+        $daftarpkl = DB::table('daftar_pkl')
+                        ->Join('bidang_pkl','bidang_pkl.id','=','daftar_pkl.bidangpkl_id')
+                        ->Join('prodi','prodi.id','=','daftar_pkl.prodi_id')
+                        ->Join('perusahaan','perusahaan.id','=','daftar_pkl.perusahaan_id')
+                        ->Join('mahasiswa','mahasiswa.no_induk','=','daftar_pkl.nim')
+                        ->select('daftar_pkl.*','prodi.prodi as prod','bidang_pkl.bidang_pkl as bidpkl','perusahaan.nama_perusahaan as namper')
+                        ->where('daftar_pkl.prodi_id',$p)
+                        ->where('daftar_pkl.bidangpkl_id',$b)
+                        ->where('daftar_pkl.tahun_ajaran',$t)
+                        ->where('mahasiswa.angkatan',$m)
+                        ->get();
+
+        $pdf = PDF::loadView('reportpkl.report',compact('daftarpkl','bidangpkl','prodi','th','mahasiswa'))
+                ->setPaper('a4', 'potrait');
                 
-            return $pdf->download('daftarpkl.pdf');
+            return $pdf->stream('daftarpkl.setpdf');
     }
 }

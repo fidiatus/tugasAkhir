@@ -39,6 +39,9 @@ class BidangController extends Controller
 	public function show($id)
 	{
 		$bidang=Bidang::find($id);
+		if (!$bidang) {
+        	abort(403);
+        	}
 		return view('bidang.show',compact('bidang'));
 	}
 	public function edit($id)

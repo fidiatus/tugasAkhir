@@ -2,27 +2,36 @@
 
 
 @section('content')
-<div class="container">
-	<div class="row">
-        <div class="col-md-13 col-sm-13 col-xs-16">
-        <div class="panel panel-default">
-            <div class="panel-heading"><h4>Edit data Profil #{{ Auth::user()->nama_user }} </h4></div>
-          
-    <div class="panel-body">
+<div class="row">
+  <div class="col-md-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2> Data Mahasiswa Jurusan Teknik Sipil</h2>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12 col-xs-12 col-md-12">
         <div class="panel-body">
-	        <a class="btn btn-primary" href="{{ route('mahasiswa.show') }}"> Back</a>
+	        <a class="btn btn-primary" href="{{ route('mahasiswa.show',[$mahasiswa->id]) }}"> Back</a>
         </div>
+      @if (count($errors) > 0)
+        <div class="alert alert-danger">
+          <strong>Whoops!</strong> There were some problems with your input.<br><br>
+          <ul>
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
 	{!! Form::model($mahasiswa, ['method' => 'PATCH','route' => ['mahasiswa.update', $mahasiswa->id]]) !!}
 	<div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Nomor Induk :</strong>
                 {!! Form::text('no_induk', null, array('placeholder' => 'Nomor Induk','class' => 'form-control')) !!}
-                @if ($errors->has('no_induk'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('no_induk') }}</strong>
-                    </span>
-                @endif
                 <br/>
         </div>
     </div>
@@ -30,35 +39,20 @@
             <div class="form-group">
                 <strong>Nama :</strong>
                 {!! Form::text('nama_user', null, array('placeholder' => 'Nama','class' => 'form-control')) !!} 
-                @if ($errors->has('nama_user'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('nama_user') }}</strong>
-                    </span>
-                @endif   
                 <br/>
             </div>
         </div>
 		<div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Username:</strong>
-                {!! Form::text('username', null, array('placeholder' => 'Username','class' => 'form-control')) !!}    
-                @if ($errors->has('nama_bidang'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('username') }}</strong>
-                    </span>
-                @endif
+                {!! Form::text('username', null, array('placeholder' => 'Username','class' => 'form-control')) !!}  
                 <br/>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Email:</strong>
-                {!! Form::text('email', null, array('placeholder' => 'Email','class' => 'form-control')) !!}    
-                @if ($errors->has('email'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('email') }}</strong>
-                    </span>
-                @endif
+                {!! Form::text('email', null, array('placeholder' => 'Email','class' => 'form-control')) !!}   
                 <br/>
             </div>
         </div>
@@ -66,48 +60,33 @@
         <div class="form-group">
             <strong>Jenis Kelamin :</strong>
               <input type="radio" name="jenis_kelamin" id="lk" value="lk" checked>Pria
-              <input type="radio" name="jenis_kelamin" id="pr" value="pr"> Wanita      
-                @if ($errors->has('jenis_kelamin'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('jenis_kelamin') }}</strong>
-                    </span>
-                @endif
+              <input type="radio" name="jenis_kelamin" id="pr" value="pr"> Wanita  
                 <br/>
         </div>
     </div>
      <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Program Studi:</strong>
+            <strong>Program Studi:<span class="required">*</span></strong>
              {!!Form::select('prodi_id', $prodi, $mahasiswa->prodi_id,array('class' => 'form-control' ));!!}            
-                @if ($errors->has('prodi_id'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('prodi_id') }}</strong>
-                    </span>
-                @endif
                 <br/>
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Tahun Angkatan :</strong>
-                {!! Form::text('angkatan', null, array('placeholder' => 'Tahun Angkatan','class' => 'form-control')) !!}    
-                @if ($errors->has('angkatan'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('angkatan') }}</strong>
-                    </span>
-                @endif 
-                <br/>
+            <strong>Tahun Angkatan :<span class="required">*</span></strong>            
+              <?php $i=2000; ?>
+                <select name="angkatan" class="form-control" value="{{ $mahasiswa->angkatan }}">
+                    <option value=""> -- Pilih Tahun --</option>
+                    @while ($i<2050)
+                        <option value="{{$i=$i+1}}"> {{$i}} </option>
+                    @endwhile
+                </select><br/>
         </div>
     </div>    
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Nomor Handphone :</strong>
-                {!! Form::text('no_hp', null, array('placeholder' => 'HP','class' => 'form-control')) !!}    
-                @if ($errors->has('no_hp'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('no_hp') }}</strong>
-                    </span>
-                @endif
+                {!! Form::text('no_hp', null, array('placeholder' => 'HP','class' => 'form-control')) !!}  
                 <br/>
         </div>
     </div>    
@@ -120,5 +99,5 @@
     </div>
     </div>
     </div>
-    </div>
+    </div></div>
 @endsection

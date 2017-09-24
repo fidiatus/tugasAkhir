@@ -39,6 +39,9 @@ class ProdiController extends Controller
 	public function show($id)
 	{
 		$prodi=Prodi::find($id);
+		if (!$prodi) {
+        	abort(403);
+        	}
 		return view('prodi.show',compact('prodi'));
 	}
 	public function edit($id)

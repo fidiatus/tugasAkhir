@@ -6,13 +6,13 @@
 	
 	<div style="font-family:Arial; font-size:12px;">
 	<center><div style="font-family:Arial; font-size:12px;">
-	<h2> Daftar Nama Pembimbing Praktek Kerja Lapangan Bidang {{$bidangpkl->bidang_pkl}}</h2>
+	<h2> Daftar Nama Praktek Kerja Lapangan Bidang {{$bidangpkl->bidang_pkl}}</h2>
 	<h2> Mahasiswa Program Studi {{$prodi->prodi}} Semester Ganjil</h2>
 	<h2> Tahun Ajaran <?php 
 	
 	$bulan = date('m');
 	$tahun = date('Y');
-		if($bulan>=8 or $bulan==1){
+		if($bulan>=7 or $bulan==1){
 			$ta=$tahun+1;
 			echo $tahun.'/'.$ta;
 		}
@@ -23,30 +23,27 @@
 		}
 	 ?> </h2> 
 </div></center>
-	    <center>
 	      <table border="1">
-			<thead>
 		        <tr> 
 		          <th> No </th>
 		          <th> NIM </th> 
 		          <th> Nama Mahasiswa</th>
 		          <th> Nama Proyek</th>
-		          <th> Nama Dosen </th>
+		          <th> Lokasi PKL </th>
 		        </tr>
 		      </thead>
 		      <tbody>
-				@foreach($pembimbing as $pembimbing)
+				@foreach($daftarpkl as $daftarpkl)
 		        <tr>
 		        	<td> # </td>
-		        	<td>{{$pembimbing->nim}}</td>
-				 	<td>{{$pembimbing->nama_mhs}}</td>
-		        	<td>{{$pembimbing->nama_proyek}} pada {{$pembimbing->nama_perusahaan}}</td>
-				 	<td>{{$pembimbing->namdos}}</td>					 
+		        	<td>{{$daftarpkl->nim}}</td>
+				 	<td>{{$daftarpkl->nama_mhs}}</td>
+		        	<td>{{$daftarpkl->nama_proyek}}</td>
+				 	<td>{{$daftarpkl->namper}}</td>					 
 		        </tr>		
 				@endforeach
 		      </tbody>		
 		    </table>
-		   </center>
 		<br/>
 	<br/>
   </body>

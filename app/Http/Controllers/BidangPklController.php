@@ -39,6 +39,9 @@ class BidangPklController extends Controller
 	public function show($id)
 	{
 		$bidangpkl=BidangPkl::find($id);
+		if (!$bidangpkl) {
+        	abort(403);
+        	}
 		return view('bidangpkl.show',compact('bidangpkl'));
 	}
 	public function edit($id)

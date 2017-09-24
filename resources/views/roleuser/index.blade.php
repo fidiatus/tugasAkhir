@@ -2,13 +2,17 @@
 
  
 @section('content')
-<div class="container">
-    <div class="row">
-  		<div class="col-md-12 col-sm-12 col-xs-12">
-	    <div class="panel panel-default">
-	        <div class="panel-heading"><h4>Role User Management</h4></div>
-          
-    <div class="panel-body">
+<div class="row">
+  <div class="col-md-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2> Data Role User Jurusan Teknik Sipil</h2>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12 col-xs-12 col-md-12">
 
 	<!-- ========== tampilan Data =================== -->
     <div class="well clearfix">
@@ -45,5 +49,5 @@
       </div>
 	 </div>
 	</div>
-</div>
+</div></div>
 @endsection

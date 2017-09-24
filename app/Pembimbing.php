@@ -15,6 +15,7 @@ class Pembimbing extends Model
         'bidangpkl_id',
         'prodi_id',
         'daftarpkl_id',
+        'perusahaan_id',
         'dosen_id',
     ];
     
@@ -34,13 +35,17 @@ class Pembimbing extends Model
     {
         return $this->belongsTo('App\User','user_id','id');
     }
+    public function mahasiswa()
+    {
+        return $this->belongsTo(Mahasiswa::class);
+    }
 
+    public function daftarpkl()
+    {
+        return $this->belongsTo(DaftarPkl::class);
+    }
     public function dosen()
     {
         return $this->belongsTo(Dosen::class);
-    }
-    public function roles()
-    {
-        return $this->belongsToMany('App\Role');
     }
 }

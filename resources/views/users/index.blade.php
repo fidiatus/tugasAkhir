@@ -2,19 +2,22 @@
 
  
 @section('content')
-<div class="container">
-	<div class="row">
-  		<div class="col-md-13 col-sm-13 col-xs-16">
-	    <div class="panel panel-default">
-	        <div class="panel-heading"><h4>Users Management</h4></div>
-          
-    <div class="panel-body">
+<div class="row">
+  <div class="col-md-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2> Data Users Jurusan Teknik Sipil</h2>
+        <div class="clearfix"></div>
+      </div>
 
       <div class="panel-body">
-        <form class="" action="" method="">
-        <a class="btn btn-success" href="{{ route('users.create') }}"> Create New users</a>
-        </form>
-      </div>
+        <div class="row">
+          <div class="col-md-12 col-xs-12 col-md-12">
+		    <div class="panel-body">
+		        <form class="" action="" method="">
+		        <a class="btn btn-success" href="{{ route('users.create') }}"> Create New users</a>
+		        </form>
+		    </div>
 
 	<!-- ========== tampilan Data =================== -->
     <div class="well clearfix">
@@ -72,7 +75,7 @@
                         </div>
                         <div class="modal-body">
                           <h4>Text in a modal</h4>
-                          <p>{{$user->id}}</p>
+                          <p>Yakin akan Meghapus {{$user->nama_user}}</p>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -90,6 +93,7 @@
 	{!! $data->render() !!}
 				  </div>
 				</div>
+			  </div>
 	    	</div>
 		</div>
 	</div>

@@ -46,25 +46,13 @@
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ route('users.index') }}">Users</a></li>
-                    <li><a href="{{ route('grup.index') }}">Grup PKL</a></li>
-                    <li><a href="{{ route('prodi.index') }}">Prodi</a></li>
-                    <li><a href="{{ route('bidang.index') }}">Bidang</a></li>
-                    <li><a href="{{ route('dosen.index') }}">Dosen</a></li>
-                    <li><a href="{{ route('daftarpkl.index') }}">Daftar PKL</a></li>
-                    <li><a href="{{ route('perusahaan.index') }}">Perusahaan</a></li>
-                    <li><a href="{{ route('pembimbing.index') }}">Pembimbing</a></li>
-                    <li><a href="{{ route('roles.index') }}">Roles</a></li>
-                    <li><a href="{{ route('permission.index') }}">Permission</a></li>
-
-                </ul>
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
+                        <li><a href="{{ url('/register') }}">Register</a></li>
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

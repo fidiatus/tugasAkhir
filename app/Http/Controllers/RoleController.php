@@ -69,6 +69,9 @@ class RoleController extends Controller
             "permissions.id")
             ->where("permission_role.role_id",$id)
             ->get();
+        if (!$role) {
+            abort(403);
+            }
         return view('roles.show',compact('role','rolePermissions'));
     }
     /**
@@ -104,12 +107,15 @@ class RoleController extends Controller
         $role->display_name = $request->input('display_name');
         $role->description = $request->input('description');
         $role->save();
+
         DB::table("permission_role")
             ->where("permission_role.role_id",$id)
             ->delete();
+
         foreach ($request->input('permission') as $key => $value) {
             $role->attachPermission($value);
         }
+        
         return redirect()->route('roles.index')
                         ->with('success','Role updated successfully');
     }

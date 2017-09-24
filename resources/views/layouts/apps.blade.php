@@ -20,7 +20,14 @@
     <link href="{{ asset('vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
     <!-- Animate.css -->
     <link href="{{ asset('vendors/animate.css/animate.min.css') }}" rel="stylesheet">
-  
+    
+    <!-- Datatables -->
+    <link href="{{ asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
+
     <!-- bootstrap-progressbar -->
     <link href="{{ asset('vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') }}" rel="stylesheet">
     <!-- JQVMap -->
@@ -69,50 +76,48 @@
                   </li>
                   @if (Auth::check())
                     @if (Auth::user()->roles()->first()->name == "Admin")
-                  <li><a><i class="fa fa-edit"></i> Menu <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i> Kelola User <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                     <li><a href="{{route('users.index')}}"> Users </a></li>
-                    <li><a href="{{route('mahasiswa.index')}}"> Data Mahasiswa </a></li>
                     <li><a href="{{route('roles.index')}}"> Roles </a></li>
                     <li><a href="{{route('permission.index')}}"> Permission</a></li>
                     <li><a href="{{route('permissionrole.index')}}"> Permission Role</a></li>
                     <li><a href="{{route('roleuser.index')}}"> Role User</a></li>
                   </ul>
                   </li>
-                  <li><a href="{{route('perusahaan.index')}}"><i class="fa fa-institution"></i> Perusahan </a>
+                  
+                  <li><a><i class="fa fa-briefcase"></i> Kelola PKL<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{route('daftarpkl.index')}}"> Data PKL </a></li>
+                      <li><a href="{{route('mahasiswa.index')}}"> Data Mahasiswa </a></li>
+                      <li><a href="{{route('perusahaan.index')}}"> Instansi </a></li>
+                      <li><a href="{{route('bidangpkl.index')}}"> Bidang PKL</a></li>
+                      <li><a href="{{route('prodi.index')}}"> Prodi</a></li>
+                    </ul>
                   </li>
-                  <li><a href="{{route('daftarpkl.index')}}"><i class="fa fa-briefcase"></i> PKL</a>
+
                   </li>
-                  <li><a href="{{route('prodi.index')}}"><i class="fa fa-graduation-cap"></i> Prodi</a>
+                  <li><a><i class="fa fa-suitcase"></i> Kelola Dosen <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{route('dosen.index')}}">Data Dosen</a></li>
+                      <li><a href="{{route('pembimbing.index')}}"> List Pembimbing </a></li>
+                      <li><a href="{{route('bidang.index')}}"> Bidang</a></li>
+                    </ul>
                   </li>
-                  <li><a href="{{route('bidang.index')}}"><i class="fa fa-suitcase"></i> Bidang</a>
-                  </li>
-                  <li><a href="{{route('bidangpkl.index')}}"><i class="fa fa-suitcase"></i> Bidang PKL</a>
-                  </li>
-                  <li><a href="{{route('dosen.index')}}"><i class="fa fa-suitcase"></i> Dosen</a>
-                  </li>
-                  <li><a href="{{route('mahasiswa.index')}}"><i class="fa fa-suitcase"></i> Mahasiswa</a>
-                  </li>
-                  </li>
-                  <li><a href="{{route('pembimbing.index')}}"><i class="fa fa-suitcase"></i>Pembimbing</a>
+
                   <li><a><i class="fa fa-suitcase"></i>Report<span class="fa fa-chevron-down"></span></a>
                    <ul class="nav child_menu">
-                    <li><a href="{{route('pembimbing.select')}}"> Data Pembimbing </a></li>
-                    <li><a href="{{route('pembimbing.select')}}"> Data PKL </a></li>
+                     <li><a href="{{route('pembimbing.select')}}"> Data Pembimbing </a></li>
+                     <li><a href="{{route('pembimbing.selectdosen')}}">Report Dosen Bimbingan </a></li>
+                     <li><a href="{{route('daftarpkl.select')}}"> Data PKL </a></li>
                    </ul>
                   </li>
                   @endif
                   @if (Auth::user()->roles()->first()->name == "Mahasiswa")
                     <li>
-                  @if (Auth::user()->mahasiswa()->count() === 0 )
-                    <a href="{{route('mahasiswa.create')}}"><i class="fa fa-briefcase"></i>Daftar</a>
-                  @endif
+                    <a href="{{route('mahasiswa.show', Auth::user()->id )}}"><i class="fa fa-briefcase"></i>Profil</a></li>
 
-                  @if (Auth::user()->mahasiswa()->count() === 1 )
-                    <a href="{{route('mahasiswa.show', [Auth::user()->id] )}}"><i class="fa fa-briefcase"></i>Profil</a>
-                  @endif
-
-                  <li><a href="{{route('perusahaan.index')}}"><i class="fa fa-institution"></i>Perusahaan </a>
+                  <li><a href="{{route('perusahaan.index')}}"><i class="fa fa-institution"></i>Instansi</a>
                   </li>
                   <li>
                   
@@ -121,7 +126,7 @@
                   @endif
 
                   @if (Auth::user()->daftarpkl()->count() === 1 )
-                    <a href="{{route('daftarpkl.edit', [Auth::user()->id] )}}"><i class="fa fa-briefcase"></i>Daftar</a>
+                    <a href="{{route('daftarpkl.edit', Auth::user()->id )}}"><i class="fa fa-briefcase"></i>Daftar</a>
                   @endif
 
                   </li>
@@ -131,11 +136,19 @@
                   </li>
                    <li><a href="{{route('daftarpkl.index')}}"><i class="fa fa-briefcase"></i>Daftar Mahasiswa PKL</a>
                   </li>                 
-                  <li><a href="{{route('perusahaan.index')}}"><i class="fa fa-institution"></i>Perusahan </a>
+                  <li><a href="{{route('perusahaan.index')}}"><i class="fa fa-institution"></i>Instansi</a>
                   </li>
-                  <li><a href="{{route('pembimbing.index')}}"><i class="fa fa-suitcase"></i>Pembimbing</a>
+                  <li><a><i class="fa fa-edit"></i> Pembimbing PKL <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href="{{route('mahasiswa.index')}}">Daftarkan Pembimbing</a></li>
+                    <li><a href="{{route('pembimbing.index')}}">Data Pembimbing</a></li>
+                  </ul>
                   </li>
-                  <li><a href="{{route('pembimbing.select')}}"><i class="fa fa-suitcase"></i>Select</a>
+                  <li><a><i class="fa fa-suitcase"></i>Report<span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href="{{route('pembimbing.select')}}">Report Data Bimbingan</a></li>
+                    <li><a href="{{route('pembimbing.selectdosen')}}">Report Dosen Bimbingan </a></li>
+                 </ul>
                   </li>
                   @endif
                   @endif
@@ -165,6 +178,7 @@
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
+                        <li><a href="{{ route('registrasi') }}">Register</a></li>
                     @else
                         <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Out</a></li>
                     @endif
@@ -287,6 +301,23 @@
 
     <!-- Confirm Message -->
     <script src="{{ asset('build/js/script.min.js') }}  "></script>
+
+    <!-- Datatables -->
+    <script src="{{ asset('vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
+    <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js') }}"></script>
+    <script src="{{ asset('vendors/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
+    <script src="{{ asset('vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') }}"></script>
+    <script src="{{ asset('vendors/datatables.net-scroller/js/dataTables.scroller.min.js') }}"></script>
+    <script src="{{ asset('vendors/jszip/dist/jszip.min.js') }}"></script>
+    <script src="{{ asset('vendors/pdfmake/build/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('vendors/pdfmake/build/vfs_fonts.js') }}"></script>
 
   </body>
 </html>

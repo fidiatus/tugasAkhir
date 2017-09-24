@@ -2,15 +2,19 @@
 
 
 @section('content')
-<div class="container">
-  <div class="row">
-    <div class="col-md-13 col-sm-13 col-xs-16">
-      <div class="panel panel-default">
-        <div class="panel-heading"><h4>Data Profil </h4></div>
-          
-    <div class="panel-body">            
+<div class="row">
+  <div class="col-md-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2> Data Mahasiswa Jurusan Teknik Sipil</h2>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12 col-xs-12 col-md-12">       
         <div class="panel-body">       
-            <a class="btn btn-primary" href="{{ route('mahasiswa.edit',$mahasiswa->id) }}">Edit</a>
+            <a class="btn btn-primary" href="{{ route('mahasiswa.edit',[$mahasiswa->id]) }}">Edit</a>
       </div>
   <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -67,5 +71,5 @@
     </div>
     </div>
     </div>
-    </div>
+    </div></div>
 @endsection

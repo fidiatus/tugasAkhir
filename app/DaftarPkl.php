@@ -42,6 +42,6 @@ class DaftarPkl extends Model
     }
     public function pembimbing()
     {
-        return $this->hasOne(Pembimbing::class);
+        return $this->hasMany(Pembimbing::class);
     }
 }

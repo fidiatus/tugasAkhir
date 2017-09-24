@@ -14,80 +14,45 @@ class MahasiswaController extends Controller
 {
     public function index(Request $request) 
 	{
-		$mahasiswas = Mahasiswa::where(function($query) use ($request)
-		{
-			if( ($term=$request ->get('term'))) {
-				$query->orWhere('no_induk','like','%'.$term.'%');
-				$query->orWhere('nama_user','like','%'.$term.'%');
-				$query->orWhere('username','like','%'.$term.'%');
-				$query->orWhere('email','like','%'.$term.'%');
-				$query->orWhere('jenis_kelamin','like','%'.$term.'%');
-				$query->orWhere('prodi_id','like','%'.$term.'%');
-				$query->orWhere('angkatan','like','%'.$term.'%');
-				$query->orWhere('no_hp','like','%'.$term.'%');
-			}
-		})
-		->orderBy('id','DESC')
-		->paginate(10); 
+		$mahasiswas = Mahasiswa::leftJoin('pembimbing','pembimbing.nim','=','mahasiswa.no_induk')
+					->select('mahasiswa.*',DB::raw('count(pembimbing.id) as pbb'))
+					->groupBy('mahasiswa.no_induk')
+					->get();
+
 		
-        return view('mahasiswa.index',compact('mahasiswas'))
+        return view('mahasiswa.index',compact('mahasiswas','prodi'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
-	}
-	public function create()
-	{
-		$user = User::All();
-        $prodi= Prodi::lists('prodi','id');
-		return view('mahasiswa.create',compact('prodi'));
-	}
-	public function store(Request $request)
-	{
-		$this->validate($request, [
-        'no_induk' => 'required|numeric',
-        'nama_user' => 'required',
-        'username' => 'required',
-        'email' => 'required',
-        'jenis_kelamin' => 'required',
-        'prodi_id' => 'required',
-        'angkatan' => 'required',
-        'no_hp' => 'required',
-    ]);          
-        $mahasiswa = new Mahasiswa();
-        $mahasiswa->user_id = $request->user()->id;
-        $mahasiswa->no_induk = $request->input('no_induk');
-        $mahasiswa->nama_user = $request->input('nama_user');
-        $mahasiswa->username = $request->input('username');
-        $mahasiswa->email = $request->input('email');
-        $mahasiswa->jenis_kelamin = $request->input('jenis_kelamin');
-        $mahasiswa->prodi_id = $request->input('prodi_id');
-        $mahasiswa->angkatan = $request->input('angkatan');
-        $mahasiswa->no_hp = $request->input('no_hp');
-        $mahasiswa->save();
-
-  		if (Auth::user()->roles()->first()->name == "Mahasiswa") {
-
-        		return redirect()->route('mahasiswa.show',Auth::id())
-        				->with('message','Data berhasil diinputkan!');  
-        }else{
-		        return redirect()->route('mahasiswa.index')
-        				->with('message','mahasiswa inserted!');
-        				}      
 	}
 
 	public function show($id)
 	{
+        $prodi= Prodi::lists('prodi','id');
 		$mahasiswa=Mahasiswa::where('user_id','=',$id)->first();
-		return view('mahasiswa.show',compact('mahasiswa'));
+		if (!$mahasiswa) {
+        	abort(403);
+        	}
+		return view('mahasiswa.show',compact('mahasiswa','prodi'));
 	}
 
 	public function edit($id)
 	{
-		$mahasiswa=Mahasiswa::where('user_id','=',$id)->first();
+		$mahasiswa=Mahasiswa::where('id','=',$id)->first();
         $prodi= Prodi::lists('prodi','id');
 		return view('mahasiswa.edit',compact('prodi','mahasiswa'));
 	}
 	
 	public function update(Request $request, $id)
 	{
+
+		$user_id=Mahasiswa::where('id','=',$id)->value('user_id');
+
+		$user =User::find($user_id);
+		$user->no_induk =$request->input('no_induk');
+		$user->nama_user = $request->input('nama_user');
+		$user->username = $request->input('username');
+		$user->email = $request->input('email');
+		$user->save();
+
 		$this->validate($request, [
         'no_induk' => 'required|numeric',
         'nama_user' => 'required',
@@ -98,7 +63,9 @@ class MahasiswaController extends Controller
         'angkatan' => 'required',
         'no_hp' => 'required',
     	]);
+    	
 		$mahasiswa = Mahasiswa::find($id);
+
 		$mahasiswa->no_induk = $request->no_induk;
 		$mahasiswa->nama_user = $request->nama_user;
 		$mahasiswa->username = $request->username;
@@ -111,7 +78,7 @@ class MahasiswaController extends Controller
 
 
   		if (Auth::user()->roles()->first()->name == "Mahasiswa") {
-        	return redirect()->back()->with('message','Data profile telah di ubah!');
+        	return redirect()->route('mahasiswa.show',Auth::id())->with('message','Data profile telah di ubah!');
         }else{
 
         	return redirect()->route('mahasiswa.index')

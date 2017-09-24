@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\User;
 use App\Role;
 use App\Prodi;
+use App\Mahasiswa;
 use App\Bidang;
 use Auth;
 use DB;
@@ -52,18 +53,36 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'no_induk' => 'required|numeric',
+            'no_induk' => 'required|numeric|unique:users',
             'nama_user' => 'required',
+            'email' => 'required|email|max:255|unique:users',
             'password' => 'same:confirm-password',
             'roles' => 'required',
         ]);
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
+
         $user = User::create($input);
 
         foreach ($request->input('roles') as $key => $value) {
           $user->attachRole($value);
         }
+
+        if ($user->save()) {
+          foreach ($request->input('roles') as $key => $value) {
+              if ($value==5) {
+              $mahasiswa = new Mahasiswa();
+              $id = DB::table('users')->max('id');
+              $mahasiswa->user_id = $id;
+              $mahasiswa->no_induk = $user->no_induk;
+              $mahasiswa->nama_user = $user->nama_user;
+              $mahasiswa->username = $user->username;
+              $mahasiswa->email = $user->email;
+              $mahasiswa->save();
+            }            
+          }            
+        }
+
         return redirect()->route('users.index')
                         ->with('success','User created successfully');
     }
@@ -76,6 +95,9 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
+        if (!$user) {
+          abort(403);
+          }
         return view('users.show',compact('user'));
     }
     /**
@@ -107,16 +129,33 @@ class UserController extends Controller
             'nama_user' => 'required',
             'username' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
-            'no_hp' => 'required|digits_between:8,12'
         ]);
-        $user = User::find($id);
-        $user->no_induk=$request->no_induk;
-        $user->nama_user=$request->nama_user;
-        $user->username=$request->username;
-        $user->email=$request->email;
-        $user->no_hp=$request->no_hp;
-        $user->save();  
-          
+
+        User::find($id)->update($request->all());
+
+        $user = User::find($id);       
+
+    
+        if ($user->update()) {
+          foreach ($request->input('roles') as $key => $value) {
+              if ($value==5) {
+              $mahasiswa = Mahasiswa::find($id);
+              $mahasiswa->no_induk = $user->no_induk;
+              $mahasiswa->nama_user = $user->nama_user;
+              $mahasiswa->username = $user->username;
+              $mahasiswa->email = $user->email;
+              $mahasiswa->update();
+            }            
+          }            
+        }
+
+        if (Auth::user()->roles()->first()->name == "Kaprodi") {
+           return redirect()->route('users.show',Auth::id())->with('message','profile Dosen updated!');
+        }
+        if (Auth::user()->roles()->first()->name == "Mahasiswa") {
+           return redirect()->route('users.show',Auth::id())->with('message','profile Mahasiswa updated!');
+        } 
+
         if (Auth::user()->roles()->first()->name == "Admin") 
         {              
             $input = $request->all();
@@ -135,14 +174,7 @@ class UserController extends Controller
         
         return redirect()->route('users.index')
                       ->with('success','User updated successfully');
-        }
-
-        if (Auth::user()->roles()->first()->name == "Kaprodi") {
-           return redirect()->route('users.show',Auth::id())->with('message','profile Dosen updated!');
-        }
-        if (Auth::user()->roles()->first()->name == "Mahasiswa") {
-           return redirect()->route('users.show',Auth::id())->with('message','profile Mahasiswa updated!');
-        }      
+        }     
     }       
     /**
      * Remove the specified resource from storage.
